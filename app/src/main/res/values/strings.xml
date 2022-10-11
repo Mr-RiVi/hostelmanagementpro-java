@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">HostelManagementPro</string>
+    <string name="app_name">Hostel Management Pro</string>
+    <string name="student_register">Register Student</string>
+    <string name="student_profile">Student Profile</string>
+    <string name="student_notice">Notice</string>
+    <string name="student_payments">Payments</string>
 </resources>
