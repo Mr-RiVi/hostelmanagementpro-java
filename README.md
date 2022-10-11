@@ -8,4 +8,4 @@ Member 3 - IT21020094 - Kumarasiri D.K.N (DKxNK)
 
 Member 4 -
 
-Brief Description of Project - Hostel Management android application
+Brief Description of Project - Hostel management application which helps to do multiple hostel related operations instantly
