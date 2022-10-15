@@ -4,4 +4,17 @@
     <string name="student_profile">Student Profile</string>
     <string name="student_notice">Notice</string>
     <string name="student_payments">Payments</string>
+    <string name="student_address">Address</string>
+    <string name="student_personal_info">Personal Info</string>
+    <string name="student_residence_info">Residence Info</string>
+    <string name="student_contact">Contact</string>
+    <string name="student_emergency_contact">Emergency Contact</string>
+    <string name="student_email">Email</string>
+    <string name="student_password">Password</string>
+    <string name="button_update_profile">Update profile</string>
+    <string name="organization_id">Organization ID</string>
+    <string name="student_building">Building No: </string>
+    <string name="student_floor">Floor No: </string>
+    <string name="student_room">Room No: </string>
+    <string name="student_bed">Bed No: </string>
 </resources>
