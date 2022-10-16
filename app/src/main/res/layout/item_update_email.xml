@@ -35,16 +35,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"></TextView>
         </LinearLayout>
-        <TextView
+        <EditText
             android:id="@+id/stuEmail"
-            android:text="brucewayne@wayne.com"
+            android:hint="Type new email"
+            android:backgroundTint="@color/blue"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginStart="25dp"
             android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></TextView>
+            android:layout_height="wrap_content"></EditText>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

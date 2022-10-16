@@ -37,7 +37,7 @@
             android:src="@drawable/ic_baseline_menu_24"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:padding="5dp"/>
+            android:padding="5dp" />
 
     </RelativeLayout>
 

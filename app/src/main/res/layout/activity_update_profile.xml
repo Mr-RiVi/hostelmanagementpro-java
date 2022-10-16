@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="@drawable/profile_background"
     tools:context=".UpdateProfile">
 
     <include
         android:id="@+id/include"
-        layout="@layout/toolbar"/>
+        layout="@layout/toolbar"
+        tools:layout_editor_absoluteX="-33dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        layout="@layout/item_image"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/item_update_info"></include>
+            <include layout="@layout/item_update_email"></include>
+            <include layout="@layout/item_update_password"></include>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
