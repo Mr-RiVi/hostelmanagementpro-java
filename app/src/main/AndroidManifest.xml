@@ -14,6 +14,7 @@
         tools:targetApi="31">
         <activity
             android:name=".MyAttendance"
+            android:parentActivityName=".MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -21,6 +22,7 @@
         </activity>
         <activity
             android:name=".UpdateProfile"
+            android:parentActivityName=".MyProfile"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -28,6 +30,7 @@
         </activity>
         <activity
             android:name=".MyProfile"
+            android:parentActivityName=".MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

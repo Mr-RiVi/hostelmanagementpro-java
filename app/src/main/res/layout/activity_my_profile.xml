@@ -10,8 +10,8 @@
     tools:context=".MyProfile">
 
     <include
-        android:id="@+id/include"
-        layout="@layout/toolbar"
+        android:id="@+id/toolbarNew"
+        layout="@layout/toolbar_new"
         tools:layout_editor_absoluteX="-33dp" />
 
     <include

@@ -10,9 +10,9 @@
     tools:context=".UpdateProfile">
 
     <include
-        android:id="@+id/include"
-        layout="@layout/toolbar"
-        tools:layout_editor_absoluteX="-33dp"/>
+        android:id="@+id/toolbarNew"
+        layout="@layout/toolbar_new"
+        tools:layout_editor_absoluteX="-33dp" />
 
     <include
         android:layout_gravity="center"

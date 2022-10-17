@@ -20,4 +20,6 @@
     <string name="student_floor">Floor No: </string>
     <string name="student_room">Room No: </string>
     <string name="student_bed">Bed No: </string>
+    <string name="student_my_profile">My Profile</string>
+    <string name="student_logout">Logout</string>
 </resources>
