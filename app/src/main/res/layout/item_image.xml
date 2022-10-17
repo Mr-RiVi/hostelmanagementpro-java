@@ -70,6 +70,7 @@
 
     </RelativeLayout>
     <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/stuPhoto"
         android:src="@drawable/ic_baseline_account_circle_24"
         app:shapeAppearanceOverlay="@style/Circular"
         android:elevation="15dp"

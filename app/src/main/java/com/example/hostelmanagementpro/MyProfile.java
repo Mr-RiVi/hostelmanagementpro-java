@@ -66,8 +66,10 @@ public class MyProfile extends AppCompatActivity {
                 return true;
 
             case R.id.logout:
+                Intent intents = new Intent(this, MainActivity.class);
+                startActivity(intents);
                 Toast.makeText(this, "Logout Successful", Toast.LENGTH_SHORT).show();
-
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

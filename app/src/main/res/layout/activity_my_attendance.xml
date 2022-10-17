@@ -7,7 +7,69 @@
     tools:context=".MyAttendance">
 
     <include
+        android:id="@+id/toolbarNew"
+        layout="@layout/toolbar_new"
+        tools:layout_editor_absoluteX="-33dp" />
+
+    <include
         android:id="@+id/include"
-        layout="@layout/toolbar"/>
+        layout="@layout/item_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarNew"
+        app:layout_constraintVertical_bias="0.0"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/item_attendance"></include>
+            <include layout="@layout/item_attendance"></include>
+            <include layout="@layout/item_attendance"></include>
+            <include layout="@layout/item_attendance"></include>
+            <include layout="@layout/item_attendance"></include>
+            <include layout="@layout/item_attendance"></include>
+            <include layout="@layout/item_attendance"></include>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/deleteHis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/blue"
+            android:text="Delete History"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"></Button>
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

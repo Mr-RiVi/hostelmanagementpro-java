@@ -53,8 +53,10 @@ public class MainActivity extends AppCompatActivity {
                 return true;
 
             case R.id.logout:
+                Intent intents = new Intent(this, MainActivity.class);
+                startActivity(intents);
                 Toast.makeText(this, "Logout Successful", Toast.LENGTH_SHORT).show();
-
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openStuHome() {
-        Intent intent = new Intent(this, MyProfile.class);
+        Intent intent = new Intent(this, StudentHome.class);
         startActivity(intent);
     }
 }

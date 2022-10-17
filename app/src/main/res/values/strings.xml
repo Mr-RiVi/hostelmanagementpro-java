@@ -22,4 +22,7 @@
     <string name="student_bed">Bed No: </string>
     <string name="student_my_profile">My Profile</string>
     <string name="student_logout">Logout</string>
+    <string name="select_date">Click Icon To Select Date</string>
+    <string name="attendance_time">Time : </string>
+    <string name="attendance_type">Type : </string>
 </resources>

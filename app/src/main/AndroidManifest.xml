@@ -13,25 +13,33 @@
         android:theme="@style/Theme.HostelManagementPro"
         tools:targetApi="31">
         <activity
+            android:name=".StudentHome"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MyAttendance"
-            android:parentActivityName=".MainActivity"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".StudentHome">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".UpdateProfile"
-            android:parentActivityName=".MyProfile"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".MyProfile">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".MyProfile"
-            android:parentActivityName=".MainActivity"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".StudentHome">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <TextView
+            android:id="@+id/stuContact"
             android:text="+94 771230981"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -67,6 +68,7 @@
                 android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <TextView
+            android:id="@+id/stuEmerContact"
             android:text="+94 779876543"
             android:textStyle="bold"
             android:textColor="@color/black"

@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <TextView
+            android:id="@+id/stuBuildNo"
             android:text="03"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -67,6 +68,7 @@
                 android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <TextView
+            android:id="@+id/stuFloorNo"
             android:text="02"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -98,6 +100,7 @@
                 android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <TextView
+            android:id="@+id/stuRoomNo"
             android:text="05"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -129,6 +132,7 @@
                 android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <TextView
+            android:id="@+id/stuBedNo"
             android:text="01"
             android:textStyle="bold"
             android:textColor="@color/black"

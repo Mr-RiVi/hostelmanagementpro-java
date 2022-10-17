@@ -11,6 +11,7 @@
     <color name="dark_brown">#F8554A4A</color>
     <color name="grey">#B75E5E5E</color>
     <color name="red">#BA0000</color>
+    <color name="light_grey">#B78A8A8A</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#2196F3</color>
 </resources>

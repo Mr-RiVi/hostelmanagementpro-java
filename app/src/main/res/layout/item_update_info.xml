@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <EditText
+            android:id="@+id/stuNewContact"
             android:hint="Type new contact"
             android:backgroundTint="@color/blue"
             android:textStyle="bold"
@@ -68,6 +69,7 @@
                 android:layout_height="wrap_content"></TextView>
         </LinearLayout>
         <EditText
+            android:id="@+id/stuNewEmerContact"
             android:hint="Type new emergency contact"
             android:backgroundTint="@color/blue"
             android:textStyle="bold"
