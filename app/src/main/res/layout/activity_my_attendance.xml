@@ -36,14 +36,9 @@
             android:orientation="vertical">
 
             <include layout="@layout/item_attendance"></include>
-            <include layout="@layout/item_attendance"></include>
-            <include layout="@layout/item_attendance"></include>
-            <include layout="@layout/item_attendance"></include>
-            <include layout="@layout/item_attendance"></include>
-            <include layout="@layout/item_attendance"></include>
-            <include layout="@layout/item_attendance"></include>
 
         </LinearLayout>
+
 
     </ScrollView>
 
@@ -59,7 +54,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/deleteHis"
+            android:id="@+id/delHis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"

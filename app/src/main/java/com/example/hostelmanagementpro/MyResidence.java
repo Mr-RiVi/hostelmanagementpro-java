@@ -14,43 +14,33 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class StudentHome extends AppCompatActivity {
+public class MyResidence extends AppCompatActivity {
 
-    private Button stuAttBtn;
-    private Button resBtn;
+    private Button myProfBtn;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_home);
+        setContentView(R.layout.activity_my_residence);
 
-        stuAttBtn = (Button) findViewById(R.id.tempBtn);
-        stuAttBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openStuAtt();
-            }
-        });
-
-        resBtn = (Button) findViewById(R.id.resBtn);
-        resBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openMyRes();
-            }
-        });
+        myProfBtn = (Button) findViewById(R.id.button);
+        myProfBtn.setText("These details are uneditable");
+        myProfBtn.setTextColor(getResources().getColor(R.color.blue));
+        myProfBtn.setBackgroundColor(getResources().getColor(R.color.white));
 
         Toolbar toolbar = findViewById(R.id.toolbarNew);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Student Home");
+        getSupportActionBar().setTitle("My Residence");
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.student_menu, menu);
+        menu.removeItem(R.id.myProfile);
         return true;
     }
 
@@ -71,15 +61,5 @@ public class StudentHome extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
-    }
-
-    public void openStuAtt() {
-        Intent intent = new Intent(this, MyAttendance.class);
-        startActivity(intent);
-    }
-
-    public void openMyRes() {
-        Intent i = new Intent(this, MyResidence.class);
-        startActivity(i);
     }
 }

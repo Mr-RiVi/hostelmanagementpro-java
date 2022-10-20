@@ -29,10 +29,8 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <include layout="@layout/item_add"></include>
-            <include layout="@layout/item_info"></include>
-            <include layout="@layout/item_email"></include>
-            <include layout="@layout/item_password"></include>
+            <include layout="@layout/item_organization"></include>
+            <include layout="@layout/item_residence"></include>
 
         </LinearLayout>
     </ScrollView>

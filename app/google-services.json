@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "20141613710",
+    "project_id": "hostelmanagementpro-bf1d2",
+    "storage_bucket": "hostelmanagementpro-bf1d2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20141613710:android:fa87815f6f7de8999f1fdf",
+        "android_client_info": {
+          "package_name": "com.example.hostelmanagementpro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20141613710-jm4jtjfbvias5pe62a88sj35p2rl9sor.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASzqU3uTVlmltnB6Kw1_DyH37cLmN7lCQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20141613710-jm4jtjfbvias5pe62a88sj35p2rl9sor.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

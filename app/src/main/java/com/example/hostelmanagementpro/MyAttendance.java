@@ -61,7 +61,7 @@ public class MyAttendance extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
-        deleteHis = (Button) findViewById(R.id.deleteHis);
+        deleteHis = (Button) findViewById(R.id.delHis);
         deleteHis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
