@@ -14,9 +14,14 @@
         android:layout_height="match_parent"
         tools:context=".OrganizationRegistration">
 
+        <include layout="@layout/toolbar"
+            android:id="@+id/toolbar"/>
+
+
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
@@ -26,18 +31,26 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textSize="25dp"
+                android:text="@string/organization_registration_title"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:padding="5dp"/>
+
+            <EditText
+                android:id="@+id/edtTxtOrgName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:ems="10"
+                android:hint="@string/OrganizationName"
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
 
             <!--        Enter username field-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="150dp">
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/edtTxtUserName"
@@ -52,6 +65,22 @@
                     android:inputType="textPersonName"
                     android:minHeight="48dp" />
 
+                <ImageButton
+                    android:id="@+id/imgBtnusNameGen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_baseline_change_circle_24"
+                    android:text="button" />
+
 
             </RelativeLayout>
 
@@ -65,45 +94,45 @@
                 android:inputType="textPassword"
                 android:minHeight="48dp" />
 
+            <EditText
+                android:id="@+id/edtTxtPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:ems="10"
+                android:hint="@string/Organization_phone"
+                android:inputType="phone"
+                android:minHeight="48dp" />
 
+            <EditText
+                android:id="@+id/edtTxtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:ems="10"
+                android:hint="@string/Organization_email"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp" />
+
+            <EditText
+                android:id="@+id/edtTxtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:ems="10"
+                android:hint="@string/Organization_address"
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
 
             <Button
-                android:id="@+id/btnLogin"
+                android:id="@+id/btnCrtAcc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/blue"
-                android:text="@string/logIn"
-                android:textSize="16dp"
+                android:text="@string/btn_CreateAccount"
                 android:layout_margin="5dp"
                 android:layout_marginTop="50dp"
                 android:padding="15dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="@string/dont_have_an_account"
-                android:gravity="center"/>
-
-            <TextView
-                android:id="@+id/reg_as_org"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/reg_as_organization"
-                android:textColor="@color/blue"
-                android:gravity="center"/>
-            <TextView
-                android:id="@+id/reg_as_admin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/reg_as_admin"
-                android:textColor="@color/blue"
-                android:gravity="center"
-                />
 
         </GridLayout>
 
