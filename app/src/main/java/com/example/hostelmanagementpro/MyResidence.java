@@ -26,6 +26,7 @@ public class MyResidence extends AppCompatActivity {
 
         myProfBtn = (Button) findViewById(R.id.button);
         myProfBtn.setText("These details are uneditable");
+        myProfBtn.setClickable(false);
         myProfBtn.setTextColor(getResources().getColor(R.color.blue));
         myProfBtn.setBackgroundColor(getResources().getColor(R.color.white));
 

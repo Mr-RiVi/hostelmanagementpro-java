@@ -22,25 +22,59 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbarNew"
         app:layout_constraintVertical_bias="0.0"></include>
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/attLineLay"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@+id/include">
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/attScroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <include layout="@layout/item_attendance"></include>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <include layout="@layout/item_attendance"></include>
+
+                    <include layout="@layout/item_attendance"></include>
+
+                    <include layout="@layout/item_attendance"></include>
+
+                    <include layout="@layout/item_attendance"></include>
+
+                    <include layout="@layout/item_attendance"></include>
+
+                    <include layout="@layout/item_attendance"></include>
+
+                    <include layout="@layout/item_attendance"></include>
+
+                    <include layout="@layout/item_attendance"></include>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </ScrollView>
+        </ScrollView>
+
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,7 +91,8 @@
             android:id="@+id/delHis"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="5dp"
             android:backgroundTint="@color/blue"
             android:text="Delete History"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -3,6 +3,7 @@ package com.example.hostelmanagementpro;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -16,8 +17,10 @@ import android.widget.Toast;
 
 public class StudentHome extends AppCompatActivity {
 
-    private Button stuAttBtn;
-    private Button resBtn;
+    private CardView resBtn;
+    private CardView myAttBtn;
+    private CardView scanBtn;
+    private CardView payBtn;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -25,15 +28,35 @@ public class StudentHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_home);
 
-        stuAttBtn = (Button) findViewById(R.id.tempBtn);
-        stuAttBtn.setOnClickListener(new View.OnClickListener() {
+        //assigning My Attendance button
+        myAttBtn = findViewById(R.id.myAttBtn);
+        myAttBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openStuAtt();
             }
         });
 
-        resBtn = (Button) findViewById(R.id.resBtn);
+        //assigning QR code scanner button
+        scanBtn = findViewById(R.id.scanBtn);
+        scanBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openQrScan();
+            }
+        });
+
+        //assigning Payments button
+        payBtn = findViewById(R.id.payBtn);
+        payBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openPayments();
+            }
+        });
+
+        //assigning My Residence button
+        resBtn = findViewById(R.id.resBtn);
         resBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,12 +64,15 @@ public class StudentHome extends AppCompatActivity {
             }
         });
 
+        //assigning toolbar
         Toolbar toolbar = findViewById(R.id.toolbarNew);
         setSupportActionBar(toolbar);
 
+        //Enabling back button and setting tittle
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Student Home");
     }
+        //creating toolbar menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -54,6 +80,7 @@ public class StudentHome extends AppCompatActivity {
         return true;
     }
 
+    //assigning on click items in menu
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -73,11 +100,27 @@ public class StudentHome extends AppCompatActivity {
 
     }
 
+    //redirecting to My Attendance activity
     public void openStuAtt() {
         Intent intent = new Intent(this, MyAttendance.class);
         startActivity(intent);
     }
 
+    //redirecting to QR code scanner activity
+    //change destination.......................................................
+    public void openQrScan() {
+        Intent in = new Intent(this, MyProfile.class);
+        startActivity(in);
+    }
+
+    //redirecting to Payments activity
+    //change destination.......................................................
+    public void openPayments() {
+        Intent intents = new Intent(this, MyProfile.class);
+        startActivity(intents);
+    }
+
+    //redirecting to My Residence activity
     public void openMyRes() {
         Intent i = new Intent(this, MyResidence.class);
         startActivity(i);

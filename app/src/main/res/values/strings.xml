@@ -25,4 +25,8 @@
     <string name="select_date">Click Icon To Select Date</string>
     <string name="attendance_time">Time : </string>
     <string name="attendance_type">Type : </string>
+    <string name="student_residence">My Residence</string>
+    <string name="qr_scanner">QR Code Scanner</string>
+    <string name="student_attendance">My Attendance</string>
+
 </resources>
