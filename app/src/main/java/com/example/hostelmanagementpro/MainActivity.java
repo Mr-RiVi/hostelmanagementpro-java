@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     EditText username,password;
     TextView rgOrg,rgAdmin;
     Button login;
-    DatabaseReference dbCred,dbAdmin;
+    DatabaseReference dbCred,dbAdmin,dbStu;
     String credId,role,userId,orgID,TAG="rivindu";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         dbCred= FirebaseDatabase.getInstance().getReference("credentials");
         dbAdmin=FirebaseDatabase.getInstance().getReference("administrators");
+        dbStu=FirebaseDatabase.getInstance().getReference("students");
 
         username=findViewById(R.id.edtTxtUserName);
         password=findViewById(R.id.edtTxtPassword);
@@ -176,7 +177,19 @@ public class MainActivity extends AppCompatActivity {
                 });
                 break;
             case "STU":
-                //check student collection
+                dbStu.child(userId).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        orgID=snapshot.child("organizationID").getValue().toString();
+                        System.out.println("Student Org id is:"+orgID);
+                        firebaseCallback.onCallback(orgID);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 break;
         }
     }
