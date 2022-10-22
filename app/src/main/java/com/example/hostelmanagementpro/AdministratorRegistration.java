@@ -77,28 +77,29 @@ public class AdministratorRegistration extends AppCompatActivity {
 
         Intent intent=getIntent();
         String orgUsName=intent.getStringExtra(OrganizationDetails.EXTRA_ORGUSERNAME);
-        //orgID=intent.getStringExtra(OrganizationDetails.EXTRA_ORGID);
+        if (orgUsName==null){
+            //check Username validity while user entering username
+            orgUsername.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
 
-        orgUsername.setText(orgUsName);
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        //check Username validity while user entering username
-        orgUsername.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                }
 
-            }
+                @Override
+                public void afterTextChanged(Editable editable) {
+                    checkOrgUsernameAvailability();
+                    //checkOrganizationCredentials();
+                }
+            });
+        }else{
+            orgUsername.setText(orgUsName);
+        }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                checkOrgUsernameAvailability(orgUsername.getText().toString().trim());
-                checkOrganizationCredentials(orgUsername.getText().toString().trim(),orgPassword.getText().toString().trim());
-            }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
 
         //check credentials while user entering password
         orgPassword.addTextChangedListener(new TextWatcher() {
@@ -109,12 +110,13 @@ public class AdministratorRegistration extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                checkOrganizationCredentials(orgUsername.getText().toString().trim(),orgPassword.getText().toString().trim());
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                checkOrgUsernameAvailability();
+                checkOrganizationCredentials();
             }
         });
 
@@ -123,7 +125,7 @@ public class AdministratorRegistration extends AppCompatActivity {
             orgUsername.setError("Enter Organization Username");
         }
         else{
-            checkOrgUsernameAvailability(orgUsername.getText().toString().trim());
+            checkOrgUsernameAvailability();
         }
 
         //insert admin to database by clicking create account button
@@ -150,8 +152,8 @@ public class AdministratorRegistration extends AppCompatActivity {
     }
 
     //check organization is available or not, using username
-    public void checkOrgUsernameAvailability(String s){
-        dbOrg.orderByChild("orgUsername").equalTo(s).addValueEventListener(new ValueEventListener() {
+    public void checkOrgUsernameAvailability(){
+        dbOrg.orderByChild("orgUsername").equalTo(orgUsername.getText().toString().trim()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
@@ -160,7 +162,7 @@ public class AdministratorRegistration extends AppCompatActivity {
                         System.out.println("orgId accoding to the username: "+orgID);
                     }
                     orgPassword.setEnabled(true);
-                    checkOrganizationCredentials(orgUsername.getText().toString().trim(),orgPassword.getText().toString().trim());
+                    checkOrganizationCredentials();
                 }else {
                     orgUsername.setError("Organization invalid");
                     orgPassword.setEnabled(false);
@@ -175,10 +177,14 @@ public class AdministratorRegistration extends AppCompatActivity {
     }
 
     //check organization credentials
-    public void checkOrganizationCredentials(String userEnterUsName,String userEnterPass){
+    public void checkOrganizationCredentials(){
+        System.out.println("org id is:"+orgID);
         dbOrg.child(orgID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String userEnterUsName=orgUsername.getText().toString().trim();
+                String userEnterPass=orgPassword.getText().toString().trim();
                 String dbUsName=snapshot.child("orgUsername").getValue().toString().trim();
                 dbOrgName=snapshot.child("orgName").getValue().toString().trim();
                 String dbPass=snapshot.child("orgPassword").getValue().toString().trim();

@@ -65,7 +65,7 @@
                 android:hint="@string/orgPassword"
                 android:inputType="textPersonName"
                 android:minHeight="48dp"
-                android:enabled="false"/>
+                android:enabled="true"/>
             <EditText
                 android:id="@+id/edtTxtAdminName"
                 android:layout_width="match_parent"

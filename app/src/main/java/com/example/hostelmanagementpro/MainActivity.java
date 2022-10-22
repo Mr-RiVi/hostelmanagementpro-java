@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     TextView rgOrg,rgAdmin;
     Button login;
     DatabaseReference dbCred,dbAdmin;
-    String credId,role,userId,orgID;
+    String credId,role,userId,orgID,TAG="rivindu";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +43,40 @@ public class MainActivity extends AppCompatActivity {
 
         login=findViewById(R.id.btnLogin);
 
+        // deal with the asynchronous behavior of Firebase API
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkUsername(username.getText().toString().trim());
+                checkUsername(new FirebaseCallback() {
+                    @Override
+                    public void onCallback(String id) {
+                        credId=id;
+                        Log.d(TAG, "cred id is: "+credId);
+                        checkCredential(new FirebaseCallback() {
+                            @Override
+                            public void onCallback(String id) {
+                                userId=id;
+                                Log.d(TAG, "user id is: "+userId);
+                                getOrganizationID(new FirebaseCallback() {
+                                    @Override
+                                    public void onCallback(String id) {
+                                        orgID=id;
+                                        Log.d(TAG, "org id is: "+orgID);
+                                        Log.d(TAG, "user role is: "+role);
+                                        switch (role){
+                                            case "admin":
+                                                openAdminHomeActivity(orgID);
+                                                break;
+                                            case "student":
+                                                //redirect to student home page
+                                                break;
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
             }
         });
 
@@ -68,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //checking username availability
-    public void checkUsername(String usrEnterUsername){
+    public void checkUsername(FirebaseCallback firebaseCallback){
+        String usrEnterUsername=username.getText().toString().trim();
         dbCred.orderByChild("Username").equalTo(usrEnterUsername).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -76,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
                     for(DataSnapshot ds: snapshot.getChildren()){
                         credId=ds.getKey().toString();
                         System.out.println("credential id is: "+credId);
+                        firebaseCallback.onCallback(credId);
                     }
-                    checkCredential(username.getText().toString().trim(),password.getText().toString().trim());
                 }
                 else{
                     username.setError("Username incorrect");
@@ -92,10 +123,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //check user credentials
-    public void checkCredential(String usrEnterUsername,String userEnterPassword){
+    public void checkCredential(FirebaseCallback firebaseCallback){
         dbCred.child(credId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String usrEnterUsername= username.getText().toString().trim();
+                String userEnterPassword  =  password.getText().toString().trim();
+
                 String dbUsername=snapshot.child("Username").getValue().toString();
                 String dbPassword=snapshot.child("Password").getValue().toString();
                 System.out.println("db pass is:"+dbPassword);
@@ -104,18 +138,8 @@ public class MainActivity extends AppCompatActivity {
                     role=snapshot.child("Role").getValue().toString();
                     userId=snapshot.child("UserId").getValue().toString();
                     System.out.println("use role is: "+role);
-                    synchronized (this){
-                        getOrganizationID();
-                    }
+                    firebaseCallback.onCallback(userId);
                     password.setError(null);
-                    switch (role){
-                        case "admin":
-                            openAdminHomeActivity(orgID);
-                            break;
-                        case "student":
-                            //redirect to student home page
-                            break;
-                    }
                 }
                 else {
                     password.setError("Password incorrect");
@@ -131,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //get organization id in that user
-    public void getOrganizationID(){
+    public void getOrganizationID(FirebaseCallback firebaseCallback){
         String arr[]=userId.split("_");
         System.out.println("array 0 th element is:"+arr[0]);
         System.out.println("user id is:"+userId);
@@ -142,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         orgID=snapshot.child("orgID").getValue().toString();
                         System.out.println("Org id is:"+orgID);
+                        firebaseCallback.onCallback(orgID);
                     }
 
                     @Override
@@ -168,5 +193,9 @@ public class MainActivity extends AppCompatActivity {
     public void openStudentHomeActivity(){
         Intent intent=new Intent();
         startActivity(intent);
+    }
+
+    private interface FirebaseCallback{
+        public void onCallback(String id);
     }
 }

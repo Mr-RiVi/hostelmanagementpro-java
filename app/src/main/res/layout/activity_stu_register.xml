@@ -66,6 +66,7 @@
                 android:minHeight="48dp" />
 
             <ImageButton
+                android:id="@+id/imgBtnGen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -116,7 +117,6 @@
                         android:layout_height="wrap_content"
                         android:text="@string/gender_male"
                         android:layout_weight="1"
-                        android:checked="true"
                         />
                     <RadioButton
                         android:id="@+id/rdoBtnFemale"
@@ -170,19 +170,13 @@
             android:minHeight="48dp" />
 
         <Button
+            android:id="@+id/btnCrtAcc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/blue"
             android:text="@string/btn_CreateAccount"
             android:layout_margin="5dp"
             android:padding="15dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/note_roomAssign"
-            android:textAlignment="center"
-            android:padding="1dp"/>
 
     </GridLayout>
 

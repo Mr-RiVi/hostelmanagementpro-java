@@ -61,7 +61,7 @@
     <string name="manage_organization">Manage Organization</string>
     <string name="home">HOME</string>
 
-<!--    login page-->
+    <!--    login page-->
     <string name="dont_have_an_account">Don\'t have an Account?</string>
     <string name="reg_as_organization">Register as Organization</string>
 </resources>

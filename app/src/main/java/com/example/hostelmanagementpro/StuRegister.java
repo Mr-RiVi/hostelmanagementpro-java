@@ -8,11 +8,14 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -34,11 +37,14 @@ public class StuRegister extends AppCompatActivity {
     Toolbar toolbar;
     EditText studentName,studentUsername,studentPassword,emgContactNo,contactNo,email,address;
     RadioGroup radioGroup;
-    RadioButton gender;
+    String gender;
+    Button crtAcc;
+    ImageButton gen;
     Student stu;
     String orgID;
+    String TAG="rivindu";
     DatabaseReference dbStudent,dbCredentials;
-    long maxStuId,credID=0;
+    long maxStuId=0,credID=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +52,7 @@ public class StuRegister extends AppCompatActivity {
         setContentView(R.layout.activity_stu_register);
 
         dbStudent= FirebaseDatabase.getInstance().getReference("students");
+        dbCredentials= FirebaseDatabase.getInstance().getReference("credentials");
 
         studentName=findViewById(R.id.edtTxtStuName);
         studentUsername=findViewById(R.id.edtTxtUserName);
@@ -54,10 +61,34 @@ public class StuRegister extends AppCompatActivity {
         contactNo=findViewById(R.id.edtTxtPhone);
         email=findViewById(R.id.edtTxtEmail);
         address=findViewById(R.id.edtTxtStuAddress);
+        radioGroup=findViewById(R.id.rdoGroup);
+        crtAcc=findViewById(R.id.btnCrtAcc);
+        gen=findViewById(R.id.imgBtnGen);
+
+        gen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                organizationUsernameGenerator();
+            }
+        });
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    case R.id.rdoBtnMale:
+                        gender="Male";
+                        break;
+                    case R.id.rdoBtnFemale:
+                        gender="Female";
+                        break;
+                }
+            }
+        });
         //get gender in the radio button
-        int radioId=radioGroup.getCheckedRadioButtonId();
-        gender=findViewById(radioId);
-        //gender.getText().toString();
+        //int radioId=radioGroup.getCheckedRadioButtonId();
+        //gender=findViewById(radioId);
+        System.out.println("gender is:"+gender);
 
         //catch toolbar and set it as default actionbar
         toolbar=findViewById(R.id.toolbar);
@@ -71,7 +102,145 @@ public class StuRegister extends AppCompatActivity {
 
         Intent intent=getIntent();
         orgID=intent.getStringExtra(FunctionsAdministrator.EXTRA_ORGID);
+        Log.d(TAG, "Admin org id is : "+orgID);
+
+
+
+        crtAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                  saveStudentDetails();
+            }
+        });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getAndUpdateStudentNodeCount();
+        getAndUpdateCredentialNodeCount();
+    }
+
+    //insert student details to db
+    public void saveStudentDetails(){
+        if(TextUtils.isEmpty(studentName.getText().toString())){
+            Toast.makeText(this,"Enter Student Name",Toast.LENGTH_SHORT).show();
+        }
+        else if(TextUtils.isEmpty(studentUsername.getText().toString())){
+            Toast.makeText(this,"Enter Username",Toast.LENGTH_SHORT).show();
+        }
+        else if(TextUtils.isEmpty(studentPassword.getText().toString())){
+            Toast.makeText(this,"Enter Password",Toast.LENGTH_SHORT).show();
+        }
+        else if(TextUtils.isEmpty(emgContactNo.getText().toString())){
+            Toast.makeText(this,"Enter Emergency contact number",Toast.LENGTH_SHORT).show();
+        }else if(TextUtils.isEmpty(contactNo.getText().toString())){
+            Toast.makeText(this,"Enter Student contact number",Toast.LENGTH_SHORT).show();
+        }else if(TextUtils.isEmpty(email.getText().toString())){
+            Toast.makeText(this,"Enter Email",Toast.LENGTH_SHORT).show();
+        }
+        else if(TextUtils.isEmpty(address.getText().toString())){
+            Toast.makeText(this,"Enter address",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            saveCredentialDetails();
+
+            stu.setCredentialID("CRED_"+String.valueOf(credID+1));//credID+1
+            stu.setOrganizationID(orgID); //log unama admin admin inna org ekt adala id eka intent ekakin gnna ona
+            stu.setName(studentName.getText().toString().trim());
+            stu.setGender(gender);
+            stu.setEmergencyContactNo(emgContactNo.getText().toString().trim());
+            stu.setStudentContactNo(contactNo.getText().toString().trim());
+            stu.setEmail(email.getText().toString().trim());
+            stu.setAddress(address.getText().toString().trim());
+
+            //getAndUpdateStudentNodeCount();
+            System.out.println("student count is:"+maxStuId);
+            dbStudent.child("STU_"+String.valueOf(maxStuId+1)).setValue(stu).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        studentName.setText("");
+                        studentUsername.setText("");
+                        studentPassword.setText("");
+                        emgContactNo.setText("");
+                        contactNo.setText("");
+                        email.setText("");
+                        address.setText("");
+
+                        Toast.makeText(StuRegister.this,"Student registered",Toast.LENGTH_SHORT).show();
+                        openNextActivity();
+                    }
+                }
+            });
+        }
+    }
+
+    //credential------------------------------
+    public void saveCredentialDetails(){
+        //dbCredentials= FirebaseDatabase.getInstance().getReference("credentials");
+
+        String Username=studentUsername.getText().toString();
+        String Password=studentPassword.getText().toString();
+        String role="student";
+        String userid=("STU_"+String.valueOf(maxStuId+1));
+
+        HashMap<String,String> a=new HashMap<>();
+        a.put("Username",Username);
+        a.put("Password",Password);
+        a.put("Role",role);
+        a.put("UserId",userid);
+
+        //getAndUpdateCredentialNodeCount();
+        System.out.println("cred count is:"+credID);
+
+        dbCredentials.child("CRED_"+String.valueOf(credID+1)).setValue(a).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    System.out.println("credential insertion successfully");
+                }
+                else
+                    System.out.println("credential insertion failed");
+            }
+        });
+    }
+
+    private void getAndUpdateCredentialNodeCount(){
+        dbCredentials.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    credID=snapshot.getChildrenCount();
+                    System.out.println("cred count is"+credID);
+                }
+                else
+                    credID=0;
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void getAndUpdateStudentNodeCount(){
+        dbStudent.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    maxStuId=snapshot.getChildrenCount();
+                }
+                else
+                    maxStuId=0;
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     //actionbar menu implementation
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,106 +264,21 @@ public class StuRegister extends AppCompatActivity {
 
     //go to next activity and passing essential data
     public void openNextActivity(){
-        Intent intent=new Intent(); //next activity eke name eka denna ona
+        Intent intent=new Intent(StuRegister.this,AssignToRoom.class); //next activity eke name eka denna ona
         intent.putExtra(EXTRA_ORGID,orgID);
         startActivity(intent);
     }
 
-    //insert student details to db
-    public void saveStudentDetails(){
-        if(TextUtils.isEmpty(studentName.getText().toString())){
-            Toast.makeText(this,"Enter Student Name",Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(studentUsername.getText().toString())){
-            Toast.makeText(this,"Enter Username",Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(studentPassword.getText().toString())){
-            Toast.makeText(this,"Enter Password",Toast.LENGTH_SHORT).show();
-        }else if(TextUtils.isEmpty(gender.getText().toString())){
-            Toast.makeText(this,"Select Gender",Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(emgContactNo.getText().toString())){
-            Toast.makeText(this,"Enter Emergency contact number",Toast.LENGTH_SHORT).show();
-        }else if(TextUtils.isEmpty(contactNo.getText().toString())){
-            Toast.makeText(this,"Enter Student contact number",Toast.LENGTH_SHORT).show();
-        }else if(TextUtils.isEmpty(email.getText().toString())){
-            Toast.makeText(this,"Enter Email",Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(address.getText().toString())){
-            Toast.makeText(this,"Enter address",Toast.LENGTH_SHORT).show();
-        }
-        else{
-            saveCredentialDetails(studentUsername.getText().toString(),studentPassword.getText().toString(),"student","STU_"+String.valueOf(maxStuId+1));
-
-            stu.setCredentialID("CRED_"+String.valueOf(credID+1));
-            stu.setOrganizationID(orgID); //log unama admin admin inna org ekt adala id eka intent ekakin gnna ona
-            stu.setName(studentName.getText().toString().trim());
-            stu.setGender(gender.getText().toString().trim());
-            stu.setEmergencyContactNo(emgContactNo.getText().toString().trim());
-            stu.setStudentContactNo(contactNo.getText().toString().trim());
-            stu.setEmail(email.getText().toString().trim());
-            stu.setAddress(address.getText().toString().trim());
-
-            dbStudent.child("STU_"+String.valueOf(maxStuId+1)).setValue(stu).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
-                        studentName.setText("");
-                        studentUsername.setText("");
-                        studentPassword.setText("");
-                        emgContactNo.setText("");
-                        contactNo.setText("");
-                        email.setText("");
-                        address.setText("");
-
-                        Toast.makeText(StuRegister.this,"Student registered",Toast.LENGTH_SHORT).show();
-                        openNextActivity();
-                    }
-                }
-            });
-        }
+    private interface FirebaseCallbackGetCount{
+        public void onCallback(long count);
     }
 
-    //credential------------------------------
-    public void saveCredentialDetails(String Username,String Password,String role,String userid){
-        dbCredentials= FirebaseDatabase.getInstance().getReference("credentials");
-
-        HashMap<String,String> a=new HashMap<>();
-        a.put("Username",Username);
-        a.put("Password",Password);
-        a.put("Role",role);
-        a.put("UserId",userid);
-
-        getAndUpdateCredentialNodeCount();
-
-        dbCredentials.child("CRED_"+String.valueOf(credID+1)).setValue(a).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
-                    System.out.println("credential insertion successfully");
-                }
-                else
-                    System.out.println("credential insertion failed");
-            }
-        });
+    private interface FirebaseCallbackSaveDetails{
+        public void onCallback();
     }
 
-    private void getAndUpdateCredentialNodeCount(){
-        dbCredentials= FirebaseDatabase.getInstance().getReference("credentials");
-        dbCredentials.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    credID=snapshot.getChildrenCount();
-                }
-                else
-                    credID=0;
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+    //username generator for organization
+    public void organizationUsernameGenerator(){
+        studentUsername.setText("STU@"+String.format("%07d",maxStuId+1));
     }
-
 }
