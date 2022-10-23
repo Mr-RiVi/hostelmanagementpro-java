@@ -37,7 +37,7 @@
         </LinearLayout>
         <TextView
             android:id="@+id/stuContact"
-            android:text="+94 771230981"
+            android:text=""
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="18sp"
@@ -69,7 +69,7 @@
         </LinearLayout>
         <TextView
             android:id="@+id/stuEmerContact"
-            android:text="+94 779876543"
+            android:text=""
             android:textStyle="bold"
             android:textColor="@color/black"
             android:textSize="18sp"

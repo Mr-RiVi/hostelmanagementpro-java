@@ -17,6 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.w3c.dom.Text;
 
 public class MyProfile extends AppCompatActivity {
@@ -24,14 +30,22 @@ public class MyProfile extends AppCompatActivity {
     private ImageView btnBack;
     private ImageView customBtn;
 
-    EditText pwd;
+    private TextView stuName, stuId, stuAddress, stuContact, stuEmerContact, stuEmail;
+    private EditText stuPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
-        pwd = findViewById(R.id.stuPassword);
+        stuName = findViewById(R.id.stuName);
+        stuId = findViewById(R.id.stuId);
+        stuAddress = findViewById(R.id.stuAddress);
+        stuContact = findViewById(R.id.stuContact);
+        stuEmerContact = findViewById(R.id.stuEmerContact);
+        stuEmail = findViewById(R.id.stuEmail);
+        stuPassword = findViewById(R.id.stuPassword);
 
         updateProfileBtn = (Button) findViewById(R.id.button);
         updateProfileBtn.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +61,44 @@ public class MyProfile extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("My Profile");
 
+        DatabaseReference readRef = FirebaseDatabase.getInstance().getReference().child("students").child("STU_2");
+        readRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChildren()) {
+                    stuName.setText(snapshot.child("name").getValue().toString());
+                    stuAddress.setText(snapshot.child("address").getValue().toString());
+                    stuContact.setText(snapshot.child("studentContactNo").getValue().toString());
+                    stuEmerContact.setText(snapshot.child("emergencyContactNo").getValue().toString());
+                    stuEmail.setText(snapshot.child("email").getValue().toString());
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "No Details to Display", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        DatabaseReference readPwd = FirebaseDatabase.getInstance().getReference().child("credentials").child("CRED_4");
+        readPwd.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren()) {
+                    stuId.setText(dataSnapshot.child("UserId").getValue().toString());
+                    stuPassword.setText(dataSnapshot.child("Password").getValue().toString());
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "No Password", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
     @Override
@@ -75,6 +127,7 @@ public class MyProfile extends AppCompatActivity {
         }
 
     }
+
     public void openUpdateProfile() {
         Intent intent = new Intent(this, UpdateProfile.class);
         startActivity(intent);
@@ -84,15 +137,15 @@ public class MyProfile extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void passwordToText() {
-        pwd.setInputType(InputType.TYPE_CLASS_TEXT);
-        customBtn.setBackgroundResource(R.drawable.ic_closed_eye);
-
-    }
-
-    public void textToPassword() {
-        pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        customBtn.setBackgroundResource(R.drawable.ic_eye);
-    }
+//    public void passwordToText() {
+//        pwd.setInputType(InputType.TYPE_CLASS_TEXT);
+//        customBtn.setBackgroundResource(R.drawable.ic_closed_eye);
+//
+//    }
+//
+//    public void textToPassword() {
+//        pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+//        customBtn.setBackgroundResource(R.drawable.ic_eye);
+//    }
 
 }

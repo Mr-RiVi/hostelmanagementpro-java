@@ -107,9 +107,8 @@ public class StudentHome extends AppCompatActivity {
     }
 
     //redirecting to QR code scanner activity
-    //change destination.......................................................
     public void openQrScan() {
-        Intent in = new Intent(this, MyProfile.class);
+        Intent in = new Intent(this, QRScanner.class);
         startActivity(in);
     }
 
