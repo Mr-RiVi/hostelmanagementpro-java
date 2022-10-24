@@ -16,6 +16,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private Button stuHomeBtn;
+    private Button button2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openStuHome();
+            }
+        });
+
+        button2 = findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openAttendanceQRcodes();
             }
         });
 
@@ -66,5 +75,10 @@ public class MainActivity extends AppCompatActivity {
     public void openStuHome() {
         Intent intent = new Intent(this, StudentHome.class);
         startActivity(intent);
+    }
+
+    private void openAttendanceQRcodes() {
+        Intent ins = new Intent(this, AttendanceQRcodes.class);
+        startActivity(ins);
     }
 }
