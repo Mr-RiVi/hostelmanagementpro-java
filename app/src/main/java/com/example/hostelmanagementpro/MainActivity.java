@@ -67,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
                                         Log.d(TAG, "user role is: "+role);
                                         switch (role){
                                             case "admin":
-                                                openAdminHomeActivity(orgID);
+                                                openAdminHomeActivity(orgID,userId);
                                                 break;
                                             case "student":
-                                                openStudentHomeActivity(userId);
+                                                openStudentHomeActivity(orgID,userId);
                                                 break;
                                         }
                                     }
@@ -197,16 +197,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //admin authenticated
-    public void openAdminHomeActivity(String o){
+    public void openAdminHomeActivity(String orgid,String userid){
         Intent intent=new Intent(this,FunctionsAdministrator.class);
-        System.out.println("organization id is and this is next activity func: "+o);
-        intent.putExtra(EXTRA_ORGID,o);
+        intent.putExtra(EXTRA_ORGID,orgid);
+        intent.putExtra(EXTRA_USERID,userid);
         startActivity(intent);
     }
 
     //student authenticated
-    public void openStudentHomeActivity(String userId){
+    public void openStudentHomeActivity(String orgid,String userId){
         Intent intent=new Intent(MainActivity.this,StudentHome.class);
+        intent.putExtra(EXTRA_ORGID,orgid);
         intent.putExtra(EXTRA_USERID,userId);
         startActivity(intent);
     }

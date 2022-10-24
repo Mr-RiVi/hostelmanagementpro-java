@@ -7,7 +7,7 @@
     tools:context=".Room">
 
     <include
-        android:id="@+id/include2"
+        android:id="@+id/toolbar"
         layout="@layout/toolbar"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="44dp" />
@@ -23,7 +23,7 @@
         android:text="@string/roomSortBtn"
         app:layout_constraintBottom_toTopOf="@+id/recycler_3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.16" />
 
     <LinearLayout
@@ -39,7 +39,7 @@
         app:layout_constraintEnd_toStartOf="@+id/R_sort_btn"
         app:layout_constraintHorizontal_bias="0.169"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.096">
 
         <EditText
@@ -72,7 +72,7 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintVertical_bias="0.57"
         app:spanCount="2"
         tools:itemCount="4"

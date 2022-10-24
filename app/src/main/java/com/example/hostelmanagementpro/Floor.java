@@ -1,12 +1,17 @@
 package com.example.hostelmanagementpro;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,7 +29,7 @@ import java.util.List;
 
 public class Floor extends AppCompatActivity {
 
-    TextView txt;
+    Toolbar toolbar;
     ImageView btn;
     DatabaseReference myRef;
     ValueEventListener postListener;
@@ -35,8 +40,13 @@ public class Floor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_floor);
 
-        txt=findViewById(R.id.toolbarTitle);
-        txt.setText("Floor");
+        //catch toolbar and set it as default actionbar
+        toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //set actionbar name and enable back navigation
+        getSupportActionBar().setTitle("Floor");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // setting recycler view adapter
         RecyclerView recyclerView = findViewById(R.id.recycler_2);
@@ -100,6 +110,25 @@ public class Floor extends AppCompatActivity {
         startActivity(in);
     }
 
-
+    //actionbar menu implementation
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.actionbarmenu,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.mnuMyProfile:
+                //go to Admin profile
+                return true;
+            case R.id.mnuLogout:
+                Intent intent =new Intent(Floor.this,MainActivity.class);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
