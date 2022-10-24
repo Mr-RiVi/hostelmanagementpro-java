@@ -27,8 +27,6 @@ import org.w3c.dom.Text;
 
 public class MyProfile extends AppCompatActivity {
     private Button updateProfileBtn;
-    private ImageView btnBack;
-    private ImageView customBtn;
 
     private TextView stuName, stuId, stuAddress, stuContact, stuEmerContact, stuEmail;
     private EditText stuPassword;
