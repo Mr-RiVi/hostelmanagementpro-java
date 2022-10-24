@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/pay_ment_bg"
+    android:padding="4sp"
+    android:layout_margin="4sp"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/txtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="Payment Type"
+        android:paddingLeft="10dp"
+
+        />
+    <TextView
+        android:id="@+id/txtMonth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="Payment Month"
+        android:paddingLeft="10dp"
+
+        />
+    <TextView
+        android:id="@+id/txtPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:text="Payment Price"
+        android:paddingLeft="10dp"
+
+        />
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_margin="4sp"
+        android:padding="4sp"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDelete"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:background="#EE0047FD"
+            android:text="DELETE"
+            android:textColor="@color/white"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnUpdate"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_margin="3dp"
+            android:background="#EE0047FD"
+            android:text="UPDATE"
+            android:textColor="@color/white"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
