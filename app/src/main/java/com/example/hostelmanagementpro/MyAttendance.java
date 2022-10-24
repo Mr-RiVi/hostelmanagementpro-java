@@ -39,6 +39,8 @@ public class MyAttendance extends AppCompatActivity {
     private CardView attCardView;
     private LinearLayout attParent;
 
+    DatabaseReference dbDel;
+
     String dbDate;
 
     //355caf37-8ff7-444e-b93c-212439db76a9
@@ -89,7 +91,26 @@ public class MyAttendance extends AppCompatActivity {
         deleteHis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MyAttendance.this, "Attendance history deleted", Toast.LENGTH_SHORT).show();
+                DatabaseReference refDel = FirebaseDatabase.getInstance().getReference("attendance").child("ATT_1").child(QRScanner.date);
+                refDel.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild(QRScanner.attUUID)) {
+                            dbDel = FirebaseDatabase.getInstance().getReference("attendance").child("ATT_1").child(QRScanner.date).child(QRScanner.attUUID);
+                            dbDel.removeValue();
+                            attTime.setText("");
+                            attType.setText("");
+                            Toast.makeText(getApplicationContext(), "Attendance Record Deleted", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), "No Record to Delete", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 
@@ -113,24 +134,6 @@ public class MyAttendance extends AppCompatActivity {
             }
         });
 
-//        DatabaseReference dbOld = FirebaseDatabase.getInstance().getReference().child("attendance").child("ATT_1").child(dbDate).child("09e0931c-f738-4964-beba-42f98c1b86e2");
-//        dbOld.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dSnapshot) {
-//                if (dSnapshot.hasChildren()) {
-//                    attTime.setText(dSnapshot.child("Time").getValue().toString());
-//                    attType.setText(dSnapshot.child("Type").getValue().toString());
-//
-//                }
-//                else
-//                    Toast.makeText(getApplicationContext(), "No Attendance Activity", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError er) {
-//
-//            }
-//        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

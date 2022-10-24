@@ -41,7 +41,7 @@
                     android:id="@+id/attTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="08:24 a.m"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"></TextView>
@@ -75,7 +75,7 @@
 
                 <TextView
                     android:id="@+id/attType"
-                    android:text="Check-In"
+                    android:text=""
                     android:textSize="20sp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
