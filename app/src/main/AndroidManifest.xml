@@ -14,12 +14,18 @@
         android:theme="@style/Theme.HostelManagementPro"
         tools:targetApi="31">
         <activity
+            android:name=".StudentProfiles"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".AssignToRoom"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
         </activity>
         <activity
             android:name=".FunctionsAdministrator"
@@ -75,7 +81,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

@@ -3,11 +3,15 @@ package com.example.hostelmanagementpro;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,6 +43,7 @@ public class AssignToRoom extends AppCompatActivity {
     String TAG="rivindu";
     String name,stuGender,stuID;
     Intent intent;
+    Toolbar toolbar;
 
     PieChart chart;
 
@@ -46,6 +51,14 @@ public class AssignToRoom extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assign_to_room);
+
+        //catch toolbar and set it as default actionbar
+        toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //set actionbar name and enable back navigation
+        getSupportActionBar().setTitle(R.string.chk_avlblty);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         dbBuildings= FirebaseDatabase.getInstance().getReference("students");
         dbStudents= FirebaseDatabase.getInstance().getReference("students");
@@ -136,15 +149,12 @@ public class AssignToRoom extends AppCompatActivity {
 
             }
         });
-//        for (int i = 0; i < (int)buildingCount ; i++){
-//            dropdownItems.add();
-//        }
     }
 
     public void generatePieChart(){
         chart.addPieSlice(new PieModel("labe2",25, Color.parseColor("#FFBB86FC")));
         chart.addPieSlice(new PieModel("labe2",75, Color.parseColor("#FF9800")));
-        chart.setInnerValueString("58%");
+        chart.setInnerValueString("Available Rooms 58%");
         chart.startAnimation();
     }
 
@@ -166,5 +176,26 @@ public class AssignToRoom extends AppCompatActivity {
 
             }
         });
+    }
+
+    //actionbar menu implementation
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.actionbarmenu,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.mnuMyProfile:
+                //go to profile
+                return true;
+            case R.id.mnuLogout:
+                Intent intent =new Intent(AssignToRoom.this,MainActivity.class);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
