@@ -1,3 +1,73 @@
 <resources>
-    <string name="app_name">HostelManagementPro</string>
+    <string name="app_name">Hostel Management Pro</string>
+    <string name="welcome">Welcome</string>
+    <string name="logIn">LOGIN</string>
+
+    <!--    Admin functionalities-->
+    <string name="student_register">Register Student</string>
+    <string name="student_profile">Student Profile</string>
+    <string name="student_notice">Notice</string>
+    <string name="student_payments">Payments</string>
+
+    <!--    Activity Names-->
+    <string name="student_management">Student Management</string>
+    <string name="student_registration">Student Registration</string>
+    <string name="organization_registration">Organization Registration</string>
+    <string name="admin_registration">Administrator Registration</string>
+
+    <!--    Menu options-->
+    <string name="menu_myProfile">My Profile</string>
+    <string name="menu_logout">Logout</string>
+
+    <!--    Text Views-->
+    <string name="student_registration_title">Create a student Account</string>
+    <string name="username">Enter Username</string>
+    <string name="studentName">Enter Student Name</string>
+    <string name="student_tmp_password">Enter Password</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+    <string name="student_em_phone">Enter Emergency contact number</string>
+    <string name="student_phone">Enter Student contact number</string>
+    <string name="student_email">Enter email</string>
+    <string name="student_address">Enter Permanent address</string>
+    <string name="btn_CreateAccount">Create Account</string>
+    <string name="note_roomAssign">Note : This will assign student to room automatically</string>
+
+    <!--    Organization -->
+    <string name="organization_registration_title">Create a Organization Account</string>
+    <string name="OrganizationName">Enter Organization Name</string>
+    <string name="Organization_email">Enter Organization Email</string>
+    <string name="Organization_phone">Enter Organization contact number</string>
+    <string name="Organization_address">Enter Organization Address</string>
+    <string name="Organization_details">Organization Details</string>
+    <string name="Organization_name">Organization Name : </string>
+    <string name="Organization_usname">Organization Username : </string>
+    <string name="Organization_pass">Organization Password : </string>
+    <string name="Organization_notice">Important : Must you these credentials when creating admin account</string>
+
+    <!--    Administrator-->
+    <string name="create_admin_acc">Create administrator account</string>
+    <string name="reg_as_admin">Register as administrator</string>
+    <string name="orgUsername">Enter Organization Username</string>
+    <string name="orgPassword">Enter Organization Password</string>
+    <string name="adminName">Enter Administrator Name</string>
+    <string name="admin_contactNo">Enter contact number</string>
+    <string name="admin_NIC">Enter NIC number</string>
+    <string name="admin_email">Enter email</string>
+    <string name="admin_address">Enter address</string>
+    <string name="admin_wel_msg">Welcome to</string>
+    <string name="manage_accommodation">Manage Accommodation</string>
+    <string name="manage_students">Manage Students</string>
+    <string name="manage_organization">Manage Organization</string>
+    <string name="home">HOME</string>
+
+    <!--    login page-->
+    <string name="dont_have_an_account">Don\'t have an Account?</string>
+    <string name="reg_as_organization">Register as Organization</string>
+
+
+    <string name="assign_to_room_msg">Do you want to assign this student to a room?</string>
+    <string name="successful_msg">Student Registration Successful</string>
+    <string name="select_building_name">Select Building Name</string>
+
 </resources>
