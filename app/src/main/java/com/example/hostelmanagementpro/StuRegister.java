@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -33,6 +36,7 @@ import java.util.HashMap;
 
 public class StuRegister extends AppCompatActivity {
     public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
+    public static final String EXTRA_STUDENTID="com.example.hostelmanagementpro.EXTRA_STUDENTID";
 
     Toolbar toolbar;
     EditText studentName,studentUsername,studentPassword,emgContactNo,contactNo,email,address;
@@ -45,6 +49,7 @@ public class StuRegister extends AppCompatActivity {
     String TAG="rivindu";
     DatabaseReference dbStudent,dbCredentials;
     long maxStuId=0,credID=0;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +82,10 @@ public class StuRegister extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i){
                     case R.id.rdoBtnMale:
-                        gender="Male";
+                        gender="male";
                         break;
                     case R.id.rdoBtnFemale:
-                        gender="Female";
+                        gender="female";
                         break;
                 }
             }
@@ -104,12 +109,41 @@ public class StuRegister extends AppCompatActivity {
         orgID=intent.getStringExtra(FunctionsAdministrator.EXTRA_ORGID);
         Log.d(TAG, "Admin org id is : "+orgID);
 
+        //Create the Dialog here
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.add_student_custom_dialog);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_background));
+        }
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false); //Optional
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
 
+        Button Yes = dialog.findViewById(R.id.btn_yes);
+        Button NotNow = dialog.findViewById(R.id.btn_notNow);
+
+        Yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openNextActivity();
+                dialog.dismiss();
+            }
+        });
+
+        NotNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(StuRegister.this,FunctionsStuManagement.class);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
 
         crtAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                   saveStudentDetails();
+                  dialog.show();
             }
         });
     }
@@ -168,8 +202,7 @@ public class StuRegister extends AppCompatActivity {
                         email.setText("");
                         address.setText("");
 
-                        Toast.makeText(StuRegister.this,"Student registered",Toast.LENGTH_SHORT).show();
-                        openNextActivity();
+                        //Toast.makeText(StuRegister.this,"Student registered",Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -266,6 +299,8 @@ public class StuRegister extends AppCompatActivity {
     public void openNextActivity(){
         Intent intent=new Intent(StuRegister.this,AssignToRoom.class); //next activity eke name eka denna ona
         intent.putExtra(EXTRA_ORGID,orgID);
+        System.out.println("this is StuRegister and maxStuId is "+maxStuId);
+        intent.putExtra(EXTRA_STUDENTID,Long.toString(maxStuId));
         startActivity(intent);
     }
 
