@@ -71,4 +71,29 @@
     <string name="successful_msg">Student Registration Successful</string>
     <string name="select_building_name">Select Building Name</string>
 
+    <string name="student_address_stu">Address</string>
+    <string name="student_personal_info">Personal Info</string>
+    <string name="student_residence_info">Residence Info</string>
+    <string name="student_contact">Contact</string>
+    <string name="student_emergency_contact">Emergency Contact</string>
+    <string name="student_email_stu">Email</string>
+    <string name="student_password">Password</string>
+    <string name="student_current_password">Current Password</string>
+    <string name="student_new_password">New Password</string>
+    <string name="student_confirm_password">Confirm New Password</string>
+    <string name="button_update_profile">Update profile</string>
+    <string name="organization_id">Organization ID</string>
+    <string name="student_building">Building No: </string>
+    <string name="student_floor">Floor No: </string>
+    <string name="student_room">Room No: </string>
+    <string name="student_bed">Bed No: </string>
+    <string name="student_my_profile">My Profile</string>
+    <string name="student_logout">Logout</string>
+    <string name="select_date">Click Icon To Select Date</string>
+    <string name="attendance_time">Time : </string>
+    <string name="attendance_type">Type : </string>
+    <string name="student_residence">My Residence</string>
+    <string name="qr_scanner">QR Code Scanner</string>
+    <string name="student_attendance">My Attendance</string>
+
 </resources>

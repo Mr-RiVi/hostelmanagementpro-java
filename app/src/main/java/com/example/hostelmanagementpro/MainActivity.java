@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
+    public static final String EXTRA_USERID="com.example.hostelmanagementpro.EXTRA_USERID";
     EditText username,password;
     TextView rgOrg,rgAdmin;
     Button login;
@@ -69,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                                                 openAdminHomeActivity(orgID);
                                                 break;
                                             case "student":
-                                                //redirect to student home page
+                                                openStudentHomeActivity(userId);
                                                 break;
                                         }
                                     }
@@ -177,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
                 });
                 break;
             case "STU":
+                System.out.println("This is Student user id is: "+userId);
                 dbStu.child(userId).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -203,8 +205,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //student authenticated
-    public void openStudentHomeActivity(){
-        Intent intent=new Intent();
+    public void openStudentHomeActivity(String userId){
+        Intent intent=new Intent(MainActivity.this,StudentHome.class);
+        intent.putExtra(EXTRA_USERID,userId);
         startActivity(intent);
     }
 

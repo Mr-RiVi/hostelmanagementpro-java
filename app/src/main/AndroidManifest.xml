@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.hostelmanagementpro">
+    xmlns:tools="http://schemas.android.com/tools">
+<uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -13,6 +13,53 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HostelManagementPro"
         tools:targetApi="31">
+        <activity
+            android:name=".QRScanner"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".MyResidence"
+            android:exported="false"
+            android:parentActivityName=".StudentHome">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".StudentHome"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".MyAttendance"
+            android:exported="false"
+            android:parentActivityName=".StudentHome">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".UpdateProfile"
+            android:exported="false"
+            android:parentActivityName=".MyProfile">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".MyProfile"
+            android:exported="false"
+            android:parentActivityName=".StudentHome">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".StudentProfiles"
             android:exported="false">

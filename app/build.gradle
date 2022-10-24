@@ -26,6 +26,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.example.hostelmanagementpro'
 }
 
 dependencies {
@@ -40,4 +41,6 @@ dependencies {
 
     implementation 'com.github.blackfizz:eazegraph:1.2.5l@aar'
     implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'me.dm7.barcodescanner:zxing:1.9.8'
+    implementation 'com.karumi:dexter:6.2.3'
 }
