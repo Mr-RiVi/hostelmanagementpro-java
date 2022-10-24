@@ -4,4 +4,52 @@
     <string name="student_profile">Student Profile</string>
     <string name="student_notice">Notice</string>
     <string name="student_payments">Payments</string>
+    <string name="manage_accommodation">Manage Accommodation</string>
+    <string name="room_details">Room Details</string>
+    <string name="button">Button</string>
+    <string name="name">Name</string>
+    <string name="button1">Button</string>
+    <string name="name1">Name</string>
+    <string name="dk_nalinga">Dk Nalinga</string>
+
+    <string name="building_no">Building No -</string>
+    <string name="building_name">Building Name -</string>
+    <string name="gender">Type -</string>
+    <string name="male">Male</string>
+    <string name="add_building">Add Building</string>
+    <string name="remove_building">Remove Building</string>
+    <string name="enter_building_no">Enter Building No :</string>
+    <string name="enter_building_name">Enter Building Name :</string>
+    <string name="select_type">Select Type</string>
+    <string name="radioBtnMale">Male</string>
+    <string name="_02">02</string>
+    <string name="radioBtnFemale">Female</string>
+    <string name="addbuildingSaveBtn">save</string>
+    <string name="removeBuildingBtn">Remove Building</string>
+
+    <string name="floor_no">Floor No -</string>
+    <string name="room_count">Room Count -</string>
+    <string name="add_floor">Add Floor</string>
+    <string name="remove_floor">Remove Floor</string>
+    <string name="enter_floor_no">Enter Floor No :</string>
+    <string name="enter_room_count">Enter Room Count :</string>
+    <string name="addFloorSaveBtn">save</string>
+    <string name="enter_floor_no2">Enter Floor No :</string>
+    <string name="removeFloorBtn">Save</string>
+
+    <string name="select_room_type">Room Type</string>
+    <string name="select_room_status">Room Status</string>
+    <string name="room_id">Room ID</string>
+    <string name="available">Available</string>
+    <string name="booked">Booked</string>
+    <string name="ac">AC</string>
+    <string name="non_ac">Non AC</string>
+    <string name="students_count">Students Count</string>
+    <string name="bed_count">Beds Count</string>
+
+    <string name="roomSortBtn">Sort</string>
+    <string name="room_search">Add Room</string>
+    <string name="add_room">Add Room</string>
+    <string name="remove_room">Remove Room</string>
+
 </resources>
