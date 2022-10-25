@@ -23,13 +23,41 @@
         app:layout_constraintVertical_bias="0.0"></include>
 
     <LinearLayout
+        android:id="@+id/layout7"
+        android:orientation="horizontal"
+        android:padding="1dp"
+        android:gravity="center"
+        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include">
+
+        <TextView
+            android:text="Your latest attendance activity is shown below"
+            android:fontFamily="sans-serif-smallcaps"
+            android:textSize="16sp"
+            android:layout_margin="5dp"
+            android:textStyle="bold|normal"
+            android:textColor="@color/dark_brown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/attLineLay"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include">
+        app:layout_constraintTop_toBottomOf="@+id/layout7">
 
         <ScrollView
             android:id="@+id/attScroll"
@@ -43,25 +71,14 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/attParent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:baselineAligned="false"
                     android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-
-                    <include layout="@layout/item_attendance"></include>
-
-                    <include layout="@layout/item_attendance"></include>
-
-                    <include layout="@layout/item_attendance"></include>
-
-                    <include layout="@layout/item_attendance"></include>
-
-                    <include layout="@layout/item_attendance"></include>
-
-                    <include layout="@layout/item_attendance"></include>
-
-                    <include layout="@layout/item_attendance"></include>
 
                     <include layout="@layout/item_attendance"></include>
 
