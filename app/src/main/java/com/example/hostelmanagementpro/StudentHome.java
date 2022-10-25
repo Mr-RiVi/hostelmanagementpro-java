@@ -85,8 +85,6 @@ public class StudentHome extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbarNew);
         setSupportActionBar(toolbar);
 
-        //Enabling back button and setting tittle
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Student Home");
 
         payBtn.setOnClickListener(new View.OnClickListener() {
