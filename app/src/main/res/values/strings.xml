@@ -142,5 +142,6 @@
     <string name="room_search">Add Room</string>
     <string name="add_room">Add Room</string>
     <string name="remove_room">Remove Room</string>
+    <string name="available_seats_percentage">Available Seat Percentage</string>
 
 </resources>

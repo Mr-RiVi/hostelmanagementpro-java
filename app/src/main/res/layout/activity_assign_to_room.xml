@@ -36,19 +36,29 @@
 
 
     <View
+        android:id="@+id/horizontalLine"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@android:color/darker_gray"
         android:layout_below="@+id/textInputLayout"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginTop="27dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/horizontalLine"
+        android:text="@string/available_seats_percentage"
+        android:gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:textSize="18dp"/>
 
     <org.eazegraph.lib.charts.PieChart
         android:id="@+id/pieChart"
         android:layout_width="wrap_content"
         android:layout_height="307dp"
-        android:layout_below="@+id/textInputLayout"
+        android:layout_below="@+id/horizontalLine"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="54dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:padding="10dp"

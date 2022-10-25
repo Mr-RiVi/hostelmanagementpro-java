@@ -92,8 +92,7 @@ public class StudentHome extends AppCompatActivity {
         payBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(StudentHome.this,Add_payment.class);
-                startActivity(intent);
+
             }
         });
     }

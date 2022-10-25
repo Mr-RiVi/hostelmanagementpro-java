@@ -32,12 +32,18 @@
                 android:textColor="@color/black"
                 android:padding="5dp"/>
 
+            <ImageView
+                android:id="@+id/imgBackground"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:src="@drawable/student_home_background"/>
+
             <!--        Enter username field-->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="150dp">
+                android:layout_marginTop="0dp">
 
                 <EditText
                     android:id="@+id/edtTxtUserName"
@@ -65,8 +71,6 @@
                 android:inputType="textPassword"
                 android:minHeight="48dp" />
 
-
-
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
@@ -75,13 +79,13 @@
                 android:text="@string/logIn"
                 android:textSize="16dp"
                 android:layout_margin="5dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="5dp"
                 android:padding="15dp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/dont_have_an_account"
                 android:gravity="center"/>
 
@@ -90,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/reg_as_organization"
                 android:textColor="@color/blue"
                 android:gravity="center"/>

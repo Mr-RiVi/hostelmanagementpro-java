@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
+import com.example.hostelmanagementpro.model.BuildingModel;
 import com.example.hostelmanagementpro.model.Student;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,14 +61,9 @@ public class AssignToRoom extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.chk_avlblty);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        dbBuildings= FirebaseDatabase.getInstance().getReference("students");
+        dbBuildings= FirebaseDatabase.getInstance().getReference("buildings");
         dbStudents= FirebaseDatabase.getInstance().getReference("students");
         dropdownItems=new ArrayList<>();
-
-        dropdownItems.add("FOC");
-        dropdownItems.add("FOE");
-        dropdownItems.add("IT");
-        dropdownItems.add("Maths");
 
         autoCompleteTextView=findViewById(R.id.dropdown_menu);
         chart=findViewById(R.id.pieChart);
@@ -125,17 +121,16 @@ public class AssignToRoom extends AppCompatActivity {
         });
     }
 
+    //showing building names in ArrayList according to the student gender
     public void addBuildingToArrList(){
         System.out.println("this is add building function and gender is "+stuGender);
-        dbBuildings.orderByChild("gender").equalTo(stuGender).addValueEventListener(new ValueEventListener() {
+        dbBuildings.orderByChild("Gender").equalTo(stuGender).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     for (DataSnapshot ds:snapshot.getChildren()){
-                        Student bName=ds.getValue(Student.class);
-                        name=bName.getName();
-                        dropdownItems.add(name);
-                        System.out.println(name);
+                        String bName=ds.child("BuildingName").getValue().toString();
+                        dropdownItems.add(bName);
                     }
                 }
                 else {
@@ -154,7 +149,7 @@ public class AssignToRoom extends AppCompatActivity {
     public void generatePieChart(){
         chart.addPieSlice(new PieModel("labe2",25, Color.parseColor("#FFBB86FC")));
         chart.addPieSlice(new PieModel("labe2",75, Color.parseColor("#FF9800")));
-        chart.setInnerValueString("Available Rooms 58%");
+        chart.setInnerValueString("58%");
         chart.startAnimation();
     }
 

@@ -82,10 +82,10 @@ public class StuRegister extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i){
                     case R.id.rdoBtnMale:
-                        gender="male";
+                        gender="Male";
                         break;
                     case R.id.rdoBtnFemale:
-                        gender="female";
+                        gender="Female";
                         break;
                 }
             }

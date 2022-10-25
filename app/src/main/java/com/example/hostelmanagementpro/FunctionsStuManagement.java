@@ -10,10 +10,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 public class FunctionsStuManagement extends AppCompatActivity {
     public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
     String orgId;
+    Button regStudent,stuProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -22,6 +24,7 @@ public class FunctionsStuManagement extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_functions_stu_management);
 
+        regStudent=findViewById(R.id.regStudent);
         //catch toolbar and set it as default actionbar
         toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -32,6 +35,15 @@ public class FunctionsStuManagement extends AppCompatActivity {
 
         Intent intent=getIntent();
         orgId=intent.getStringExtra(MainActivity.EXTRA_ORGID);
+
+        regStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(FunctionsStuManagement.this,StuRegister.class);
+                intent.putExtra(EXTRA_ORGID,orgId);
+                startActivity(intent);
+            }
+        });
     }
 
     //actionbar menu implementation
@@ -55,12 +67,6 @@ public class FunctionsStuManagement extends AppCompatActivity {
     }
     public void logout(){
         Intent intent=new Intent(this,MainActivity.class);
-        startActivity(intent);
-    }
-
-    public void onclickStudentRegistration(View view){
-        Intent intent=new Intent(this,StuRegister.class);
-        intent.putExtra(EXTRA_ORGID,orgId);
         startActivity(intent);
     }
 
