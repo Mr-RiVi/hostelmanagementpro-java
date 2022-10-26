@@ -30,7 +30,7 @@
 
                 <TextView
                     android:text="@string/attendance_time"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textColor="@color/blue"
                     android:textStyle="bold"
                     android:layout_margin="5dp"
@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"></TextView>
 
             </LinearLayout>
@@ -66,7 +66,7 @@
 
                 <TextView
                     android:text="@string/attendance_type"
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textColor="@color/blue"
                     android:textStyle="bold"
                     android:layout_margin="5dp"
@@ -76,7 +76,7 @@
                 <TextView
                     android:id="@+id/attType"
                     android:text=""
-                    android:textSize="20sp"
+                    android:textSize="16sp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:layout_margin="5dp"

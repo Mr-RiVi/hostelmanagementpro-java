@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hostelmanagementpro.model.Student;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +28,8 @@ public class UpdateProfile extends AppCompatActivity {
     private TextView stuName, stuId;
     private EditText stuNewContact, stuNewEmerContact, stuNewEmail, stuCurPassword, stuNewPassword, stuConfirmPassword;
     DatabaseReference dbRef;
+
+    Student std;
 
     String studentID,credentialsID;
 
@@ -58,20 +61,52 @@ public class UpdateProfile extends AppCompatActivity {
         stuNewPassword = findViewById(R.id.stuNewPassword);
         stuConfirmPassword = findViewById(R.id.stuConfirmPassword);
 
-//        std = new Student();
+        std = new Student();
 
         confirmUpdateBtn=findViewById(R.id.button);
         confirmUpdateBtn.setText("Confirm Update");
 
+        //Update My Profile
+
         confirmUpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                DatabaseReference upRef = FirebaseDatabase.getInstance().getReference("students");
+                upRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild(studentID)) {
+                            try {
+                                std.setStudentContactNo(stuNewContact.getText().toString().trim());
+                                std.setEmergencyContactNo(stuNewEmerContact.getText().toString().trim());
+                                std.setEmail(stuNewEmail.getText().toString().trim());
 
+                                dbRef = FirebaseDatabase.getInstance().getReference().child("students").child(studentID);
+                                dbRef.setValue(std);
+                                //clearControls();
+                                stuNewContact.setText("");
+                                stuNewEmerContact.setText("");
+                                stuNewEmail.setText("");
+                                Toast.makeText(getApplicationContext(), "Details Updated Successfully", Toast.LENGTH_SHORT).show();
+                            }
+                            catch (NumberFormatException e) {
+                                Toast.makeText(getApplicationContext(), "Try Again", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), "Nothing to Update", Toast.LENGTH_SHORT).show();
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        //openMyProfileActivity();
+                    }
+                });
 
-                Toast.makeText(UpdateProfile.this, "My Profile updated", Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
         Toolbar toolbar = findViewById(R.id.toolbarNew);
         setSupportActionBar(toolbar);
@@ -110,36 +145,6 @@ public class UpdateProfile extends AppCompatActivity {
 
             }
         });
-
-        //Update My Profile
-//        DatabaseReference upRef = FirebaseDatabase.getInstance().getReference().child("students");
-//        upRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.hasChild("STU_2")) {
-//                    try {
-//                        std.setStudentContactNo(stuNewContact.getText().toString().trim());
-//                        std.setEmergencyContactNo(stuNewEmerContact.getText().toString().trim());
-//                        std.setEmail(stuNewEmail.getText().toString().trim());
-//
-//                        dbRef = FirebaseDatabase.getInstance().getReference().child("students").child("STU_2");
-//                        dbRef.setValue(std);
-//                        //clearControls();
-//                        //Toast.makeText(getApplicationContext(), "Details Updated Successfully", Toast.LENGTH_SHORT).show();
-//                    }
-//                    catch (NumberFormatException e) {
-//                        Toast.makeText(getApplicationContext(), "Try Again", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//                else
-//                    Toast.makeText(getApplicationContext(), "Nothing to Update", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                //openMyProfileActivity();
-//            }
-//        });
 
 
     }

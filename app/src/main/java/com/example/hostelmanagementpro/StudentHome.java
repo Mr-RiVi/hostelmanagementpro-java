@@ -161,6 +161,7 @@ public class StudentHome extends AppCompatActivity {
     public void openMyRes() {
         Intent i = new Intent(this, MyResidence.class);
         i.putExtra(EXTRA_USERID,studentID);
+        i.putExtra(EXTRA_CREDID,credentialsID);
         startActivity(i);
     }
 }

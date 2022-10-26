@@ -27,11 +27,17 @@ public class MyResidence extends AppCompatActivity {
 
     private TextView stuName, stuId, orgID;
 
+    String studentID,credentialsID;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_residence);
+
+        Intent intent=getIntent();
+        studentID=intent.getStringExtra(StudentHome.EXTRA_USERID);
+        credentialsID=intent.getStringExtra(StudentHome.EXTRA_CREDID);
 
         stuName = findViewById(R.id.stuName);
         stuId = findViewById(R.id.stuId);
@@ -49,7 +55,7 @@ public class MyResidence extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("My Residence");
 
-        DatabaseReference getRef = FirebaseDatabase.getInstance().getReference().child("students").child("STU_2");
+        DatabaseReference getRef = FirebaseDatabase.getInstance().getReference().child("students").child(studentID);
         getRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -67,7 +73,7 @@ public class MyResidence extends AppCompatActivity {
             }
         });
 
-        DatabaseReference readID = FirebaseDatabase.getInstance().getReference().child("credentials").child("CRED_4");
+        DatabaseReference readID = FirebaseDatabase.getInstance().getReference().child("credentials").child(credentialsID);
         readID.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

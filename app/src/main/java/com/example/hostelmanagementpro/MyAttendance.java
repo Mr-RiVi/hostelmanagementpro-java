@@ -96,10 +96,11 @@ public class MyAttendance extends AppCompatActivity {
                                     attType.setText(dataSnapshot.child("Type").getValue().toString());
 
                                 }
-                                else
+                                else {
                                     attTime.setText("");
                                     attType.setText("");
                                     Toast.makeText(getApplicationContext(), "No Attendance Activity", Toast.LENGTH_SHORT).show();
+                                }
                             }
 
                             @Override
