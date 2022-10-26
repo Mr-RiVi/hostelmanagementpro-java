@@ -26,21 +26,21 @@ public class UpdateProfile extends AppCompatActivity {
     private Button confirmUpdateBtn;
 
     private TextView stuName, stuId;
-    private EditText stuNewContact, stuNewEmerContact, stuNewEmail, stuCurPassword, stuNewPassword, stuConfirmPassword;
-    DatabaseReference dbRef;
+    private EditText stuNewContact, stuNewEmerContact, stuNewEmail, stuCurPassword, stuNewPassword;
+    DatabaseReference dbRef, pwdRef;
 
     Student std;
 
     String studentID,credentialsID;
 
-//    private void clearControls() {
-//        stuNewContact.setText("");
-//        stuNewEmerContact.setText("");
-//        stuNewEmail.setText("");
+    private void clearControls() {
+        stuNewContact.setText("");
+        stuNewEmerContact.setText("");
+        stuNewEmail.setText("");
 //        stuCurPassword.setText("");
-//        stuNewPassword.setText("");
+        stuNewPassword.setText("");
 //        stuConfirmPassword.setText("");
-//    }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,6 @@ public class UpdateProfile extends AppCompatActivity {
         stuNewEmail = findViewById(R.id.stuNewEmail);
         stuCurPassword = findViewById(R.id.stuCurPassword);
         stuNewPassword = findViewById(R.id.stuNewPassword);
-        stuConfirmPassword = findViewById(R.id.stuConfirmPassword);
 
         std = new Student();
 
@@ -82,19 +81,24 @@ public class UpdateProfile extends AppCompatActivity {
                                 std.setEmail(stuNewEmail.getText().toString().trim());
 
                                 dbRef = FirebaseDatabase.getInstance().getReference().child("students").child(studentID);
+                                std.setAddress(snapshot.child(studentID).child("address").getValue().toString());
+                                std.setCredentialID(snapshot.child(studentID).child("credentialID").getValue().toString());
+                                std.setGender(snapshot.child(studentID).child("gender").getValue().toString());
+                                std.setName(snapshot.child(studentID).child("name").getValue().toString());
+                                std.setOrganizationID(snapshot.child(studentID).child("organizationID").getValue().toString());
+
                                 dbRef.setValue(std);
-                                //clearControls();
-                                stuNewContact.setText("");
-                                stuNewEmerContact.setText("");
-                                stuNewEmail.setText("");
+
+                                clearControls();
                                 Toast.makeText(getApplicationContext(), "Details Updated Successfully", Toast.LENGTH_SHORT).show();
                             }
                             catch (NumberFormatException e) {
                                 Toast.makeText(getApplicationContext(), "Try Again", Toast.LENGTH_SHORT).show();
                             }
                         }
-                        else
+                        else {
                             Toast.makeText(getApplicationContext(), "Nothing to Update", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
@@ -102,6 +106,34 @@ public class UpdateProfile extends AppCompatActivity {
                         //openMyProfileActivity();
                     }
                 });
+
+                //password change
+//                DatabaseReference newPwd = FirebaseDatabase.getInstance().getReference("credentials");
+//                newPwd.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        if (dataSnapshot.hasChild(credentialsID)) {
+//                            try {
+//
+//                                pwdRef = FirebaseDatabase.getInstance().getReference().child("credentials").child(credentialsID).child("Password");
+//                                pwdRef.setValue(stuNewPassword).toString();
+//                                Toast.makeText(getApplicationContext(), "Password Updated Successfully", Toast.LENGTH_SHORT).show();
+//                            }
+//                            catch (NumberFormatException e) {
+//                                //Toast.makeText(getApplicationContext(), "Try Again", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                        else {
+//                            //Toast.makeText(getApplicationContext(), "Nothing to Update", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+
 
             }
         });
@@ -137,6 +169,7 @@ public class UpdateProfile extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChildren()) {
                     stuId.setText(dataSnapshot.child("UserId").getValue().toString());
+                    stuCurPassword.setText(dataSnapshot.child("Password").getValue().toString());
                 }
             }
 
