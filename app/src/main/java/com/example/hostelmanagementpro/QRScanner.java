@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -30,10 +31,12 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class QRScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler
 {
+    public static final String EXTRA_USERID="com.example.hostelmanagementpro.EXTRA_USERID";
+
     ZXingScannerView scannerView;
     DatabaseReference dbRef;
 
-    static DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    static DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
     static long d = System.currentTimeMillis();
     static String date = format.format(new Date(d));
 
@@ -45,12 +48,18 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
 
     static String attUUID;
 
+    String studentID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         scannerView=new ZXingScannerView(this);
         setContentView(scannerView);
-        dbRef= FirebaseDatabase.getInstance().getReference("attendance").child("ATT_1").child(date).child(id);
+
+        Intent intent=getIntent();
+        studentID=intent.getStringExtra(MainActivity.EXTRA_USERID);
+
+        dbRef= FirebaseDatabase.getInstance().getReference("attendance").child(studentID).child(date);
 
         Dexter.withContext(getApplicationContext())
                 .withPermission(Manifest.permission.CAMERA)

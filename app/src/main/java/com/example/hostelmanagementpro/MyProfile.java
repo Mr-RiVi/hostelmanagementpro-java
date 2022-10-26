@@ -26,6 +26,9 @@ import com.google.firebase.database.ValueEventListener;
 import org.w3c.dom.Text;
 
 public class MyProfile extends AppCompatActivity {
+    public static final String EXTRA_USERID="com.example.hostelmanagementpro.EXTRA_USERID";
+    public static final String EXTRA_CREDID="com.example.hostelmanagementpro.EXTRA_CREDID";
+
     private Button updateProfileBtn;
 
     private TextView stuName, stuId, stuAddress, stuContact, stuEmerContact, stuEmail;
@@ -133,6 +136,8 @@ public class MyProfile extends AppCompatActivity {
 
     public void openUpdateProfile() {
         Intent intent = new Intent(this, UpdateProfile.class);
+        intent.putExtra(EXTRA_USERID,studentID);
+        intent.putExtra(EXTRA_CREDID,credentialsID);
         startActivity(intent);
     }
     public void openMainActivity() {

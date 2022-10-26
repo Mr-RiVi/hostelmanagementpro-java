@@ -141,20 +141,20 @@ public class StudentHome extends AppCompatActivity {
     //redirecting to My Attendance activity
     public void openStuAtt() {
         Intent intent = new Intent(this, MyAttendance.class);
+        intent.putExtra(EXTRA_USERID,studentID);
         startActivity(intent);
     }
 
     //redirecting to QR code scanner activity
     public void openQrScan() {
         Intent in = new Intent(this, QRScanner.class);
+        in.putExtra(EXTRA_USERID,studentID);
         startActivity(in);
     }
 
     //redirecting to Payments activity
     //change destination.......................................................
     public void openPayments() {
-        Intent intents = new Intent(this, MyProfile.class);
-        startActivity(intents);
     }
 
     //redirecting to My Residence activity

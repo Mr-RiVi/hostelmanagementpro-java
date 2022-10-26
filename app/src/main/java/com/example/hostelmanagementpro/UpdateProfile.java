@@ -28,6 +28,8 @@ public class UpdateProfile extends AppCompatActivity {
     private EditText stuNewContact, stuNewEmerContact, stuNewEmail, stuCurPassword, stuNewPassword, stuConfirmPassword;
     DatabaseReference dbRef;
 
+    String studentID,credentialsID;
+
 //    private void clearControls() {
 //        stuNewContact.setText("");
 //        stuNewEmerContact.setText("");
@@ -41,6 +43,10 @@ public class UpdateProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
+
+        Intent intent=getIntent();
+        studentID=intent.getStringExtra(MyProfile.EXTRA_USERID);
+        credentialsID=intent.getStringExtra(MyProfile.EXTRA_CREDID);
 
         stuName = findViewById(R.id.stuName);
         stuId = findViewById(R.id.stuId);
@@ -60,9 +66,13 @@ public class UpdateProfile extends AppCompatActivity {
         confirmUpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
                 Toast.makeText(UpdateProfile.this, "My Profile updated", Toast.LENGTH_SHORT).show();
             }
         });
+
         Toolbar toolbar = findViewById(R.id.toolbarNew);
         setSupportActionBar(toolbar);
 
@@ -70,7 +80,7 @@ public class UpdateProfile extends AppCompatActivity {
         getSupportActionBar().setTitle("Update Profile");
 
         //Get Name
-        DatabaseReference readRef = FirebaseDatabase.getInstance().getReference().child("students").child("STU_2");
+        DatabaseReference readRef = FirebaseDatabase.getInstance().getReference().child("students").child(studentID);
         readRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -86,7 +96,7 @@ public class UpdateProfile extends AppCompatActivity {
         });
 
         //Get User ID
-        DatabaseReference readPwd = FirebaseDatabase.getInstance().getReference().child("credentials").child("CRED_4");
+        DatabaseReference readPwd = FirebaseDatabase.getInstance().getReference().child("credentials").child(credentialsID);
         readPwd.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

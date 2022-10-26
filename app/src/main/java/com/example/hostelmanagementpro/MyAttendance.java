@@ -29,6 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 
 public class MyAttendance extends AppCompatActivity {
+    public static final String EXTRA_USERID="com.example.hostelmanagementpro.EXTRA_USERID";
+
     TextView selectDate;
     ImageView dateBtn;
     DatePickerDialog.OnDateSetListener setListener;
@@ -43,12 +45,16 @@ public class MyAttendance extends AppCompatActivity {
 
     String dbDate;
 
-    //355caf37-8ff7-444e-b93c-212439db76a9
+    String studentID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_attendance);
+
+        Intent intent=getIntent();
+        studentID=intent.getStringExtra(MainActivity.EXTRA_USERID);
 
         Toolbar toolbar = findViewById(R.id.toolbarNew);
         setSupportActionBar(toolbar);
@@ -81,22 +87,46 @@ public class MyAttendance extends AppCompatActivity {
                         selectDate.setText(date);
                         dbDate = selectDate.toString();//catch date from this variable
 
+                        DatabaseReference dbOldAtt = FirebaseDatabase.getInstance().getReference("attendance").child(studentID).child(date);
+                        dbOldAtt.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.hasChildren()) {
+                                    attTime.setText(dataSnapshot.child("Time").getValue().toString());
+                                    attType.setText(dataSnapshot.child("Type").getValue().toString());
+
+                                }
+                                else
+                                    attTime.setText("");
+                                    attType.setText("");
+                                    Toast.makeText(getApplicationContext(), "No Attendance Activity", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
                     }
                 },year,month,day);
                 datePickerDialog.show();
 
             }
+
         });
+
+
         deleteHis = (Button) findViewById(R.id.delHis);
         deleteHis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseReference refDel = FirebaseDatabase.getInstance().getReference("attendance").child("ATT_1").child(QRScanner.date);
+                DatabaseReference refDel = FirebaseDatabase.getInstance().getReference("attendance").child(studentID);
                 refDel.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.hasChild(QRScanner.attUUID)) {
-                            dbDel = FirebaseDatabase.getInstance().getReference("attendance").child("ATT_1").child(QRScanner.date).child(QRScanner.attUUID);
+                        if (snapshot.hasChild(QRScanner.date)) {
+                            dbDel = FirebaseDatabase.getInstance().getReference("attendance").child(studentID).child(QRScanner.date);
                             dbDel.removeValue();
                             attTime.setText("");
                             attType.setText("");
@@ -114,7 +144,7 @@ public class MyAttendance extends AppCompatActivity {
             }
         });
 
-        DatabaseReference dbAtt = FirebaseDatabase.getInstance().getReference("attendance").child("ATT_1").child(QRScanner.date).child(QRScanner.attUUID);
+        DatabaseReference dbAtt = FirebaseDatabase.getInstance().getReference("attendance").child(studentID).child(QRScanner.date);
         dbAtt.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -124,8 +154,12 @@ public class MyAttendance extends AppCompatActivity {
                     attType.setText(dataSnapshot.child("Type").getValue().toString());
 
                 }
-                else
+                else {
+                    selectDate.setText(QRScanner.date);
+                    attTime.setText("");
+                    attType.setText("");
                     Toast.makeText(getApplicationContext(), "No Attendance Activity", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
