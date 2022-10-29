@@ -32,6 +32,7 @@ public class UpdateProfile extends AppCompatActivity {
     Student std;
 
     String studentID,credentialsID;
+    String getPwd;
 
     private void clearControls() {
         stuNewContact.setText("");
@@ -108,32 +109,9 @@ public class UpdateProfile extends AppCompatActivity {
                 });
 
                 //password change
-//                DatabaseReference newPwd = FirebaseDatabase.getInstance().getReference("credentials");
-//                newPwd.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                        if (dataSnapshot.hasChild(credentialsID)) {
-//                            try {
-//
-//                                pwdRef = FirebaseDatabase.getInstance().getReference().child("credentials").child(credentialsID).child("Password");
-//                                pwdRef.setValue(stuNewPassword).toString();
-//                                Toast.makeText(getApplicationContext(), "Password Updated Successfully", Toast.LENGTH_SHORT).show();
-//                            }
-//                            catch (NumberFormatException e) {
-//                                //Toast.makeText(getApplicationContext(), "Try Again", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                        else {
-//                            //Toast.makeText(getApplicationContext(), "Nothing to Update", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
-
+                DatabaseReference newPwd = FirebaseDatabase.getInstance().getReference("credentials").child(credentialsID);
+                getPwd = stuNewPassword.getText().toString();
+                newPwd.child("Password").setValue(getPwd);
 
             }
         });
