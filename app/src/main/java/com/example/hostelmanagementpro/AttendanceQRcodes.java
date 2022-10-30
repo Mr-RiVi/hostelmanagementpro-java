@@ -8,12 +8,17 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,16 +32,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Objects;
 
 public class AttendanceQRcodes extends AppCompatActivity {
 
-    private static int REQUEST_CODE = 100;
+    private static final int REQUEST_CODE = 1;
 
     ImageView qrIn, qrOut;
     Button btnSaveIn, btnSaveOut;
 
-    OutputStream outputStream;
-    OutputStream oStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,33 +83,42 @@ public class AttendanceQRcodes extends AppCompatActivity {
     }
 
     private void saveOutImage() {
-        File dir = new File(Environment.getExternalStorageDirectory(),"HostelManagementPro");
+        Uri images;
+        ContentResolver contentResolver = getContentResolver();
 
-        if (!dir.exists()) {
-            dir.mkdir();
+        if (Build.VERSION.SDK_INT >=Build.VERSION_CODES.Q) {
+            images = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
+        }else{
+            images = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         }
-        BitmapDrawable drawables = (BitmapDrawable) qrIn.getDrawable();
-        Bitmap bitmaps = drawables.getBitmap();
 
-        File files = new File(dir,System.currentTimeMillis()+".jpg");
-        try {
-            oStream = new FileOutputStream(files);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        bitmaps.compress(Bitmap.CompressFormat.JPEG,100,oStream);
-        Toast.makeText(this, "Check-Out QR Code Saved", Toast.LENGTH_SHORT).show();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, System.currentTimeMillis() + ".jpg");
+        contentValues.put(MediaStore.Images.Media.MIME_TYPE, "images/*");
+        Uri uri = contentResolver.insert(images,contentValues);
 
         try {
-            oStream.flush();
-        } catch (IOException e) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) qrOut.getDrawable();
+            Bitmap bitmap = bitmapDrawable.getBitmap();
+
+            OutputStream outputStream = contentResolver.openOutputStream(Objects.requireNonNull(uri));
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
+            Objects.requireNonNull(outputStream);
+
+            Toast.makeText(this, "Check-In QR Code Saved", Toast.LENGTH_SHORT).show();
+
+
+
+        }catch (Exception e) {
+            Toast.makeText(this, "QR Code Not Saved", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
-        try {
-            oStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+
+
+
+
+
     }
 
     private void askPermission() {
@@ -128,31 +141,35 @@ public class AttendanceQRcodes extends AppCompatActivity {
     }
 
     private void saveImage() {
-        File dir = new File(Environment.getExternalStorageDirectory(),"HostelManagementPro");
 
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
-        BitmapDrawable drawable = (BitmapDrawable) qrIn.getDrawable();
-        Bitmap bitmap = drawable.getBitmap();
+        Uri images;
+        ContentResolver contentResolver = getContentResolver();
 
-        File file = new File(dir,System.currentTimeMillis()+".jpg");
-        try {
-            outputStream = new FileOutputStream(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        if (Build.VERSION.SDK_INT >=Build.VERSION_CODES.Q) {
+            images = MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
+        }else{
+            images = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         }
-        bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
-        Toast.makeText(this, "Check-In QR Code Saved", Toast.LENGTH_SHORT).show();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, System.currentTimeMillis() + ".jpg");
+        contentValues.put(MediaStore.Images.Media.MIME_TYPE, "images/*");
+        Uri uri = contentResolver.insert(images,contentValues);
 
         try {
-            outputStream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            outputStream.close();
-        } catch (IOException e) {
+            BitmapDrawable bitmapDrawable = (BitmapDrawable) qrIn.getDrawable();
+            Bitmap bitmap = bitmapDrawable.getBitmap();
+
+            OutputStream outputStream = contentResolver.openOutputStream(Objects.requireNonNull(uri));
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
+            Objects.requireNonNull(outputStream);
+
+            Toast.makeText(this, "Check-In QR Code Saved", Toast.LENGTH_SHORT).show();
+
+
+
+        }catch (Exception e) {
+            Toast.makeText(this, "QR Code Not Saved", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }

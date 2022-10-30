@@ -19,6 +19,7 @@ public class FunctionsAdministrator extends AppCompatActivity {
     Toolbar toolbar;
     CardView mngStudentBtn,mngAccommodationBtn,mngPaymentBtn;
     String orgId,adminID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +28,7 @@ public class FunctionsAdministrator extends AppCompatActivity {
         mngStudentBtn=findViewById(R.id.btnMngStudents);
         mngAccommodationBtn=findViewById(R.id.btnMngAccommodation);
         mngPaymentBtn=findViewById(R.id.btn_payment);
+
 
         //catch toolbar and set it as default actionbar
         toolbar=findViewById(R.id.toolbar);
@@ -67,6 +69,7 @@ public class FunctionsAdministrator extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     //actionbar menu implementation
