@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -19,21 +20,25 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class QRScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler
 {
+    public static final String EXTRA_USERID="com.example.hostelmanagementpro.EXTRA_USERID";
+
     ZXingScannerView scannerView;
     DatabaseReference dbRef;
 
-    DateFormat format = new SimpleDateFormat("yyyy_MM_dd");
-    long d = System.currentTimeMillis();
-    String date = format.format(new Date(d));
+    static DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+    static long d = System.currentTimeMillis();
+    static String date = format.format(new Date(d));
 
     DateFormat formats = new SimpleDateFormat("hh:mm a");
     long t = System.currentTimeMillis();
@@ -41,12 +46,20 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
 
     String id = UUID.randomUUID().toString();
 
+    static String attUUID;
+
+    String studentID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         scannerView=new ZXingScannerView(this);
         setContentView(scannerView);
-        dbRef= FirebaseDatabase.getInstance().getReference("attendance").child("ATT_1").child(date).child(id);
+
+        Intent intent=getIntent();
+        studentID=intent.getStringExtra(MainActivity.EXTRA_USERID);
+
+        dbRef= FirebaseDatabase.getInstance().getReference("attendance").child(studentID).child(date);
 
         Dexter.withContext(getApplicationContext())
                 .withPermission(Manifest.permission.CAMERA)
@@ -71,7 +84,7 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
     @Override
     public void handleResult(Result result) {
         String data = result.getText().toString();
-
+        attUUID = id;
         Toast.makeText(getApplicationContext(), "Attendance Successfully Recorded", Toast.LENGTH_SHORT).show();
 
         dbRef.child("Type").setValue(data)
@@ -83,6 +96,14 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
                 });
 
         dbRef.child("Time").setValue(time)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        onBackPressed();
+                    }
+                });
+
+        dbRef.child("ATT_ID").setValue(id)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

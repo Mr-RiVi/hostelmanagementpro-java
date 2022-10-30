@@ -85,8 +85,6 @@ public class StudentHome extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbarNew);
         setSupportActionBar(toolbar);
 
-        //Enabling back button and setting tittle
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Student Home");
 
         payBtn.setOnClickListener(new View.OnClickListener() {
@@ -143,26 +141,27 @@ public class StudentHome extends AppCompatActivity {
     //redirecting to My Attendance activity
     public void openStuAtt() {
         Intent intent = new Intent(this, MyAttendance.class);
+        intent.putExtra(EXTRA_USERID,studentID);
         startActivity(intent);
     }
 
     //redirecting to QR code scanner activity
     public void openQrScan() {
         Intent in = new Intent(this, QRScanner.class);
+        in.putExtra(EXTRA_USERID,studentID);
         startActivity(in);
     }
 
     //redirecting to Payments activity
     //change destination.......................................................
     public void openPayments() {
-        Intent intents = new Intent(this, MyProfile.class);
-        startActivity(intents);
     }
 
     //redirecting to My Residence activity
     public void openMyRes() {
         Intent i = new Intent(this, MyResidence.class);
         i.putExtra(EXTRA_USERID,studentID);
+        i.putExtra(EXTRA_CREDID,credentialsID);
         startActivity(i);
     }
 }
