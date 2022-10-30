@@ -32,6 +32,7 @@ import java.util.List;
 public class Building extends AppCompatActivity {
 
     Toolbar toolbar;
+    TextView txt;
     ImageView btn;
     DatabaseReference myRef;
     ValueEventListener postListener;
@@ -47,7 +48,7 @@ public class Building extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //set actionbar name and enable back navigation
-        getSupportActionBar().setTitle("Model");
+        getSupportActionBar().setTitle("Building");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -60,8 +61,9 @@ public class Building extends AppCompatActivity {
         adapter.setOnItemClickListener(position -> {
             BuildingModel clickedBuilding = buildings.get(position);
 
-            Intent in=new Intent(Building.this,Floor.class);
-            startActivity(in);
+            Intent intent =new Intent(Building.this,Floor.class);
+            intent.putExtra("building_number",clickedBuilding.getNumber());
+            startActivity(intent);
 
             Toast.makeText(this,"Building Clicked - No: "+clickedBuilding.getNumber() +", Gender: "+clickedBuilding.getGender(),Toast.LENGTH_LONG).show();
 
@@ -107,18 +109,17 @@ public class Building extends AppCompatActivity {
         myRef.removeEventListener(postListener);
     }
 
-    //    Back Button
-    public void onclickBbtn(View view){
-        Intent in=new Intent(this,ManageAccommodation.class);
-        startActivity(in);
-    }
+//    //    Back Button
+//    public void onclickBbtn(View view){
+//        Intent in=new Intent(this,ManageAccommodation.class);
+//        startActivity(in);
+//    }
 
 //    Btn for Add Building Page
     public void onclickAB(View view){
         Intent in=new Intent(this,AddBuilding.class);
         startActivity(in);
     }
-
 //    Btn for Remove Building Page
     public void onclickRB(View view){
         Intent in=new Intent(this,RemoveBuilding.class);
@@ -135,6 +136,10 @@ public class Building extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
+//            case R.id.mnuHome:
+//                Intent intent1 =new Intent(Building.this,FunctionsAdministrator.class);
+//                startActivity(intent1);
+//                return true;
             case R.id.mnuMyProfile:
                 //go to Admin profile
                 return true;

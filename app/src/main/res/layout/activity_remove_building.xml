@@ -6,17 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".RemoveBuilding">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="215dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include"
-        app:layout_constraintVertical_bias="0.047"
+        android:layout_marginBottom="356dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         tools:layout_editor_absoluteX="0dp">
 
         <TextView
@@ -39,7 +37,6 @@
             android:layout_height="wrap_content"
             android:autofillHints=""
             android:ems="10"
-            android:inputType="number"
             android:text="1"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -53,20 +50,21 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="82dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="16dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/removeBuildingBtn"
-            android:layout_width="match_parent"
-            android:layout_height="61dp"
+            android:layout_width="358dp"
+            android:layout_height="59dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:backgroundTint="@color/blue"
             android:text="@string/removeBuildingBtn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

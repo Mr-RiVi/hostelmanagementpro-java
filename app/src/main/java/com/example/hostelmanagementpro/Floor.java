@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -30,10 +31,12 @@ import java.util.List;
 public class Floor extends AppCompatActivity {
 
     Toolbar toolbar;
+    TextView txt;
     ImageView btn;
-    DatabaseReference myRef;
+    Query myQuery;
     ValueEventListener postListener;
     private List<FloorModel> floors;
+    private String buildingNumber = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,17 @@ public class Floor extends AppCompatActivity {
         getSupportActionBar().setTitle("Floor");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        // get extra
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            buildingNumber = extras.getString("building_number");
+        } else  {
+            Toast.makeText(this,"Error - Building ID not found", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
         // setting recycler view adapter
         RecyclerView recyclerView = findViewById(R.id.recycler_2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -55,17 +69,18 @@ public class Floor extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener(position -> {
             FloorModel clickedFloor = floors.get(position);
-            //Pass data and start new activity here
-            // uda tiyenne click karapu building eka. eken ona nam next activity ekata yana eka metana code krnna
-            // click krma run wenne metana
-            // TODO @ metana hadanna
 
-            Toast.makeText(this,"Floor Clicked - No: "+clickedFloor.getNumber() +", Room Count: "+clickedFloor.getRoomCount(),Toast.LENGTH_LONG).show();
+            Intent intent =new Intent(Floor.this,Room.class);
+            intent.putExtra("floor_number",clickedFloor.getNumber());
+            intent.putExtra("building_number",buildingNumber);
+            startActivity(intent);
+
+            Toast.makeText(this,"Floor Clicked - No: "+clickedFloor.getNumber(), Toast.LENGTH_LONG).show();
         });
 
         // getting and listening data from database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("floors");
+        myQuery = database.getReference("buildings").child(buildingNumber).child("floors").orderByChild("FloorNo");
 
         // Child event listner ekak use krnna ona. lesi handa meka demme. hariyata krnawa nam eka use krnna
         postListener = new ValueEventListener() {
@@ -75,13 +90,13 @@ public class Floor extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     floors = new ArrayList<>();
                     for (DataSnapshot floorSnapshot: dataSnapshot.getChildren()) {
-                        FloorModel model = new FloorModel(floorSnapshot.child("FloorNo").getValue(String.class),
+                        FloorModel model = new FloorModel(
+                                floorSnapshot.child("FloorNo").getValue(String.class),
                                 floorSnapshot.child("RoomCount").getValue(String.class));
                         floors.add(model);
                     }
                     adapter.setFloors(floors);
                 }
-                // ..
             }
 
             @Override
@@ -89,19 +104,20 @@ public class Floor extends AppCompatActivity {
                 Log.w("Floor", "loadFloors:onCancelled", databaseError.toException());
             }
         };
-        myRef.addValueEventListener(postListener);
+        myQuery.addValueEventListener(postListener);
     }
 
 
-    //   tool bar Back Button
-    public void onclickBbtn(View view){
-        Intent in=new Intent(this,Building.class);
-        startActivity(in);
-    }
+//    //   tool bar Back Button
+//    public void onclickBbtn(View view){
+//        Intent in=new Intent(this,Building.class);
+//        startActivity(in);
+//    }
 
     //    Btn for Add Floor Page
     public void onclickAF(View view){
         Intent in=new Intent(this,AddFloor.class);
+        in.putExtra("building_number",buildingNumber);
         startActivity(in);
     }
     //    Btn for Remove Floor Page
