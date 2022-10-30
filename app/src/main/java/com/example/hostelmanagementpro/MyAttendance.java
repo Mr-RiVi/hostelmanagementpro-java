@@ -44,6 +44,7 @@ public class MyAttendance extends AppCompatActivity {
     DatabaseReference dbDel;
 
     String dbDate;
+    Toolbar toolbar;
 
     String studentID;
 
@@ -56,11 +57,12 @@ public class MyAttendance extends AppCompatActivity {
         Intent intent=getIntent();
         studentID=intent.getStringExtra(MainActivity.EXTRA_USERID);
 
-        Toolbar toolbar = findViewById(R.id.toolbarNew);
+        toolbar = findViewById(R.id.toolbarNew);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("My Attendance");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         selectDate = findViewById(R.id.selectDate);
         dateBtn = findViewById(R.id.dateBtn);
