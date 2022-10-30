@@ -13,9 +13,10 @@ import android.view.View;
 import android.widget.TextView;
 
 public class ManageAccommodation extends AppCompatActivity {
-
+    public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
     Toolbar toolbar;
     TextView txt;
+    String orgID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +30,15 @@ public class ManageAccommodation extends AppCompatActivity {
         //set actionbar name and enable back navigation
         getSupportActionBar().setTitle("Manage Accommodation");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Intent intent =getIntent();
+        orgID=intent.getStringExtra(FunctionsAdministrator.EXTRA_ORGID);
     }
 
 //    Btn for Building Page
     public void onclickMA(View view){
         Intent in=new Intent(this,Building.class);
+        in.putExtra(EXTRA_ORGID,orgID);
         startActivity(in);
     }
 

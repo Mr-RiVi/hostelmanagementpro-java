@@ -30,13 +30,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Building extends AppCompatActivity {
-
+    public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
     Toolbar toolbar;
     TextView txt;
     ImageView btn;
     DatabaseReference myRef;
     ValueEventListener postListener;
     private List<BuildingModel> buildings;
+    String orgID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,8 @@ public class Building extends AppCompatActivity {
         getSupportActionBar().setTitle("Building");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        Intent int1 =getIntent();
+        orgID=int1.getStringExtra(FunctionsAdministrator.EXTRA_ORGID);
 
         // setting recycler view adapter
         RecyclerView recyclerView = findViewById(R.id.recycler_1);
@@ -118,6 +120,7 @@ public class Building extends AppCompatActivity {
 //    Btn for Add Building Page
     public void onclickAB(View view){
         Intent in=new Intent(this,AddBuilding.class);
+        in.putExtra(EXTRA_ORGID,orgID);
         startActivity(in);
     }
 //    Btn for Remove Building Page

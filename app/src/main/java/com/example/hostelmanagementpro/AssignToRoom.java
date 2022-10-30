@@ -5,17 +5,22 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.hostelmanagementpro.model.BuildingModel;
@@ -45,7 +50,8 @@ public class AssignToRoom extends AppCompatActivity {
     String name,stuGender,stuID;
     Intent intent;
     Toolbar toolbar;
-
+    Button Yes,No;
+    Dialog dialog;
     PieChart chart;
 
     @Override
@@ -196,5 +202,36 @@ public class AssignToRoom extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //logout
+    @SuppressLint("ResourceType")
+    public void logoutFunction(){
+        //Create the Dialog
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.logout_custom_dialog);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_background));
+        }
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
+        dialog.show();
+        Yes = dialog.findViewById(R.id.btn_yes);
+        No = dialog.findViewById(R.id.btn_No);
+        Yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(AssignToRoom.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        No.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 }

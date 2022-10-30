@@ -189,7 +189,8 @@
         <activity
             android:name=".Bed"
             android:exported="false"
-            android:parentActivityName=".Room">
+            android:parentActivityName=".Room"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -220,7 +221,8 @@
         <activity
             android:name=".Room"
             android:exported="false"
-            android:parentActivityName=".Floor">
+            android:parentActivityName=".Floor"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -251,7 +253,8 @@
         <activity
             android:name=".Floor"
             android:exported="false"
-            android:parentActivityName=".Building">
+            android:parentActivityName=".Building"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -275,7 +278,8 @@
         <activity
             android:name=".Building"
             android:exported="false"
-            android:parentActivityName=".ManageAccommodation">
+            android:parentActivityName=".ManageAccommodation"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
