@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="12dp"
     app:cardCornerRadius="20dp">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -113,24 +113,42 @@
             android:gravity="right"
             >
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_edit_24"
-                app:tint="@color/white"
-                android:background="?attr/selectableItemBackgroundBorderless"
+            <ImageView
+                android:id="@+id/imgBtnRoomInfo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="30dp"
-                android:layout_marginVertical="8dp"/>
+                android:layout_marginVertical="8dp"
+                android:layout_marginRight="130dp"
+                android:backgroundTint="@color/blue"
+                android:src="@drawable/room_info_icon"
+                app:tint="@color/white"/>
 
             <ImageButton
+                android:id="@+id/imgBtnEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_delete_24"
-                app:tint="@color/white"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="60dp"
-                android:background="?attr/selectableItemBackgroundBorderless"/>
+                android:layout_marginVertical="8dp"
+                android:layout_marginRight="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:src="@drawable/ic_baseline_edit_24"
+                app:tint="@color/white"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <ImageButton
+                android:id="@+id/imgBtnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="30dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:src="@drawable/ic_baseline_delete_24"
+                app:tint="@color/white" />
 
         </LinearLayout>
 

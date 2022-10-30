@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class AdministratorRegistration extends AppCompatActivity {
@@ -35,13 +36,11 @@ public class AdministratorRegistration extends AppCompatActivity {
     Button crtAcc;
     TextView welcomeMsg;
     ImageButton gen;
-    DatabaseReference dbOrg,dbAdmin;
+    DatabaseReference dbOrg,dbAdmin,dbCredentials;
     String orgID,dbOrgName;
     Admin admin;
-    long maxAdminId;
+    long maxAdminId=0,maxCredID=0;
 
-    DatabaseReference dbCredentials;
-    long credID=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,8 +98,6 @@ public class AdministratorRegistration extends AppCompatActivity {
             orgUsername.setText(orgUsName);
         }
 
-
-
         //check credentials while user entering password
         orgPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -148,7 +145,7 @@ public class AdministratorRegistration extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         administratorIdGenerator();
-        getAndUpdateCredentialNodeCount();
+        getAndUpdateMaxCredentialID();
     }
 
     //check organization is available or not, using username
@@ -231,7 +228,7 @@ public class AdministratorRegistration extends AppCompatActivity {
             saveCredentialDetails(adminUsername.getText().toString(),adminPassword.getText().toString(),"admin","ADMIN_"+String.valueOf(maxAdminId+1));
 
             admin.setOrgID(orgID);
-            admin.setCredentialID("CRED_"+String.valueOf(credID+1));
+            admin.setCredentialID("CRED_"+String.valueOf(maxCredID+1));
             admin.setName(adminName.getText().toString().trim());
             admin.setContactNo(contNo.getText().toString().trim());
             admin.setNic(nic.getText().toString().trim());
@@ -296,9 +293,9 @@ public class AdministratorRegistration extends AppCompatActivity {
         a.put("Role",role);
         a.put("UserId",userid);
 
-        getAndUpdateCredentialNodeCount();
+        getAndUpdateMaxCredentialID();
 
-        dbCredentials.child("CRED_"+String.valueOf(credID+1)).setValue(a).addOnCompleteListener(new OnCompleteListener<Void>() {
+        dbCredentials.child("CRED_"+String.valueOf(maxCredID+1)).setValue(a).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
@@ -310,16 +307,22 @@ public class AdministratorRegistration extends AppCompatActivity {
         });
     }
 
-    private void getAndUpdateCredentialNodeCount(){
+    private void getAndUpdateMaxCredentialID(){
         dbCredentials= FirebaseDatabase.getInstance().getReference("credentials");
+        ArrayList<Integer> list=new ArrayList<>();
         dbCredentials.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    credID=snapshot.getChildrenCount();
+                    for (DataSnapshot ds:snapshot.getChildren()){
+                        String orgId=ds.getKey().toString();
+                        String arr[]=orgId.split("_");
+                        list.add(Integer.parseInt(arr[1]));
+                    }
+                    maxCredID= Collections.max(list);
                 }
                 else
-                    credID=0;
+                    maxCredID=0;
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.hostelmanagementpro.model.StuProfiles;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -68,9 +71,11 @@ public class MainActivity extends AppCompatActivity {
                                         switch (role){
                                             case "admin":
                                                 openAdminHomeActivity(orgID,userId);
+                                                saveUsernameInLogging();
                                                 break;
                                             case "student":
                                                 openStudentHomeActivity(orgID,userId);
+                                                saveUsernameInLogging();
                                                 break;
                                         }
                                     }
@@ -108,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 if(snapshot.exists()){
                     for(DataSnapshot ds: snapshot.getChildren()){
                         credId=ds.getKey().toString();
-                        System.out.println("credential id is: "+credId);
                         firebaseCallback.onCallback(credId);
                     }
                 }
@@ -134,8 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
                 String dbUsername=snapshot.child("Username").getValue().toString();
                 String dbPassword=snapshot.child("Password").getValue().toString();
-                System.out.println("db pass is:"+dbPassword);
-                System.out.println("db username is:"+dbUsername);
                 if (usrEnterUsername.equals(dbUsername)&&userEnterPassword.equals(dbPassword)){
                     role=snapshot.child("Role").getValue().toString();
                     userId=snapshot.child("UserId").getValue().toString();
@@ -145,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     password.setError("Password incorrect");
-                    System.out.println("credentials incorrect");
                 }
             }
 
@@ -159,15 +160,12 @@ public class MainActivity extends AppCompatActivity {
     //get organization id in that user
     public void getOrganizationID(FirebaseCallback firebaseCallback){
         String arr[]=userId.split("_");
-        System.out.println("array 0 th element is:"+arr[0]);
-        System.out.println("user id is:"+userId);
         switch (arr[0]){
             case "ADMIN":
                 dbAdmin.child(userId).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         orgID=snapshot.child("orgID").getValue().toString();
-                        System.out.println("Org id is:"+orgID);
                         firebaseCallback.onCallback(orgID);
                     }
 
@@ -178,12 +176,10 @@ public class MainActivity extends AppCompatActivity {
                 });
                 break;
             case "STU":
-                System.out.println("This is Student user id is: "+userId);
                 dbStu.child(userId).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         orgID=snapshot.child("organizationID").getValue().toString();
-                        System.out.println("Student Org id is:"+orgID);
                         firebaseCallback.onCallback(orgID);
                     }
 
@@ -210,6 +206,20 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_ORGID,orgid);
         intent.putExtra(EXTRA_USERID,userId);
         startActivity(intent);
+    }
+
+    public void saveUsernameInLogging(){
+        SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+               SharedPreferences.Editor editor = preferences.edit();
+               editor.putString("USERNAME",username.getText().toString());
+               editor.commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences preferences=PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        username.setText(preferences.getString("USERNAME",null));
     }
 
     private interface FirebaseCallback{

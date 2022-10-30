@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -32,6 +33,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class StuRegister extends AppCompatActivity {
@@ -42,13 +45,14 @@ public class StuRegister extends AppCompatActivity {
     EditText studentName,studentUsername,studentPassword,emgContactNo,contactNo,email,address;
     RadioGroup radioGroup;
     String gender;
-    Button crtAcc;
+    Button crtAcc,Yes,No;
     ImageButton gen;
+    ImageView dialogIcon;
     Student stu;
     String orgID;
     String TAG="rivindu";
     DatabaseReference dbStudent,dbCredentials;
-    long maxStuId=0,credID=0;
+    int maxStuId=0,credID=0;
     Dialog dialog;
 
     @Override
@@ -90,9 +94,6 @@ public class StuRegister extends AppCompatActivity {
                 }
             }
         });
-        //get gender in the radio button
-        //int radioId=radioGroup.getCheckedRadioButtonId();
-        //gender=findViewById(radioId);
         System.out.println("gender is:"+gender);
 
         //catch toolbar and set it as default actionbar
@@ -115,12 +116,12 @@ public class StuRegister extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_background));
         }
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.setCancelable(false); //Optional
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
 
-        Button Yes = dialog.findViewById(R.id.btn_yes);
-        Button NotNow = dialog.findViewById(R.id.btn_notNow);
+        Yes = dialog.findViewById(R.id.btn_yes);
+        No = dialog.findViewById(R.id.btn_No);
 
         Yes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,10 +131,11 @@ public class StuRegister extends AppCompatActivity {
             }
         });
 
-        NotNow.setOnClickListener(new View.OnClickListener() {
+        No.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(StuRegister.this,FunctionsStuManagement.class);
+                intent.putExtra(EXTRA_ORGID,orgID);
                 startActivity(intent);
                 dialog.dismiss();
             }
@@ -143,7 +145,6 @@ public class StuRegister extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                   saveStudentDetails();
-                  dialog.show();
             }
         });
     }
@@ -151,8 +152,8 @@ public class StuRegister extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getAndUpdateStudentNodeCount();
-        getAndUpdateCredentialNodeCount();
+        getAndUpdateMaxStudentID();
+        getAndUpdateMaxCredentialID();
     }
 
     //insert student details to db
@@ -201,11 +202,11 @@ public class StuRegister extends AppCompatActivity {
                         contactNo.setText("");
                         email.setText("");
                         address.setText("");
-
-                        //Toast.makeText(StuRegister.this,"Student registered",Toast.LENGTH_SHORT).show();
                     }
                 }
             });
+
+            dialog.show();
         }
     }
 
@@ -239,13 +240,20 @@ public class StuRegister extends AppCompatActivity {
         });
     }
 
-    private void getAndUpdateCredentialNodeCount(){
+    private void getAndUpdateMaxCredentialID(){
+        ArrayList<Integer> list=new ArrayList<>();
         dbCredentials.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    credID=snapshot.getChildrenCount();
-                    System.out.println("cred count is"+credID);
+                    for (DataSnapshot ds:snapshot.getChildren()){
+                        String credenID=ds.getKey().toString();
+                        System.out.println("counting credentials id is:"+credenID);
+                        String arr[]=credenID.split("_");
+                        list.add(Integer.parseInt(arr[1]));
+                    }
+                    System.out.println("Largest in given cred array is " + Collections.max(list));
+                    credID=Collections.max(list);
                 }
                 else
                     credID=0;
@@ -257,12 +265,20 @@ public class StuRegister extends AppCompatActivity {
         });
     }
 
-    private void getAndUpdateStudentNodeCount(){
+    private void getAndUpdateMaxStudentID(){
+        ArrayList<Integer> list=new ArrayList<>();
         dbStudent.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    maxStuId=snapshot.getChildrenCount();
+                    for (DataSnapshot ds:snapshot.getChildren()){
+                        String stuID=ds.getKey().toString();
+                        System.out.println("counting stu id is:"+stuID);
+                        String arr[]=stuID.split("_");
+                        list.add(Integer.parseInt(arr[1]));
+                    }
+                    System.out.println("Largest in given array is " + Collections.max(list));
+                    maxStuId=Collections.max(list);
                 }
                 else
                     maxStuId=0;
@@ -284,12 +300,16 @@ public class StuRegister extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
+            case R.id.mnuHome:
+                Intent intent1 =new Intent(StuRegister.this,FunctionsAdministrator.class);
+                intent1.putExtra(EXTRA_ORGID,orgID);
+                startActivity(intent1);
+                return true;
             case R.id.mnuMyProfile:
                 //go to profile
                 return true;
             case R.id.mnuLogout:
-                Intent intent=new Intent(this,MainActivity.class);
-                startActivity(intent);
+                logoutFunction();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -304,12 +324,35 @@ public class StuRegister extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private interface FirebaseCallbackGetCount{
-        public void onCallback(long count);
-    }
+    //logout
+    @SuppressLint("ResourceType")
+    public void logoutFunction(){
+        //Create the Dialog
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.logout_custom_dialog);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialog_background));
+        }
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(false);
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation; //Setting the animations to dialog
+        dialog.show();
+        Yes = dialog.findViewById(R.id.btn_yes);
+        No = dialog.findViewById(R.id.btn_No);
+        Yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(StuRegister.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
-    private interface FirebaseCallbackSaveDetails{
-        public void onCallback();
+        No.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 
     //username generator for organization

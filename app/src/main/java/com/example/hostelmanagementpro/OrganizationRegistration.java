@@ -26,6 +26,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class OrganizationRegistration extends AppCompatActivity {
     public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
 
@@ -38,7 +41,7 @@ public class OrganizationRegistration extends AppCompatActivity {
     EditText address;
     Button crtAccount;
     ImageButton gen;
-    DatabaseReference saveData;
+    DatabaseReference dbOrganization;
     Organization org;
     long maxOrgId=0;
 
@@ -60,7 +63,7 @@ public class OrganizationRegistration extends AppCompatActivity {
         crtAccount=findViewById(R.id.btnCrtAcc);
         gen=findViewById(R.id.imgBtnusNameGen);
 
-        saveData= FirebaseDatabase.getInstance().getReference().child("organizations");
+        dbOrganization= FirebaseDatabase.getInstance().getReference().child("organizations");
 
         org=new Organization();
 
@@ -98,7 +101,7 @@ public class OrganizationRegistration extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getAndUpdateOrganizationIdsCount();
+        getAndUpdateMaxOrganizationId();
     }
 
     //inserting organization data to the database
@@ -127,7 +130,7 @@ public class OrganizationRegistration extends AppCompatActivity {
                 org.setEmail(email.getText().toString().trim());
                 org.setAddress(address.getText().toString().trim());
 
-                saveData.child("ORG_"+String.valueOf(maxOrgId+1)).setValue(org).addOnCompleteListener(new OnCompleteListener<Void>() {
+                dbOrganization.child("ORG_"+String.valueOf(maxOrgId+1)).setValue(org).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
@@ -152,17 +155,22 @@ public class OrganizationRegistration extends AppCompatActivity {
     }
 
     //organization id(primary key) generator
-    public void getAndUpdateOrganizationIdsCount(){
-        saveData.addValueEventListener(new ValueEventListener() {
+    public void getAndUpdateMaxOrganizationId(){
+        ArrayList<Integer> list=new ArrayList<>();
+        dbOrganization.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    maxOrgId=snapshot.getChildrenCount();
+                if(snapshot.exists()){
+                    for (DataSnapshot ds:snapshot.getChildren()){
+                        String orgId=ds.getKey().toString();
+                        String arr[]=orgId.split("_");
+                        list.add(Integer.parseInt(arr[1]));
+                    }
+                    maxOrgId=Collections.max(list);
                 }
                 else
                     maxOrgId=0;
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

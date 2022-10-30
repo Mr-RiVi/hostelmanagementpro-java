@@ -9,10 +9,22 @@
     <include android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_margin="12dp"
+        app:queryHint="@string/search"
+        android:background="@drawable/search_background"
+        app:iconifiedByDefault="false"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/search"
         tools:layout_editor_absoluteX="-3dp"
         tools:layout_editor_absoluteY="67dp" />
 

@@ -183,6 +183,10 @@ public class AssignToRoom extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
+            case R.id.mnuHome:
+                Intent intent1 =new Intent(AssignToRoom.this,FunctionsAdministrator.class);
+                startActivity(intent1);
+                return true;
             case R.id.mnuMyProfile:
                 //go to profile
                 return true;

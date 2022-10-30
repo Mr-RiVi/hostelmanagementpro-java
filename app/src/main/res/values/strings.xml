@@ -14,8 +14,10 @@
     <string name="student_registration">Student Registration</string>
     <string name="organization_registration">Organization Registration</string>
     <string name="admin_registration">Administrator Registration</string>
+    <string name="student_profiles">Student Profiles</string>
 
     <!--    Menu options-->
+    <string name="menu_Home">Home Page</string>
     <string name="menu_myProfile">My Profile</string>
     <string name="menu_logout">Logout</string>
 
@@ -143,5 +145,10 @@
     <string name="add_room">Add Room</string>
     <string name="remove_room">Remove Room</string>
     <string name="available_seats_percentage">Available Seat Percentage</string>
+    <string name="search">Search here</string>
+    <string name="logout">Logout</string>
+    <string name="logout_msg">Are you sure,do you want to logout?</string>
+    <string name="delete">Delete</string>
+    <string name="delete_msg">Are you sure you want to delete this student</string>
 
 </resources>
