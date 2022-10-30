@@ -25,7 +25,7 @@ public class MyResidence extends AppCompatActivity {
 
     private Button myProfBtn;
 
-    private TextView stuName, stuId, orgID;
+    private TextView stuName, stuId, orgID, stuBuildNo, stuFloorNo, stuRoomNo, stuBedNo;
 
     String studentID,credentialsID;
 
@@ -42,6 +42,10 @@ public class MyResidence extends AppCompatActivity {
         stuName = findViewById(R.id.stuName);
         stuId = findViewById(R.id.stuId);
         orgID = findViewById(R.id.orgId);
+        stuBuildNo = findViewById(R.id.stuBuildNo);
+        stuFloorNo = findViewById(R.id.stuFloorNo);
+        stuRoomNo = findViewById(R.id.stuRoomNo);
+        stuBedNo = findViewById(R.id.stuBedNo);
 
         myProfBtn = (Button) findViewById(R.id.button);
         myProfBtn.setText("These details are uneditable");
@@ -89,6 +93,47 @@ public class MyResidence extends AppCompatActivity {
 
             }
         });
+
+        //get Room details
+        DatabaseReference getBed = FirebaseDatabase.getInstance().getReference("buildings");
+        getBed.orderByChild("StuId").equalTo(studentID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot ds:snapshot.getChildren()) {
+                    String bed = ds.getKey();
+                    stuBedNo.setText(bed);
+
+//                    for (DataSnapshot rooms:snapshot.child(bed).child("beds").getChildren()) {
+//                        String room = rooms.getKey();
+//                        stuRoomNo.setText(room);
+//
+//                        for (DataSnapshot floors:snapshot.child(bed).child("beds").child(room).child("rooms").getChildren()) {
+//                            String floor = floors.getKey();
+//                            stuFloorNo.setText(floor);
+//
+//                            for (DataSnapshot buildings:snapshot.child(bed).child("beds").child(room).child("rooms").child(floor).child("floors").getChildren()) {
+//                                String building = buildings.getKey();
+//                                stuFloorNo.setText(building);
+//                            }
+//                        }
+//
+//                    }
+
+
+
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //throw error.toException();
+            }
+        });
+
+
+
     }
 
     @Override
