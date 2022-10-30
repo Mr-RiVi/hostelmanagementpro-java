@@ -22,7 +22,7 @@ public class FunctionsAdministrator extends AppCompatActivity {
     public static final String EXTRA_ADMINID="com.example.hostelmanagementpro.EXTRA_ADMINID";
 
     Toolbar toolbar;
-    CardView mngStudentBtn,mngAccommodationBtn,mngPaymentBtn;
+    CardView mngStudentBtn,mngAccommodationBtn,mngOrganization,mngPaymentBtn;
     String orgId,adminID;
     Dialog dialog;
     Button Yes,No;
@@ -34,6 +34,7 @@ public class FunctionsAdministrator extends AppCompatActivity {
         mngStudentBtn=findViewById(R.id.btnMngStudents);
         mngAccommodationBtn=findViewById(R.id.btnMngAccommodation);
         mngPaymentBtn=findViewById(R.id.btn_payment);
+        mngOrganization=findViewById(R.id.btnMngOrganization);
 
         //catch toolbar and set it as default actionbar
         toolbar=findViewById(R.id.toolbar);
@@ -70,6 +71,14 @@ public class FunctionsAdministrator extends AppCompatActivity {
                 Intent intent =new Intent(FunctionsAdministrator.this,ManageAccommodation.class);
                 intent.putExtra(EXTRA_ORGID,orgId);
                 intent.putExtra(EXTRA_ADMINID,adminID);
+                startActivity(intent);
+            }
+        });
+
+        mngOrganization.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(FunctionsAdministrator.this,AttendanceQRcodes.class);
                 startActivity(intent);
             }
         });

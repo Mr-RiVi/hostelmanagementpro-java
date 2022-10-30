@@ -19,7 +19,8 @@
         <activity
             android:name=".AttendanceQRcodes"
             android:exported="false"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".FunctionsAdministrator">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
