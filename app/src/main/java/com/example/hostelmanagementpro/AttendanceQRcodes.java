@@ -105,7 +105,7 @@ public class AttendanceQRcodes extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
             Objects.requireNonNull(outputStream);
 
-            Toast.makeText(this, "Check-In QR Code Saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Check-Out QR Code Saved", Toast.LENGTH_SHORT).show();
 
 
 
