@@ -6,11 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".AddBuilding">
 
-    <!--    import tool bar-->
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"

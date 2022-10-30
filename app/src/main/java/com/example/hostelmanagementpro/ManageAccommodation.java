@@ -15,6 +15,8 @@ import android.widget.TextView;
 public class ManageAccommodation extends AppCompatActivity {
 
     Toolbar toolbar;
+    TextView txt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +27,7 @@ public class ManageAccommodation extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //set actionbar name and enable back navigation
-        getSupportActionBar().setTitle(R.string.manage_accommodation);
+        getSupportActionBar().setTitle("Manage Accommodation");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -55,4 +57,5 @@ public class ManageAccommodation extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

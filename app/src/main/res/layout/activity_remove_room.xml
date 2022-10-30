@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RemoveFloor">
+    tools:context=".RemoveRoom">
 
     <include layout="@layout/toolbar"
         android:id="@+id/toolbar"/>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -24,7 +23,7 @@
             android:layout_width="178dp"
             android:layout_height="39dp"
             android:layout_marginTop="16dp"
-            android:text="@string/enter_floor_no2"
+            android:text="@string/enter_room_no"
             android:textColor="#000000"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,9 +32,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/F_no_del"
+            android:id="@+id/R_no_del"
             android:layout_width="52dp"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="6dp"
             android:autofillHints=""
@@ -49,7 +48,7 @@
             tools:ignore="LabelFor,TouchTargetSizeCheck" />
 
         <Button
-            android:id="@+id/F_remove_btn"
+            android:id="@+id/R_remove_btn"
             android:layout_width="match_parent"
             android:layout_height="61dp"
             android:layout_gravity="center"
@@ -57,13 +56,12 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/blue"
-            android:text="@string/removeFloorBtn"
+            android:text="@string/removeRoomBtn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

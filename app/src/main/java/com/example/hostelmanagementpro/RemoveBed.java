@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,64 +17,41 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class AddFloor extends AppCompatActivity {
+public class RemoveBed extends AppCompatActivity {
 
     Toolbar toolbar;
     TextView txt;
-    private EditText numberText;
-    private EditText numberText2;
-    private Button save_btn;
-    private  String buildingNumber = "";
+    EditText numberText;
+    Button remove;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_floor);
+        setContentView(R.layout.activity_remove_bed);
 
         //catch toolbar and set it as default actionbar
         toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //set actionbar name and enable back navigation
-        getSupportActionBar().setTitle("Building");
+        getSupportActionBar().setTitle("Remove Bed");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //extras
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            buildingNumber = extras.getString("building_number");
-        } else  {
-            Toast.makeText(this,"Error - Building ID not found", Toast.LENGTH_LONG).show();
-            finish();
-            return;
-        }
+        numberText = findViewById(R.id.Bed_no_del);
+        remove = findViewById(R.id.Bed_removeBtn);
 
-        numberText = findViewById(R.id.F_add_no);
-        numberText2 = findViewById(R.id.F_add_roomCount);
-        save_btn = findViewById(R.id.F_add_btn);
-
-        save_btn.setOnClickListener(v -> {
-            String number = numberText.getText().toString();
-            String roomCount = numberText2.getText().toString();
-
+        remove.setOnClickListener(v -> {
+            String bedNo = numberText.getText().toString();
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("buildings").child(buildingNumber).child("floors").child(number);
+            DatabaseReference myRef = database.getReference("beds");
+            if(!bedNo.isEmpty()) myRef.child(bedNo).removeValue();
 
-            myRef.child("FloorNo").setValue(number);
-            myRef.child("RoomCount").setValue(roomCount);
-
-            Toast.makeText(this,"Data inserted",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Bed removed",Toast.LENGTH_LONG).show();
             finish();
-
         });
 
-    }
 
-//    //    Back Button
-//    public void onclickBbtn(View view){
-//        Intent in=new Intent(this,Floor.class);
-//        startActivity(in);
-//    }
+    }
 
     //actionbar menu implementation
     @Override
@@ -91,7 +67,7 @@ public class AddFloor extends AppCompatActivity {
                 //go to Admin profile
                 return true;
             case R.id.mnuLogout:
-                Intent intent =new Intent(AddFloor.this,MainActivity.class);
+                Intent intent =new Intent(RemoveBed.this,MainActivity.class);
                 startActivity(intent);
                 return true;
         }

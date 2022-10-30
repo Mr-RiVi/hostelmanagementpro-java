@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RemoveBuilding extends AppCompatActivity {
 
     Toolbar toolbar;
+    TextView txt;
     EditText numberText;
     Button remove;
 
@@ -47,19 +48,17 @@ public class RemoveBuilding extends AppCompatActivity {
             DatabaseReference myRef = database.getReference("buildings");
             if(!number.isEmpty()) myRef.child(number).removeValue();
 
-            Intent intent=new Intent(RemoveBuilding.this,Building.class);
-            startActivity(intent);
-
             Toast.makeText(this,"Data removed",Toast.LENGTH_LONG).show();
+            finish();
         });
 
     }
 
-//    Back Button
-    public void onclickBbtn(View view){
-        Intent in=new Intent(this,Building.class);
-        startActivity(in);
-    }
+////    Back Button
+//    public void onclickBbtn(View view){
+//        Intent in=new Intent(this,Building.class);
+//        startActivity(in);
+//    }
 
     //actionbar menu implementation
     @Override

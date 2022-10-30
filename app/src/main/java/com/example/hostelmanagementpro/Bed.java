@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hostelmanagementpro.model.BuildingModel;
+import com.example.hostelmanagementpro.model.BedModel;
 import com.example.hostelmanagementpro.model.RoomModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,67 +29,61 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Room extends AppCompatActivity {
+public class Bed extends AppCompatActivity {
 
     Toolbar toolbar;
     TextView txt;
     ImageView btn;
     Query myQuery;
     ValueEventListener postListener;
-    private List<RoomModel> rooms;
+    private List<BedModel> beds;
+    private String roomNumber = "";
     private String floorNumber = "";
     private String buildingNumber = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room);
+        setContentView(R.layout.activity_bed);
 
         //catch toolbar and set it as default actionbar
         toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //set actionbar name and enable back navigation
-        getSupportActionBar().setTitle("Room");
+        getSupportActionBar().setTitle("Bed");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // get extra
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            roomNumber = extras.getString("room_number");
             floorNumber = extras.getString("floor_number");
             buildingNumber = extras.getString("building_number");
-            System.out.println(buildingNumber);
         } else  {
-            Toast.makeText(this,"Error - Building ID not found", Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Error - Floor ID not found", Toast.LENGTH_LONG).show();
             finish();
         }
 
         // setting recycler view adapter
-        RecyclerView recyclerView = findViewById(R.id.recycler_3);
+        RecyclerView recyclerView = findViewById(R.id.recycler_4);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        final RoomAdapter adapter = new RoomAdapter();
+        final BedAdapter adapter = new BedAdapter();
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener(new RoomAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new BedAdapter.OnItemClickListener() {
             @Override
             public void onHolderClick(int position) {
-                RoomModel clickedRoom = rooms.get(position);
-
-                Intent intent =new Intent(Room.this,Bed.class);
-                intent.putExtra("room_number",clickedRoom.getRoomNo());
-                intent.putExtra("floor_number",floorNumber);
-                intent.putExtra("building_number",buildingNumber);
-                startActivity(intent);
-
-                Toast.makeText(Room.this,"Room Clicked - No: "+clickedRoom.getRoomNo(), Toast.LENGTH_LONG).show();
+                BedModel clickedBed = beds.get(position);
 
             }
 
             @Override
-            public void onUpdateClick(int position) {
-                RoomModel clickedRoom = rooms.get(position);
+            public void onUpdateBedClick(int position) {
+                BedModel clickedBed = beds.get(position);
 
-                Intent intent =new Intent(Room.this,UpdateRoom.class);
-                intent.putExtra("room_number",clickedRoom.getRoomNo());
+                Intent intent =new Intent(Bed.this,UpdateBed.class);
+                intent.putExtra("bed_number",clickedBed.getBedNo());
+                intent.putExtra("room_number",roomNumber);
                 intent.putExtra("floor_number",floorNumber);
                 intent.putExtra("building_number",buildingNumber);
                 startActivity(intent);
@@ -98,52 +92,52 @@ public class Room extends AppCompatActivity {
 
         // getting and listening data from database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myQuery = database.getReference("buildings").child(buildingNumber).child("floors").child(floorNumber).child("rooms").orderByChild("RoomNo");
+        myQuery = database.getReference("buildings").child(buildingNumber).child("floors").child(floorNumber).child("rooms").child(roomNumber).child("beds").orderByChild("BedNo");
 
         postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 if(dataSnapshot.exists()){
-                    rooms = new ArrayList<>();
-                    for (DataSnapshot roomSnapshot: dataSnapshot.getChildren()) {
-                        RoomModel  model= new RoomModel(
-                                roomSnapshot.child("RoomNo").getValue(String.class),
-                                roomSnapshot.child("RoomStatus").getValue(String.class),
-                                roomSnapshot.child("RoomType").getValue(String.class),
-                                roomSnapshot.child("StudentCount").getValue(String.class),
-                                roomSnapshot.child("BedCount").getValue(String.class)
+                    beds = new ArrayList<>();
+                    for (DataSnapshot bedSnapshot: dataSnapshot.getChildren()) {
+                        BedModel model= new BedModel(
+                                bedSnapshot.child("BedNo").getValue(String.class),
+                                bedSnapshot.child("StuId").getValue(String.class),
+                                bedSnapshot.getKey().toString()
                         );
-                        rooms.add(model);
+                        beds.add(model);
                     }
-                    adapter.setRooms(rooms);
+                    adapter.setBeds(beds);
                 }
                 // ..
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w("Room", "loadRooms:onCancelled", databaseError.toException());
+                Log.w("Bed", "loadBeds:onCancelled", databaseError.toException());
             }
         };
         myQuery.addValueEventListener(postListener);
     }
 
+
 //    public void onclickBbtn(View view){
-//        Intent in=new Intent(this,Floor.class);
+//        Intent in=new Intent(this,Room.class);
 //        startActivity(in);
 //    }
 
-    //    Btn for Add Room Page
-    public void onclickAR(View view){
-        Intent in=new Intent(this,AddRoom.class);
+    //    Btn for Remove Bed Page
+    public void onclickABed(View view){
+        Intent in=new Intent(this,AddBed.class);
+        in.putExtra("room_number",roomNumber);
         in.putExtra("floor_number",floorNumber);
         in.putExtra("building_number",buildingNumber);
         startActivity(in);
     }
-    //    Btn for Remove Room Page
-    public void onclickRR(View view){
-        Intent in=new Intent(this,RemoveRoom.class);
+    //    Btn for Remove Bed Page
+    public void onclickRBed(View view){
+        Intent in=new Intent(this,RemoveBed.class);
         startActivity(in);
     }
 
@@ -161,11 +155,10 @@ public class Room extends AppCompatActivity {
                 //go to Admin profile
                 return true;
             case R.id.mnuLogout:
-                Intent intent =new Intent(Room.this,MainActivity.class);
+                Intent intent =new Intent(Bed.this,MainActivity.class);
                 startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

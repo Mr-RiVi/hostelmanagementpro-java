@@ -23,11 +23,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AddBuilding extends AppCompatActivity {
 
+    Toolbar toolbar;
+    TextView txt;
     private RadioGroup radioGroup;
     private EditText numberText;
     private EditText numberText2;
     private Button save_btn;
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class AddBuilding extends AppCompatActivity {
         //set actionbar name and enable back navigation
         getSupportActionBar().setTitle("Add Building");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         radioGroup = findViewById(R.id.B_add_radio);
         numberText = findViewById(R.id.B_add_no);
         numberText2 = findViewById(R.id.B_add_name);
@@ -65,22 +67,15 @@ public class AddBuilding extends AppCompatActivity {
             myRef.child("BuildingName").setValue(name);
             myRef.child("Gender").setValue(gender);
 
-            Intent intent=new Intent(AddBuilding.this,Building.class);
-            startActivity(intent);
-
             Toast.makeText(this,"Data inserted",Toast.LENGTH_LONG).show();
+            finish();
 
         });
 
     }
 
-//    Back Button
-    public void onclickBbtn(View view){
-        Intent in=new Intent(this,Building.class);
-        startActivity(in);
-    }
-////    Btn for Building Page(After added building)
-//    public void onclickB(View view){
+////    Back Button
+//    public void onclickBbtn(View view){
 //        Intent in=new Intent(this,Building.class);
 //        startActivity(in);
 //    }
