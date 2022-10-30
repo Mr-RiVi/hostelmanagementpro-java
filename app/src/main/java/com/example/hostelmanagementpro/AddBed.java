@@ -6,10 +6,10 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,51 +18,57 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class AddFloor extends AppCompatActivity {
+public class AddBed extends AppCompatActivity {
 
     Toolbar toolbar;
     TextView txt;
-    private EditText numberText;
+    private EditText numberText1;
     private EditText numberText2;
-    private Button save_btn;
-    private  String buildingNumber = "";
+    private Button saveBtn;
+    private String roomNumber = "";
+    private String floorNumber = "";
+    private String buildingNumber = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_floor);
+        setContentView(R.layout.activity_add_bed);
 
         //catch toolbar and set it as default actionbar
         toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //set actionbar name and enable back navigation
-        getSupportActionBar().setTitle("Building");
+        getSupportActionBar().setTitle("Add Bed");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //extras
+        // get extra
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            roomNumber = extras.getString("room_number");
+            floorNumber = extras.getString("floor_number");
             buildingNumber = extras.getString("building_number");
+
+
         } else  {
-            Toast.makeText(this,"Error - Building ID not found", Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Error - Room ID not found", Toast.LENGTH_LONG).show();
             finish();
-            return;
         }
 
-        numberText = findViewById(R.id.F_add_no);
-        numberText2 = findViewById(R.id.F_add_roomCount);
-        save_btn = findViewById(R.id.F_add_btn);
+        numberText1 = findViewById(R.id.Bed_add_id);
+        numberText2 = findViewById(R.id.Bed_add_stuCount);
+        saveBtn = findViewById(R.id.Bed_add_btn);
 
-        save_btn.setOnClickListener(v -> {
-            String number = numberText.getText().toString();
-            String roomCount = numberText2.getText().toString();
+        saveBtn.setOnClickListener(v -> {
+            String bedNo = numberText1.getText().toString();
+            String stuId = numberText2.getText().toString();;
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("buildings").child(buildingNumber).child("floors").child(number);
+            DatabaseReference myRef = database.getReference("buildings").child(buildingNumber).child("floors").child(floorNumber).child("rooms").child(roomNumber).child("beds").child(bedNo);
 
-            myRef.child("FloorNo").setValue(number);
-            myRef.child("RoomCount").setValue(roomCount);
+            myRef.child("BedNo").setValue(bedNo);
+            myRef.child("StuId").setValue(stuId);
+            myRef.child("RoomNo").setValue(roomNumber);
 
             Toast.makeText(this,"Data inserted",Toast.LENGTH_LONG).show();
             finish();
@@ -70,12 +76,6 @@ public class AddFloor extends AppCompatActivity {
         });
 
     }
-
-//    //    Back Button
-//    public void onclickBbtn(View view){
-//        Intent in=new Intent(this,Floor.class);
-//        startActivity(in);
-//    }
 
     //actionbar menu implementation
     @Override
@@ -91,11 +91,10 @@ public class AddFloor extends AppCompatActivity {
                 //go to Admin profile
                 return true;
             case R.id.mnuLogout:
-                Intent intent =new Intent(AddFloor.this,MainActivity.class);
+                Intent intent =new Intent(AddBed.this,MainActivity.class);
                 startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

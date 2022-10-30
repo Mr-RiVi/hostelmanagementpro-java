@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Floor">
+    tools:context=".Bed">
 
     <include layout="@layout/toolbar"
         android:id="@+id/toolbar"/>
-
 
     <LinearLayout
         android:layout_width="0dp"
@@ -22,11 +21,10 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_2"
+            android:id="@+id/recycler_4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/item_floor"
-            />
+            tools:listitem="@layout/item_bed" />
 
     </LinearLayout>
 
@@ -41,24 +39,27 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/F_add_btn"
+            android:id="@+id/Bed_add_btn"
             android:layout_width="155dp"
             android:layout_height="61dp"
             android:layout_margin="4dp"
             android:layout_marginBottom="4dp"
             android:backgroundTint="@color/blue"
-            android:onClick="onclickAF"
-            android:text="@string/add_floor" />
+            android:onClick="onclickABed"
+            android:text="@string/add_bed" />
 
         <Button
-            android:id="@+id/F_remove_btn"
+            android:id="@+id/Bed_remove_btn"
             android:layout_width="189dp"
             android:layout_height="59dp"
             android:layout_margin="4dp"
             android:layout_marginBottom="4dp"
             android:backgroundTint="@color/blue"
-            android:onClick="onclickRF"
-            android:text="@string/remove_floor" />
+            android:onClick="onclickRBed"
+            android:text="@string/remove_bed" />
     </LinearLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

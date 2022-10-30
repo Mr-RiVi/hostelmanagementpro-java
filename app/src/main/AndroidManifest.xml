@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.CAMERA" />
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -15,122 +13,72 @@
         android:theme="@style/Theme.HostelManagementPro"
         tools:targetApi="31">
         <activity
-            android:name=".Add_payment"
+            android:name=".UpdateBed"
+            android:exported="false"
+            android:parentActivityName=".Bed">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".UpdateRoom"
+            android:exported="false"
+            android:parentActivityName=".Room">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".RemoveBed"
+            android:exported="false"
+            android:parentActivityName=".Bed">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".AddBed"
+            android:exported="false"
+            android:parentActivityName=".Bed">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".BedAdapter"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".QRScanner"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".MyResidence"
+            android:name=".Bed"
             android:exported="false"
-            android:parentActivityName=".StudentHome">
+            android:parentActivityName=".Room">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".StudentHome"
+            android:name=".RemoveRoom"
             android:exported="false"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".MyAttendance"
-            android:exported="false"
-            android:parentActivityName=".StudentHome">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".UpdateProfile"
-            android:exported="false"
-            android:parentActivityName=".MyProfile">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".MyProfile"
-            android:exported="false"
-            android:parentActivityName=".StudentHome">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".StudentProfiles"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".AssignToRoom"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".FunctionsAdministrator"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".AdministratorRegistration"
-            android:exported="false"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".OrganizationDetails"
-            android:exported="false"
-            android:parentActivityName=".OrganizationRegistration">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".OrganizationRegistration"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".StuRegister"
-            android:exported="false"
-            android:parentActivityName=".FunctionsStuManagement">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".FunctionsStuManagement"
-            android:exported="false"
-            android:parentActivityName=".FunctionsAdministrator">
+            android:parentActivityName=".Room">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".AddRoom"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".Room">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -144,21 +92,24 @@
         </activity>
         <activity
             android:name=".Room"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".Floor">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".RemoveFloor"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".Floor">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".AddFloor"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".Floor">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -172,7 +123,8 @@
         </activity>
         <activity
             android:name=".Floor"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".Building">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.intent.action.MAIN" /> -->
@@ -187,21 +139,24 @@
         </activity>
         <activity
             android:name=".RemoveBuilding"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".Building">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".AddBuilding"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".Building">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".Building"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".ManageAccommodation">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -209,19 +164,19 @@
         <activity
             android:name=".ManageAccommodation"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

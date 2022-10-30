@@ -16,13 +16,13 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="29dp"
+            android:layout_height="28dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baseline_home_24" />
+            app:srcCompat="@drawable/ic_baseline_king_bed_24" />
 
         <TextView
             android:id="@+id/textView"
@@ -35,11 +35,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/I_room_N0"
+            android:id="@+id/I_Bed_room_No"
             android:layout_width="28dp"
             android:layout_height="26dp"
             android:layout_marginBottom="3dp"
-            android:text="3"
+            android:text="1"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/divider"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,18 +65,18 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="16dp"
-            android:text="Room Type    -"
+            android:text="Bed No      -"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider" />
 
         <TextView
-            android:id="@+id/I_room_Type"
+            android:id="@+id/I_bed_No"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
-            android:text="Non AC"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
+            android:text="B1"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/divider" />
 
         <TextView
@@ -85,81 +85,35 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="8dp"
-            android:text="Room Status -"
+            android:text="Student Id -"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+
         <TextView
-            android:id="@+id/I_room_Status"
+            android:id="@+id/I_bed_student_Id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="8dp"
-            android:text="Available"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="7dp"
+            android:text="Stu001"
             app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/I_room_Type" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="180dp"
-            android:layout_height="33dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView6"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"
-            app:srcCompat="@drawable/ic_baseline_people_24" />
-
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="181dp"
-            android:layout_height="33dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/I_room_Status"
-            app:srcCompat="@drawable/ic_baseline_king_bed_24" />
-
-        <TextView
-            android:id="@+id/I_student_Count"
-            android:layout_width="21dp"
-            android:layout_height="21dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:text="3"
-            app:layout_constraintEnd_toEndOf="@+id/imageView5"
-            app:layout_constraintHorizontal_bias="0.645"
-            app:layout_constraintStart_toStartOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/imageView5" />
-
-        <TextView
-            android:id="@+id/I_bed_Count"
-            android:layout_width="19dp"
-            android:layout_height="19dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:text="2"
-            app:layout_constraintEnd_toEndOf="@+id/imageView6"
-            app:layout_constraintHorizontal_bias="0.615"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toTopOf="@+id/imageView6" />
+            app:layout_constraintTop_toBottomOf="@+id/I_bed_No" />
 
         <Button
-            android:id="@+id/btn_update_room"
+            android:id="@+id/I_bed_updateBtn"
             android:layout_width="81dp"
             android:layout_height="36dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
             android:backgroundTint="@color/blue"
-            android:text="@string/updateRoomBtn"
+            android:text="@string/updateBedBtn"
             android:textSize="10sp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView6"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.601"
-            app:layout_constraintStart_toEndOf="@+id/I_room_Type" />
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

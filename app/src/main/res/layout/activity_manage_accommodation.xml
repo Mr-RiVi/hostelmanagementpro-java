@@ -6,9 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ManageAccommodation">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"/>
 
     <Button
         android:id="@+id/btnMA"

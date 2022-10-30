@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddRoom">
+    tools:context=".UpdateRoom">
 
     <include layout="@layout/toolbar"
         android:id="@+id/toolbar"/>
@@ -41,7 +41,7 @@
 
 
             <EditText
-                android:id="@+id/R_add_id"
+                android:id="@+id/R_update_id"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
@@ -83,7 +83,7 @@
                 android:paddingStart="95dp">
 
                 <TextView
-                    android:id="@+id/room_type_radio"
+                    android:id="@+id/room_update_type_radio"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -101,7 +101,7 @@
                 android:layout_height="match_parent">
 
                 <RadioGroup
-                    android:id="@+id/R_add_radio1"
+                    android:id="@+id/R_update_room_type"
                     android:layout_width="146dp"
                     android:layout_height="65dp"
                     android:layout_marginTop="43dp"
@@ -114,14 +114,14 @@
                     app:layout_constraintVertical_bias="0.0">
 
                     <RadioButton
-                        android:id="@+id/radioBtnAC"
+                        android:id="@+id/radioUpdateBtnAC"
                         android:layout_width="130dp"
                         android:layout_height="34dp"
                         android:text="@string/ac"
                         tools:ignore="TextContrastCheck" />
 
                     <RadioButton
-                        android:id="@+id/radioBtnNonAC"
+                        android:id="@+id/radioUpdateBtnNonAC"
                         android:layout_width="127dp"
                         android:layout_height="wrap_content"
                         android:text="@string/non_ac"
@@ -143,7 +143,6 @@
             android:backgroundTint="@color/light"
             android:outlineAmbientShadowColor="@color/black"
             app:cardCornerRadius="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/R_add_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
@@ -158,7 +157,7 @@
                 android:paddingStart="90dp">
 
                 <TextView
-                    android:id="@+id/room_status_radio"
+                    android:id="@+id/room_update_status_radio"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -176,7 +175,7 @@
                 android:layout_height="match_parent">
 
                 <RadioGroup
-                    android:id="@+id/R_add_radio2"
+                    android:id="@+id/R_update_room_status"
                     android:layout_width="146dp"
                     android:layout_height="65dp"
                     android:layout_marginTop="43dp"
@@ -189,13 +188,13 @@
                     app:layout_constraintVertical_bias="0.0">
 
                     <RadioButton
-                        android:id="@+id/radioBtnAvailable"
+                        android:id="@+id/radioUpdateBtnAvailable"
                         android:layout_width="130dp"
                         android:layout_height="34dp"
                         android:text="@string/available" />
 
                     <RadioButton
-                        android:id="@+id/radioBtnBooked"
+                        android:id="@+id/radioUpdateBtnBooked"
                         android:layout_width="127dp"
                         android:layout_height="wrap_content"
                         android:text="@string/booked" />
@@ -220,7 +219,7 @@
 
 
             <EditText
-                android:id="@+id/R_add_stu_count"
+                android:id="@+id/R_update_stu_count"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
@@ -234,7 +233,6 @@
                 android:textSize="18sp"
                 android:textStyle="normal|italic" />
 
-
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -243,11 +241,10 @@
             android:layout_height="44dp"
             android:layout_margin="15dp"
             android:layout_marginTop="142dp"
-            android:layout_marginBottom="140dp"
             android:backgroundTint="@color/light"
             android:outlineAmbientShadowColor="@color/black"
             app:cardCornerRadius="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/R_add_btn"
+            app:layout_constraintBottom_toTopOf="@+id/R_update_btn_room"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView5"
@@ -255,7 +252,7 @@
 
 
             <EditText
-                android:id="@+id/R_add_bed_count"
+                android:id="@+id/R_update_bed_count"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
@@ -272,23 +269,25 @@
         </androidx.cardview.widget.CardView>
 
 
+
         <Button
-            android:id="@+id/R_add_btn"
-            android:layout_width="364dp"
-            android:layout_height="63dp"
+            android:id="@+id/R_update_btn_room"
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
             android:layout_gravity="center"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/blue"
-            android:text="@string/addRoomBtn"
+            android:text="@string/updateRoomBtn"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toStartOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

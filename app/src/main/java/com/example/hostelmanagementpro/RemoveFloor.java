@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RemoveFloor extends AppCompatActivity {
 
     Toolbar toolbar;
+    TextView txt;
     EditText numberText;
     Button remove;
 
@@ -36,6 +37,7 @@ public class RemoveFloor extends AppCompatActivity {
         //set actionbar name and enable back navigation
         getSupportActionBar().setTitle("Remove Floor");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         numberText = findViewById(R.id.F_no_del);
         remove = findViewById(R.id.F_remove_btn);
 
@@ -45,18 +47,18 @@ public class RemoveFloor extends AppCompatActivity {
             DatabaseReference myRef = database.getReference("floors");
             if(!number.isEmpty()) myRef.child(number).removeValue();
 
-            Intent intent=new Intent(RemoveFloor.this,Floor.class);
-            startActivity(intent);
+
             Toast.makeText(this,"Data removed",Toast.LENGTH_LONG).show();
+            finish();
         });
 
     }
 
-    //    Back Button
-    public void onclickBbtn(View view){
-        Intent in=new Intent(this,Floor.class);
-        startActivity(in);
-    }
+//    //    Back Button
+//    public void onclickBbtn(View view){
+//        Intent in=new Intent(this,Floor.class);
+//        startActivity(in);
+//    }
 
     //actionbar menu implementation
     @Override
@@ -78,4 +80,5 @@ public class RemoveFloor extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

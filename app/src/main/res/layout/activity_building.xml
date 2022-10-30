@@ -6,11 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".Building">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="44dp" />
+    <include layout="@layout/toolbar"
+        android:id="@+id/toolbar"/>
 
 
     <LinearLayout
@@ -48,6 +45,7 @@
             android:layout_height="61dp"
             android:layout_margin="4dp"
             android:layout_marginBottom="4dp"
+            android:backgroundTint="@color/blue"
             android:onClick="onclickAB"
             android:text="@string/add_building" />
 
@@ -57,6 +55,7 @@
             android:layout_height="59dp"
             android:layout_margin="4dp"
             android:layout_marginBottom="4dp"
+            android:backgroundTint="@color/blue"
             android:onClick="onclickRB"
             android:text="@string/remove_building" />
     </LinearLayout>
