@@ -77,18 +77,10 @@ public class UpdateProfile extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.hasChild(studentID)) {
                             try {
-                                std.setStudentContactNo(stuNewContact.getText().toString().trim());
-                                std.setEmergencyContactNo(stuNewEmerContact.getText().toString().trim());
-                                std.setEmail(stuNewEmail.getText().toString().trim());
-
                                 dbRef = FirebaseDatabase.getInstance().getReference().child("students").child(studentID);
-                                std.setAddress(snapshot.child(studentID).child("address").getValue().toString());
-                                std.setCredentialID(snapshot.child(studentID).child("credentialID").getValue().toString());
-                                std.setGender(snapshot.child(studentID).child("gender").getValue().toString());
-                                std.setName(snapshot.child(studentID).child("name").getValue().toString());
-                                std.setOrganizationID(snapshot.child(studentID).child("organizationID").getValue().toString());
-
-                                dbRef.setValue(std);
+                                dbRef.child("studentContactNo").setValue(stuNewContact.getText().toString().trim());
+                                dbRef.child("emergencyContactNo").setValue(stuNewEmerContact.getText().toString().trim());
+                                dbRef.child("email").setValue(stuNewEmail.getText().toString().trim());
 
                                 clearControls();
                                 Toast.makeText(getApplicationContext(), "Details Updated Successfully", Toast.LENGTH_SHORT).show();
@@ -131,6 +123,9 @@ public class UpdateProfile extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.hasChildren()) {
                     stuName.setText(snapshot.child("name").getValue().toString());
+                    stuNewContact.setText(snapshot.child("studentContactNo").getValue().toString());
+                    stuNewEmerContact.setText(snapshot.child("emergencyContactNo").getValue().toString());
+                    stuNewEmail.setText(snapshot.child("email").getValue().toString());
                 }
             }
 
@@ -148,6 +143,7 @@ public class UpdateProfile extends AppCompatActivity {
                 if (dataSnapshot.hasChildren()) {
                     stuId.setText(dataSnapshot.child("UserId").getValue().toString());
                     stuCurPassword.setText(dataSnapshot.child("Password").getValue().toString());
+                    stuNewPassword.setText(dataSnapshot.child("Password").getValue().toString());
                 }
             }
 
