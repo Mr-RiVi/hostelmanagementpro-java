@@ -54,24 +54,22 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDelete"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
+            android:layout_height="48dp"
             android:layout_margin="3dp"
+            android:layout_weight="1"
             android:background="#EE0047FD"
             android:text="DELETE"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnUpdate"
             android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
+            android:layout_height="48dp"
             android:layout_margin="3dp"
+            android:layout_weight="1"
             android:background="#EE0047FD"
             android:text="UPDATE"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

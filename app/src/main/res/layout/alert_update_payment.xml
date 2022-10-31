@@ -14,7 +14,7 @@
         android:padding="10dp">
 
         <EditText
-            android:id="@+id/txtName"
+            android:id="@+id/txtName1"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -29,7 +29,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/txtMonth"
+            android:id="@+id/txtMonth1"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -44,7 +44,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/txtPrice"
+            android:id="@+id/txtPrice1"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="center"
@@ -59,12 +59,12 @@
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonAdd"
+            android:id="@+id/btn_Update"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="15sp"
             android:background="@android:color/holo_blue_dark"
-            android:text="Add"
+            android:text="UPDATE"
             android:textColor="@android:color/white"
             android:textSize="20dp"
             android:textStyle="bold" />
