@@ -27,7 +27,7 @@ public class MyResidence extends AppCompatActivity {
 
     private TextView stuName, stuId, orgID, stuBuildNo, stuFloorNo, stuRoomNo, stuBedNo;
 
-    String studentID,credentialsID;
+    String studentID,credentialsID,organizationID;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -35,9 +35,11 @@ public class MyResidence extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_residence);
 
+        //getting studentID, credentialID, OrgID from Student Home
         Intent intent=getIntent();
         studentID=intent.getStringExtra(StudentHome.EXTRA_USERID);
         credentialsID=intent.getStringExtra(StudentHome.EXTRA_CREDID);
+        organizationID=intent.getStringExtra(StudentHome.EXTRA_ORGID);
 
         stuName = findViewById(R.id.stuName);
         stuId = findViewById(R.id.stuId);
@@ -53,12 +55,15 @@ public class MyResidence extends AppCompatActivity {
         myProfBtn.setTextColor(getResources().getColor(R.color.blue));
         myProfBtn.setBackgroundColor(getResources().getColor(R.color.white));
 
+        //Assigning tool bar
         Toolbar toolbar = findViewById(R.id.toolbarNew);
         setSupportActionBar(toolbar);
 
+        //Changing name on toolbar and enabling back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("My Residence");
 
+        //Getting student name and org ID from database
         DatabaseReference getRef = FirebaseDatabase.getInstance().getReference().child("students").child(studentID);
         getRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -77,6 +82,7 @@ public class MyResidence extends AppCompatActivity {
             }
         });
 
+        //getting studentID from database
         DatabaseReference readID = FirebaseDatabase.getInstance().getReference().child("credentials").child(credentialsID);
         readID.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -84,55 +90,42 @@ public class MyResidence extends AppCompatActivity {
                 if (dataSnapshot.hasChildren()) {
                     stuId.setText(dataSnapshot.child("UserId").getValue().toString());
                 }
-                else
+                else {
                     Toast.makeText(getApplicationContext(), "No ID", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        //get Room details
-        DatabaseReference getBed = FirebaseDatabase.getInstance().getReference("buildings");
-        getBed.orderByChild("StuId").equalTo(studentID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds:snapshot.getChildren()) {
-                    String bed = ds.getKey();
-                    stuBedNo.setText(bed);
-
-//                    for (DataSnapshot rooms:snapshot.child(bed).child("beds").getChildren()) {
-//                        String room = rooms.getKey();
-//                        stuRoomNo.setText(room);
-//
-//                        for (DataSnapshot floors:snapshot.child(bed).child("beds").child(room).child("rooms").getChildren()) {
-//                            String floor = floors.getKey();
-//                            stuFloorNo.setText(floor);
-//
-//                            for (DataSnapshot buildings:snapshot.child(bed).child("beds").child(room).child("rooms").child(floor).child("floors").getChildren()) {
-//                                String building = buildings.getKey();
-//                                stuFloorNo.setText(building);
-//                            }
-//                        }
-//
-//                    }
-
-
-
-
-
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                //throw error.toException();
+
             }
         });
 
+        //get student building no, floor no, room no, bed no from database
+        DatabaseReference getBed = FirebaseDatabase.getInstance().getReference("studentRoom").child(studentID);
+        getBed.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChildren()) {
+                    stuBuildNo.setText("B"+snapshot.child("BuildingNo").getValue().toString());
+                    stuFloorNo.setText(snapshot.child("FloorNo").getValue().toString());
+                    stuRoomNo.setText(snapshot.child("RoomNo").getValue().toString());
+                    stuBedNo.setText(snapshot.child("BedNo").getValue().toString());
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Not Assigned to a Room Yet", Toast.LENGTH_SHORT).show();
+                    stuBuildNo.setText("Not Assigned");
+                    stuFloorNo.setText("Not Assigned");
+                    stuRoomNo.setText("Not Assigned");
+                    stuBedNo.setText("Not Assigned");
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 

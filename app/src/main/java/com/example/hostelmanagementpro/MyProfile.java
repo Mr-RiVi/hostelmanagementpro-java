@@ -41,6 +41,7 @@ public class MyProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
+        //getting studentID, credentialID from Student Home
         Intent intent=getIntent();
         studentID=intent.getStringExtra(StudentHome.EXTRA_USERID);
         credentialsID=intent.getStringExtra(StudentHome.EXTRA_CREDID);
@@ -61,12 +62,15 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
+        //Assigning toolbar
         Toolbar toolbar = findViewById(R.id.toolbarNew);
         setSupportActionBar(toolbar);
 
+        //Changing name on toolbar and enabling back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("My Profile");
 
+        //Getting student details from database
         DatabaseReference readRef = FirebaseDatabase.getInstance().getReference().child("students").child(studentID);
         readRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -88,6 +92,7 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
+        //getting studentID and password from database
         DatabaseReference readPwd = FirebaseDatabase.getInstance().getReference().child("credentials").child(credentialsID);
         readPwd.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -140,20 +145,6 @@ public class MyProfile extends AppCompatActivity {
         intent.putExtra(EXTRA_CREDID,credentialsID);
         startActivity(intent);
     }
-    public void openMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 
-//    public void passwordToText() {
-//        pwd.setInputType(InputType.TYPE_CLASS_TEXT);
-//        customBtn.setBackgroundResource(R.drawable.ic_closed_eye);
-//
-//    }
-//
-//    public void textToPassword() {
-//        pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-//        customBtn.setBackgroundResource(R.drawable.ic_eye);
-//    }
 
 }

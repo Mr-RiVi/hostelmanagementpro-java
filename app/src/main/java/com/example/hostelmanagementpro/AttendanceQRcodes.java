@@ -82,6 +82,7 @@ public class AttendanceQRcodes extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    //Method to save check-out QR Code to gallery
     private void saveOutImage() {
         Uri images;
         ContentResolver contentResolver = getContentResolver();
@@ -121,6 +122,7 @@ public class AttendanceQRcodes extends AppCompatActivity {
 
     }
 
+    //Method to ask permission before accessing gallery
     private void askPermission() {
         ActivityCompat.requestPermissions(AttendanceQRcodes.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE);
     }
@@ -140,6 +142,7 @@ public class AttendanceQRcodes extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    //Method to save check-in QR Code to gallery
     private void saveImage() {
 
         Uri images;
@@ -182,6 +185,7 @@ public class AttendanceQRcodes extends AppCompatActivity {
         return true;
     }
 
+    //Assigning menu items
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

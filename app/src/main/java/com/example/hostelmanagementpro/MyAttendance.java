@@ -54,12 +54,15 @@ public class MyAttendance extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_attendance);
 
+        //getting studentID from Student Home
         Intent intent=getIntent();
         studentID=intent.getStringExtra(MainActivity.EXTRA_USERID);
 
+        //Assigning toolbar
         toolbar = findViewById(R.id.toolbarNew);
         setSupportActionBar(toolbar);
 
+        //Changing name on toolbar and enabling back button
         getSupportActionBar().setTitle("My Attendance");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -77,6 +80,7 @@ public class MyAttendance extends AppCompatActivity {
         final int month = calender.get(Calendar.MONTH);
         final int day = calender.get(Calendar.DAY_OF_MONTH);
 
+        //Implementing a date picker dialog on clicking calendar button
         dateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +93,7 @@ public class MyAttendance extends AppCompatActivity {
                         selectDate.setText(date);
                         dbDate = selectDate.toString();//catch date from this variable
 
+                        //Retrieving Student attendance records from database for a selected date
                         DatabaseReference dbOldAtt = FirebaseDatabase.getInstance().getReference("attendance").child(studentID).child(date);
                         dbOldAtt.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -119,7 +124,7 @@ public class MyAttendance extends AppCompatActivity {
 
         });
 
-
+        //Deleting Student attendance record
         deleteHis = (Button) findViewById(R.id.delHis);
         deleteHis.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +152,7 @@ public class MyAttendance extends AppCompatActivity {
             }
         });
 
+        //Retrieving Student attendance type, and time from database according to date
         DatabaseReference dbAtt = FirebaseDatabase.getInstance().getReference("attendance").child(studentID).child(QRScanner.date);
         dbAtt.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

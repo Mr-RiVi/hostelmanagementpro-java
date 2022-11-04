@@ -38,9 +38,7 @@ public class UpdateProfile extends AppCompatActivity {
         stuNewContact.setText("");
         stuNewEmerContact.setText("");
         stuNewEmail.setText("");
-//        stuCurPassword.setText("");
         stuNewPassword.setText("");
-//        stuConfirmPassword.setText("");
     }
 
     @Override
@@ -48,6 +46,7 @@ public class UpdateProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
 
+        //catching studentID, credentials ID from Student MyProfile
         Intent intent=getIntent();
         studentID=intent.getStringExtra(MyProfile.EXTRA_USERID);
         credentialsID=intent.getStringExtra(MyProfile.EXTRA_CREDID);
@@ -66,7 +65,7 @@ public class UpdateProfile extends AppCompatActivity {
         confirmUpdateBtn=findViewById(R.id.button);
         confirmUpdateBtn.setText("Confirm Update");
 
-        //Update My Profile
+        //Update My Profile details on database
 
         confirmUpdateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +95,7 @@ public class UpdateProfile extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        //openMyProfileActivity();
+
                     }
                 });
 
@@ -109,14 +108,15 @@ public class UpdateProfile extends AppCompatActivity {
         });
 
 
-
+        //Assigning toolbar
         Toolbar toolbar = findViewById(R.id.toolbarNew);
         setSupportActionBar(toolbar);
 
+        //Changing name on toolbar and enabling back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Update Profile");
 
-        //Get Name
+        //Get Student personal details from database
         DatabaseReference readRef = FirebaseDatabase.getInstance().getReference().child("students").child(studentID);
         readRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -135,7 +135,7 @@ public class UpdateProfile extends AppCompatActivity {
             }
         });
 
-        //Get User ID
+        //Get User login credentials from database
         DatabaseReference readPwd = FirebaseDatabase.getInstance().getReference().child("credentials").child(credentialsID);
         readPwd.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -181,8 +181,5 @@ public class UpdateProfile extends AppCompatActivity {
         }
 
     }
-    public void openMyProfileActivity() {
-        Intent intent = new Intent(this, MyProfile.class);
-        startActivity(intent);
-    }
+
 }

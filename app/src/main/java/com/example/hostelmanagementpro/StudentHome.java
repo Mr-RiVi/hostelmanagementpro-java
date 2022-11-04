@@ -24,12 +24,12 @@ import com.google.firebase.database.ValueEventListener;
 public class StudentHome extends AppCompatActivity {
     public static final String EXTRA_USERID="com.example.hostelmanagementpro.EXTRA_USERID";
     public static final String EXTRA_CREDID="com.example.hostelmanagementpro.EXTRA_CREDID";
+    public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
 
     private CardView resBtn;
     private CardView myAttBtn;
     private CardView scanBtn;
-    private CardView payBtn;
-    String studentID,credentialsID;
+    String studentID,credentialsID,orgID;
     DatabaseReference dbStudent;
 
     @SuppressLint("MissingInflatedId")
@@ -40,10 +40,13 @@ public class StudentHome extends AppCompatActivity {
 
         dbStudent= FirebaseDatabase.getInstance().getReference("students");
 
+        //catching studentID from login
         Intent intent=getIntent();
         studentID=intent.getStringExtra(MainActivity.EXTRA_USERID);
 
+        //methods implemented to catch credentialId and OrgID
         getCredentialID();
+        getOrgID();
 
         //assigning My Attendance button
         myAttBtn = findViewById(R.id.myAttBtn);
@@ -63,15 +66,6 @@ public class StudentHome extends AppCompatActivity {
             }
         });
 
-        //assigning Payments button
-        payBtn = findViewById(R.id.payBtn);
-        payBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openPayments();
-            }
-        });
-
         //assigning My Residence button
         resBtn = findViewById(R.id.resBtn);
         resBtn.setOnClickListener(new View.OnClickListener() {
@@ -87,12 +81,6 @@ public class StudentHome extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Student Home");
 
-        payBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
         //creating toolbar menu
     @Override
@@ -123,12 +111,27 @@ public class StudentHome extends AppCompatActivity {
         }
 
     }
-
+    //method to get CredentialID via studentID
     public void getCredentialID(){
         dbStudent.child(studentID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 credentialsID=snapshot.child("credentialID").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    //method to get OrgID via studentID
+    public void getOrgID(){
+        dbStudent.child(studentID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                orgID=snapshot.child("organizationID").getValue().toString();
             }
 
             @Override
@@ -152,16 +155,13 @@ public class StudentHome extends AppCompatActivity {
         startActivity(in);
     }
 
-    //redirecting to Payments activity
-    //change destination.......................................................
-    public void openPayments() {
-    }
 
     //redirecting to My Residence activity
     public void openMyRes() {
         Intent i = new Intent(this, MyResidence.class);
         i.putExtra(EXTRA_USERID,studentID);
         i.putExtra(EXTRA_CREDID,credentialsID);
+        i.putExtra(EXTRA_ORGID,orgID);
         startActivity(i);
     }
 }
