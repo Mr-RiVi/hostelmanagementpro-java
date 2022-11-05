@@ -36,6 +36,7 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
     ZXingScannerView scannerView;
     DatabaseReference dbRef;
 
+    //formatting date with attributes
     static DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
     static long d = System.currentTimeMillis();
     static String date = format.format(new Date(d));
@@ -56,11 +57,13 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
         scannerView=new ZXingScannerView(this);
         setContentView(scannerView);
 
+        //Catching studentID from StudentHome
         Intent intent=getIntent();
-        studentID=intent.getStringExtra(MainActivity.EXTRA_USERID);
+        studentID=intent.getStringExtra(StudentHome.EXTRA_USERID);
 
         dbRef= FirebaseDatabase.getInstance().getReference("attendance").child(studentID).child(date);
 
+        //implementing qr scanner using dependencies
         Dexter.withContext(getApplicationContext())
                 .withPermission(Manifest.permission.CAMERA)
                 .withListener(new PermissionListener() {
@@ -81,6 +84,7 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
                 }).check();
     }
 
+    //Inserting Attendance details into database
     @Override
     public void handleResult(Result result) {
         String data = result.getText().toString();
