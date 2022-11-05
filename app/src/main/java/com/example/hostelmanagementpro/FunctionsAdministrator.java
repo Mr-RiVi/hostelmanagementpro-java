@@ -56,7 +56,6 @@ public class FunctionsAdministrator extends AppCompatActivity {
             System.out.println("Admin Home page org id is null");
         }
         adminID=intent.getStringExtra(MainActivity.EXTRA_USERID);
-        System.out.println("This is admin home page and org id is:"+orgId);
 
         mngStudentBtn.setOnClickListener(new View.OnClickListener() {
             @Override

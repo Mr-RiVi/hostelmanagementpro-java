@@ -48,10 +48,8 @@ public class StuRegister extends AppCompatActivity {
     String gender;
     Button crtAcc,Yes,No;
     ImageButton gen;
-    ImageView dialogIcon;
     Student stu;
     String orgID;
-    String TAG="rivindu";
     DatabaseReference dbStudent,dbCredentials;
     int maxStuId=0,credID=0;
     Dialog dialog;
@@ -110,8 +108,6 @@ public class StuRegister extends AppCompatActivity {
 
         Intent intent=getIntent();
         orgID=intent.getStringExtra(FunctionsAdministrator.EXTRA_ORGID);
-        Log.d(TAG, "Admin org id is : "+orgID);
-
 
         //Create the Dialog here
         dialog = new Dialog(this);
@@ -192,8 +188,6 @@ public class StuRegister extends AppCompatActivity {
             stu.setEmail(email.getText().toString().trim());
             stu.setAddress(address.getText().toString().trim());
 
-            //getAndUpdateStudentNodeCount();
-            System.out.println("student count is:"+maxStuId);
             dbStudent.child("STU_"+String.valueOf(maxStuId+1)).setValue(stu).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -228,9 +222,6 @@ public class StuRegister extends AppCompatActivity {
         a.put("Role",role);
         a.put("UserId",userid);
 
-        //getAndUpdateCredentialNodeCount();
-        System.out.println("cred count is:"+credID);
-
         dbCredentials.child("CRED_"+String.valueOf(credID+1)).setValue(a).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -255,9 +246,7 @@ public class StuRegister extends AppCompatActivity {
                         String arr[]=credenID.split("_");
                         list.add(Integer.parseInt(arr[1]));
                     }
-                    System.out.println("Largest in given cred array is " + Collections.max(list));
                     credID=Collections.max(list);
-                    Log.d(TAG, "onDataChange: StuRegister max cred id is :"+credID);
                 }
                 else
                     credID=0;
@@ -277,11 +266,9 @@ public class StuRegister extends AppCompatActivity {
                 if(snapshot.exists()){
                     for (DataSnapshot ds:snapshot.getChildren()){
                         String stuID=ds.getKey().toString();
-                        System.out.println("counting stu id is:"+stuID);
                         String arr[]=stuID.split("_");
                         list.add(Integer.parseInt(arr[1]));
                     }
-                    System.out.println("Largest in given array is " + Collections.max(list));
                     maxStuId=Collections.max(list);
                 }
                 else
@@ -324,7 +311,6 @@ public class StuRegister extends AppCompatActivity {
         Intent intent=new Intent(StuRegister.this,AssignToRoom.class); //next activity eke name eka denna ona
         intent.putExtra(EXTRA_ORGID,orgID);
         intent.putExtra(EXTRA_ACTIVITYID,"StuRegister");
-        System.out.println("this is StuRegister and maxStuId is "+maxStuId);
         intent.putExtra(EXTRA_STUDENTID,"STU_"+Long.toString(maxStuId));
         startActivity(intent);
     }

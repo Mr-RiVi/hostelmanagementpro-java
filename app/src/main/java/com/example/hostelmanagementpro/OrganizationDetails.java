@@ -51,7 +51,6 @@ public class OrganizationDetails extends AppCompatActivity {
 
         Intent intent=getIntent();
         orgId=intent.getStringExtra(OrganizationRegistration.EXTRA_ORGID);
-        System.out.println("Organization details page id is:"+orgId);
         getOrganizationDetails(orgId);
 
         crtAdmin.setOnClickListener(new View.OnClickListener() {

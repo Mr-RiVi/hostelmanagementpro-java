@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     TextView rgOrg,rgAdmin;
     Button login;
     DatabaseReference dbCred,dbAdmin,dbStu;
-    String credId,role,userId,orgID,TAG="rivindu";
+    String credId,role,userId,orgID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,18 +57,14 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onCallback(String id) {
                         credId=id;
-                        Log.d(TAG, "cred id is: "+credId);
                         checkCredential(new FirebaseCallback() {
                             @Override
                             public void onCallback(String id) {
                                 userId=id;
-                                Log.d(TAG, "user id is: "+userId);
                                 getOrganizationID(new FirebaseCallback() {
                                     @Override
                                     public void onCallback(String id) {
                                         orgID=id;
-                                        Log.d(TAG, "org id is: "+orgID);
-                                        Log.d(TAG, "user role is: "+role);
                                         switch (role){
                                             case "admin":
                                                 openAdminHomeActivity(orgID,userId);
@@ -142,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
                 if (usrEnterUsername.equals(dbUsername)&&userEnterPassword.equals(dbPassword)){
                     role=snapshot.child("Role").getValue().toString();
                     userId=snapshot.child("UserId").getValue().toString();
-                    System.out.println("use role is: "+role);
                     firebaseCallback.onCallback(userId);
                     password.setError(null);
                 }

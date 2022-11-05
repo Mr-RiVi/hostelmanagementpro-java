@@ -85,11 +85,9 @@ public class StudentProfiles extends AppCompatActivity {
 
         list=new ArrayList<>();
 
-        System.out.println("This is student profiles page and org id is:"+orgID);
         dbStudents.orderByChild("organizationID").equalTo(orgID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                System.out.println("This is student profiles page and org id is:"+orgID);
                 if (snapshot.exists()){
                     for (DataSnapshot ds: snapshot.getChildren()){
                         String stuID=ds.getKey();
@@ -99,7 +97,6 @@ public class StudentProfiles extends AppCompatActivity {
                         String credID=ds.child("credentialID").getValue().toString();
 
                         StuProfiles stuProfiles=new StuProfiles(stuID,name,mobile,emMobile,credID);
-                        System.out.println("Datasnapshot stuProfile object look like:"+stuProfiles.getStuName());
                         list.add(stuProfiles);
                     }
                     studentProfilesFetchingAdapter=new StudentProfilesFetchingAdapter(list, StudentProfiles.this, new StudentProfilesFetchingAdapter.ItemClickListener() {

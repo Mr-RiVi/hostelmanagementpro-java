@@ -36,7 +36,7 @@ public class StudentRoomDetails extends AppCompatActivity {
     Toolbar toolbar;
     Dialog dialog;
     Button Yes,No,btnbckToHome,btnAssign;
-    String orgID,stuID,TAG="Ushan";
+    String orgID,stuID;
     TextView stuid,BuildingName,floorNo,roomNo,bedNo,notYetAsMsg;
     DatabaseReference dbBuildings,bedIDRef,dbRoomDetails;
     @Override
@@ -64,12 +64,10 @@ public class StudentRoomDetails extends AppCompatActivity {
         if (intent.getStringExtra(AssignToRoom.EXTRA_ORGID)!=null&&intent.getStringExtra(AssignToRoom.EXTRA_STUDENTID)!=null){
             orgID=intent.getStringExtra(AssignToRoom.EXTRA_ORGID);
             stuID=intent.getStringExtra(AssignToRoom.EXTRA_STUDENTID);
-            Log.d(TAG, "Assign room: student id is"+stuID);
         }
         else if(intent.getStringExtra(StudentProfiles.EXTRA_ORGID)!=null&&intent.getStringExtra(StudentProfiles.EXTRA_STUDENTID)!=null){
             orgID=intent.getStringExtra(StudentProfiles.EXTRA_ORGID);
             stuID=intent.getStringExtra(StudentProfiles.EXTRA_STUDENTID);
-            Log.d(TAG, "Student profiles: student id is"+stuID);
         }
         else{
             System.out.println("No id's retrieve");
@@ -113,9 +111,7 @@ public class StudentRoomDetails extends AppCompatActivity {
                                 for (DataSnapshot dsRooms:dsFloors.child("rooms").getChildren()){
                                     for (DataSnapshot dsBeds:dsRooms.child("beds").getChildren()){
                                         if (dsBeds.child("StuId").getValue().toString().equals(stuid)){
-                                            Log.d(TAG, "onDataChange StudentRoomDetail: get room details");
                                             bedIDRef=dsBeds.getRef();
-                                            Log.d(TAG, "onDataChange: according to the student that bed ref is: "+bedIDRef);
                                             catchRoomDetails(bedIDRef, stuid, new FirebaseCallback() {
                                                 @Override
                                                 public void onCallback(String bName,String id,String arr[]) {
@@ -127,7 +123,7 @@ public class StudentRoomDetails extends AppCompatActivity {
                                             }
                                         }
                                         else{
-                                            Log.d(TAG, "onDataChange: Room details not found");
+                                            Log.d("TAG", "onDataChange: Room details not found");
                                         }
                                     }
                                 }
@@ -147,17 +143,12 @@ public class StudentRoomDetails extends AppCompatActivity {
     }
 
     public void catchRoomDetails(DatabaseReference bedRef,String stuID,FirebaseCallback firebaseCallback){
-        Log.d(TAG, "catchRoomDetails: calling");
         final String[] buildingname = new String[1];
         String ref[]=bedRef.toString().split("/");
-        for (int i=0;i<ref.length;i++){
-            Log.d(TAG, "array element"+i+" "+ref[i]);
-        }
         dbBuildings.child(ref[4]).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 buildingname[0] =snapshot.child("BuildingName").getValue().toString();
-                System.out.println("Building name is :"+buildingname[0]);
                 firebaseCallback.onCallback(buildingname[0],stuID,ref);
             }
 
@@ -170,8 +161,6 @@ public class StudentRoomDetails extends AppCompatActivity {
     public void displayRoomDetails(String bName,String sID,String id[]){
         btnbckToHome.setVisibility(View.VISIBLE);
         btnAssign.setVisibility(View.GONE);
-        Log.d(TAG, "displayRoomDetails: building name is :"+bName);
-        Log.d(TAG, "displayRoomDetails: floor no is is :"+id[6]);
         notYetAsMsg.setVisibility(View.GONE);
         BuildingName.setText(bName);
         floorNo.setText(id[6]);

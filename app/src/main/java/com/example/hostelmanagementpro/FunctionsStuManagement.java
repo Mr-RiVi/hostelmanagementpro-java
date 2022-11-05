@@ -21,7 +21,7 @@ import android.widget.Button;
 
 public class FunctionsStuManagement extends AppCompatActivity {
     public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
-    String orgId,TAG="rivindu";
+    String orgId;
     Button regStudent,stuProfile,Yes,No;
     Dialog dialog;
     @Override
@@ -61,7 +61,6 @@ public class FunctionsStuManagement extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(FunctionsStuManagement.this,StudentProfiles.class);
                 intent.putExtra(EXTRA_ORGID,orgId);
-                Log.d(TAG, "onClick: this is student management page and org id is "+orgId);
                 startActivity(intent);
             }
         });

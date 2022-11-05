@@ -326,17 +326,17 @@ public class AssignToRoom extends AppCompatActivity {
     }
 
     public void generatePieChart(int totCount,int availableCount){
-        Log.d(TAG, "generatePieChart: total bed count is:"+ totCount);
         txtTotalBeds.setText(String.valueOf(totCount));
-        Log.d(TAG, "generatePieChart: Available bed count is:"+ availableCount);
         txtAvailableBeds.setText(String.valueOf(availableCount));
         double percentage=((double)availableCount/(double)totCount)*100;
         chart.addPieSlice(new PieModel("labe2",(float) percentage, Color.parseColor("#2E2252")));
         chart.addPieSlice(new PieModel("labe2",100-(float) percentage, Color.parseColor("#808080")));
-        Log.d(TAG, "generatePieChart: percentage is:"+percentage);
         String decPercentage=String.format("%.02f",percentage);
         chart.setInnerValueString(decPercentage+"%");
         chart.startAnimation();
+        if (decPercentage.equals("0.00")){
+            btnAssignToRoom.setEnabled(false);
+        }
         totBedCount=0;
         avBedCount=0;
     }
@@ -347,7 +347,6 @@ public class AssignToRoom extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.hasChildren()){
                     stuGender=snapshot.child("gender").getValue().toString();
-                    Log.d(TAG, "onDataChange readStudentGender : student gender is "+stuGender);
                     firebaseCallback.onCallback(stuGender);
                 }
                 else {
