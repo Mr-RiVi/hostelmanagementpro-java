@@ -83,10 +83,10 @@ public class Add_payment extends AppCompatActivity {
 
                         // Log and toast
 
-                        System.out.println(token);
-                        Toast.makeText(Add_payment.this, "Your device registration token is" + token, Toast.LENGTH_SHORT).show();
-
-                        etToken.setText(token);
+//                        System.out.println(token);
+//                        Toast.makeText(Add_payment.this, "Your device registration token is" + token, Toast.LENGTH_SHORT).show();
+//
+//                        etToken.setText(token);
 
                     }
                 });
