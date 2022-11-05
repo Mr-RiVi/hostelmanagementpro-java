@@ -54,7 +54,8 @@
         <activity
             android:name=".Add_payment"
             android:exported="false"
-            android:parentActivityName=".FunctionsAdministrator">
+            android:parentActivityName=".FunctionsAdministrator"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -317,7 +318,8 @@
         </activity>
         <activity
             android:name=".ManageAccommodation"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".FunctionsAdministrator">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
