@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
     public static final String EXTRA_USERID="com.example.hostelmanagementpro.EXTRA_USERID";
+    public static final String EXTRA_CREDENTIALID="com.example.hostelmanagementpro.EXTRA_CREDENTIALID";
     EditText username,password;
     TextView rgOrg,rgAdmin;
     Button login;
@@ -196,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
     public void openAdminHomeActivity(String orgid,String userid){
         Intent intent=new Intent(this,FunctionsAdministrator.class);
         intent.putExtra(EXTRA_ORGID,orgid);
+        intent.putExtra(EXTRA_CREDENTIALID,credId);
         intent.putExtra(EXTRA_USERID,userid);
         startActivity(intent);
     }

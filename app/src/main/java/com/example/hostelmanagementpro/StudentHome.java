@@ -25,6 +25,7 @@ public class StudentHome extends AppCompatActivity {
     public static final String EXTRA_USERID="com.example.hostelmanagementpro.EXTRA_USERID";
     public static final String EXTRA_CREDID="com.example.hostelmanagementpro.EXTRA_CREDID";
     public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
+    public static final String EXTRA_ACTIVITYID="com.example.hostelmanagementpro.EXTRA_ACTIVITYID";
 
     private CardView resBtn;
     private CardView myAttBtn;
@@ -98,6 +99,7 @@ public class StudentHome extends AppCompatActivity {
                 Intent intent = new Intent(this, MyProfile.class);
                 intent.putExtra(EXTRA_USERID,studentID);
                 intent.putExtra(EXTRA_CREDID,credentialsID);
+                intent.putExtra(EXTRA_ACTIVITYID,"StudentHome");
                 startActivity(intent);
                 return true;
 

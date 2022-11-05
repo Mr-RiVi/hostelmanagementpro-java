@@ -41,10 +41,22 @@ public class MyProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
+        //Assigning toolbar
+        Toolbar toolbar = findViewById(R.id.toolbarNew);
+        setSupportActionBar(toolbar);
+
         //getting studentID, credentialID from Student Home
         Intent intent=getIntent();
-        studentID=intent.getStringExtra(StudentHome.EXTRA_USERID);
-        credentialsID=intent.getStringExtra(StudentHome.EXTRA_CREDID);
+        if(intent.getStringExtra(StudentHome.EXTRA_ACTIVITYID).equals("StudentHome")){
+            studentID=intent.getStringExtra(StudentHome.EXTRA_USERID);
+            credentialsID=intent.getStringExtra(StudentHome.EXTRA_CREDID);
+        }
+//        else if (intent.getStringExtra(StudentProfiles.EXTRA_ACTIVITYID).equals("StudentProfiles")){
+//            studentID=intent.getStringExtra(StudentProfiles.EXTRA_STUDENTID);
+//            credentialsID=intent.getStringExtra(StudentProfiles.EXTRA_CREDID);
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+//        }
+
 
         stuName = findViewById(R.id.stuName);
         stuId = findViewById(R.id.stuId);
@@ -62,9 +74,7 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
-        //Assigning toolbar
-        Toolbar toolbar = findViewById(R.id.toolbarNew);
-        setSupportActionBar(toolbar);
+
 
         //Changing name on toolbar and enabling back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -171,5 +171,5 @@
     <string name="bed_no">Bed No -</string>
     <string name="error">ERROR</string>
     <string name="error_msg_accommodation">This student cannot be assigned due to some error in accommodation settings please check your accommodation settings under the selected building. If not please select a new building and try again.</string>
-
+    <string name="update_admin_details">Update Admin Details</string>
 </resources>

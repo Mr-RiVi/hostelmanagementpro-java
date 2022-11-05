@@ -17,8 +17,27 @@
         android:theme="@style/Theme.HostelManagementPro"
         tools:targetApi="31">
         <activity
+            android:name=".UpdateAdminAccount"
+            android:exported="false"
+            android:parentActivityName=".FunctionsAdministrator"
+            android:launchMode="singleTop">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".UpdateStudentAdmin"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:parentActivityName=".StudentProfiles">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".StudentRoomDetails"
-            android:exported="false">
+            android:exported="false"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -306,7 +325,6 @@
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

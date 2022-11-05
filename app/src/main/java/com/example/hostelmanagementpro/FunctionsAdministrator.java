@@ -20,10 +20,11 @@ import android.widget.Button;
 public class FunctionsAdministrator extends AppCompatActivity {
     public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
     public static final String EXTRA_ADMINID="com.example.hostelmanagementpro.EXTRA_ADMINID";
+    public static final String EXTRA_CREDENTIALID="com.example.hostelmanagementpro.EXTRA_CREDENTIALID";
 
     Toolbar toolbar;
     CardView mngStudentBtn,mngAccommodationBtn,mngOrganization,mngPaymentBtn;
-    String orgId,adminID;
+    String orgId,adminID,credID;
     Dialog dialog;
     Button Yes,No;
     @Override
@@ -46,6 +47,8 @@ public class FunctionsAdministrator extends AppCompatActivity {
         Intent intent=getIntent();
         if (intent.getStringExtra(MainActivity.EXTRA_ORGID)!=null){
             orgId=intent.getStringExtra(MainActivity.EXTRA_ORGID);
+            adminID=intent.getStringExtra(MainActivity.EXTRA_USERID);
+            credID=intent.getStringExtra(MainActivity.EXTRA_CREDENTIALID);
         }else if(intent.getStringExtra(StudentProfiles.EXTRA_ORGID)!=null){
             orgId=intent.getStringExtra(StudentProfiles.EXTRA_ORGID);
         }
@@ -60,6 +63,7 @@ public class FunctionsAdministrator extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent =new Intent(FunctionsAdministrator.this,FunctionsStuManagement.class);
                 intent.putExtra(EXTRA_ORGID,orgId);
+                intent.putExtra(EXTRA_CREDENTIALID,credID);
                 intent.putExtra(EXTRA_ADMINID,adminID);
                 startActivity(intent);
             }
@@ -104,7 +108,10 @@ public class FunctionsAdministrator extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.mnuMyProfile:
-                //go to profile
+                Intent intent =new Intent(this,UpdateAdminAccount.class);
+                intent.putExtra(EXTRA_CREDENTIALID,credID);
+                intent.putExtra(EXTRA_ADMINID,adminID);
+                startActivity(intent);
                 return true;
             case R.id.mnuLogout:
                 logoutFunction();

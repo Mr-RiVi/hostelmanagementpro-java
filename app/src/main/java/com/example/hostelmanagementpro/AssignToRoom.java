@@ -49,7 +49,7 @@ public class AssignToRoom extends AppCompatActivity {
     ArrayList<String> dropdownItems;
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter arrayAdapter;
-    DatabaseReference dbBuildings,dbStudents,bedIDRef,dbRoomDetails;
+    DatabaseReference dbBuildings,dbStudents,bedIDRef;
     long buildingCount;
     String TAG="Milendra";
     String name,item,stuGender,stuID,orgID,buildingID;
@@ -81,7 +81,7 @@ public class AssignToRoom extends AppCompatActivity {
 
         dbBuildings= FirebaseDatabase.getInstance().getReference("buildings");
         dbStudents= FirebaseDatabase.getInstance().getReference("students");
-        dbRoomDetails= FirebaseDatabase.getInstance().getReference("studentRoom");
+
         dropdownItems=new ArrayList<>();
 
         autoCompleteTextView=findViewById(R.id.dropdown_menu);
@@ -224,22 +224,12 @@ public class AssignToRoom extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()){
-                        Log.d(TAG, "onComplete: assignStudent "+bedIDRef);
-                        String rmDetails[]=bedIDRef.orderByChild("StuId").equalTo(stuId).toString().split("/");
-                        for (int i=0;i<rmDetails.length;i++){
-                            Log.d(TAG, "array element is:"+i+" "+rmDetails[i]);
-                        }
-                        HashMap<String,String> details=new HashMap<>();
-                        details.put("BuildingNo",rmDetails[4]);
-                        details.put("FloorNo",rmDetails[6]);
-                        details.put("RoomNo",rmDetails[8]);
-                        details.put("BedNo",rmDetails[10]);
-                        dbRoomDetails.child(stuId).setValue(details).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                System.out.println("Room details add successfully");
-                            }
-                        });
+//                        Log.d(TAG, "onComplete: assignStudent "+bedIDRef);
+//                        String rmDetails[]=bedIDRef.orderByChild("StuId").equalTo(stuId).toString().split("/");
+//                        for (int i=0;i<rmDetails.length;i++){
+//                            Log.d(TAG, "array element is:"+i+" "+rmDetails[i]);
+//                        }
+
                         Toast.makeText(AssignToRoom.this, "Student Assign successfully", Toast.LENGTH_SHORT).show();
                         Intent intent=new Intent(AssignToRoom.this,StudentRoomDetails.class);
                         intent.putExtra(EXTRA_STUDENTID,stuId);

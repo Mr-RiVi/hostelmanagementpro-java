@@ -33,6 +33,8 @@ import java.util.Locale;
 public class StudentProfiles extends AppCompatActivity {
     public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
     public static final String EXTRA_STUDENTID="com.example.hostelmanagementpro.EXTRA_STUDENTID";
+    public static final String EXTRA_ACTIVITYID="com.example.hostelmanagementpro.EXTRA_ACTIVITYID";
+    public static final String EXTRA_CREDID="com.example.hostelmanagementpro.EXTRA_CREDID";
 
     Toolbar toolbar;
     RecyclerView recyclerView;
@@ -111,7 +113,12 @@ public class StudentProfiles extends AppCompatActivity {
                         @Override
                         public void onItemEditClicked(StuProfiles profiles) {
                             Toast.makeText(StudentProfiles.this, "student is is: "+profiles.getStuName(), Toast.LENGTH_SHORT).show();
-                            //you have to implement student edit api
+                            Intent intent=new Intent(StudentProfiles.this,UpdateStudentAdmin.class);
+                            intent.putExtra(EXTRA_ORGID,orgID);
+                            intent.putExtra(EXTRA_STUDENTID,profiles.getStuID());
+                            intent.putExtra(EXTRA_CREDID,profiles.getCredID());//req cred id gen
+                            intent.putExtra(EXTRA_ACTIVITYID,"StudentProfiles");
+                            startActivity(intent);
                         }
                         @Override
                         public void onItemDeleteClicked(StuProfiles profiles) {
@@ -133,6 +140,7 @@ public class StudentProfiles extends AppCompatActivity {
             }
         });
     }
+
 
     private void filterList(String newText) {
         ArrayList<StuProfiles> filteredList=new ArrayList<>();

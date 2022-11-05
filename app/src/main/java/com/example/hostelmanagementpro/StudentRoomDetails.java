@@ -19,11 +19,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 public class StudentRoomDetails extends AppCompatActivity {
     public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
@@ -34,13 +38,14 @@ public class StudentRoomDetails extends AppCompatActivity {
     Button Yes,No,btnbckToHome,btnAssign;
     String orgID,stuID,TAG="Ushan";
     TextView stuid,BuildingName,floorNo,roomNo,bedNo,notYetAsMsg;
-    DatabaseReference dbBuildings,bedIDRef;
+    DatabaseReference dbBuildings,bedIDRef,dbRoomDetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_room_details);
 
         dbBuildings= FirebaseDatabase.getInstance().getReference("buildings");
+        dbRoomDetails= FirebaseDatabase.getInstance().getReference("studentRoom");
 
         toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -172,6 +177,18 @@ public class StudentRoomDetails extends AppCompatActivity {
         floorNo.setText(id[6]);
         roomNo.setText(id[8]);
         bedNo.setText(id[10]);
+
+        HashMap<String,String> details=new HashMap<>();
+        details.put("BuildingNo",bName);
+        details.put("FloorNo",id[6]);
+        details.put("RoomNo",id[8]);
+        details.put("BedNo",id[10]);
+        dbRoomDetails.child(stuID).setValue(details).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                System.out.println("Room details add successfully");
+            }
+        });
     }
 
     //actionbar menu implementation

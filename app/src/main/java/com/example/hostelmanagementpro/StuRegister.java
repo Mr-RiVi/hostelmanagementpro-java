@@ -75,6 +75,7 @@ public class StuRegister extends AppCompatActivity {
         crtAcc=findViewById(R.id.btnCrtAcc);
         gen=findViewById(R.id.imgBtnGen);
 
+
         gen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,6 +111,7 @@ public class StuRegister extends AppCompatActivity {
         Intent intent=getIntent();
         orgID=intent.getStringExtra(FunctionsAdministrator.EXTRA_ORGID);
         Log.d(TAG, "Admin org id is : "+orgID);
+
 
         //Create the Dialog here
         dialog = new Dialog(this);
@@ -248,13 +250,14 @@ public class StuRegister extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     for (DataSnapshot ds:snapshot.getChildren()){
-                        String credenID=ds.getKey().toString();
+                        String credenID=ds.getKey();
                         System.out.println("counting credentials id is:"+credenID);
                         String arr[]=credenID.split("_");
                         list.add(Integer.parseInt(arr[1]));
                     }
                     System.out.println("Largest in given cred array is " + Collections.max(list));
                     credID=Collections.max(list);
+                    Log.d(TAG, "onDataChange: StuRegister max cred id is :"+credID);
                 }
                 else
                     credID=0;
