@@ -157,13 +157,19 @@
     <string name="enter_bed_no">Enter Bed No :</string>
     <string name="removeBedBtn">Save</string>
     <string name="updateBedBtn1">Update</string>
-	
-    
+
+
     <string name="available_seats_percentage">Available Seat Percentage</string>
     <string name="search">Search here</string>
     <string name="logout">Logout</string>
     <string name="logout_msg">Are you sure,do you want to logout?</string>
     <string name="delete">Delete</string>
     <string name="delete_msg">Are you sure you want to delete this student</string>
+    <string name="backTo_home">Back To Home</string>
+    <string name="stu_room_details">Student Room Details</string>
+    <string name="room_no">Room No -</string>
+    <string name="bed_no">Bed No -</string>
+    <string name="error">ERROR</string>
+    <string name="error_msg_accommodation">This student cannot be assigned due to some error in accommodation settings please check your accommodation settings under the selected building. If not please select a new building and try again.</string>
 
 </resources>

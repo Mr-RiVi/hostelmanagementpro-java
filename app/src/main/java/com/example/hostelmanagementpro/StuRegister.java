@@ -40,6 +40,7 @@ import java.util.HashMap;
 public class StuRegister extends AppCompatActivity {
     public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
     public static final String EXTRA_STUDENTID="com.example.hostelmanagementpro.EXTRA_STUDENTID";
+    public static final String EXTRA_ACTIVITYID="com.example.hostelmanagementpro.EXTRA_ACTIVITYID";
 
     Toolbar toolbar;
     EditText studentName,studentUsername,studentPassword,emgContactNo,contactNo,email,address;
@@ -319,8 +320,9 @@ public class StuRegister extends AppCompatActivity {
     public void openNextActivity(){
         Intent intent=new Intent(StuRegister.this,AssignToRoom.class); //next activity eke name eka denna ona
         intent.putExtra(EXTRA_ORGID,orgID);
+        intent.putExtra(EXTRA_ACTIVITYID,"StuRegister");
         System.out.println("this is StuRegister and maxStuId is "+maxStuId);
-        intent.putExtra(EXTRA_STUDENTID,Long.toString(maxStuId));
+        intent.putExtra(EXTRA_STUDENTID,"STU_"+Long.toString(maxStuId));
         startActivity(intent);
     }
 

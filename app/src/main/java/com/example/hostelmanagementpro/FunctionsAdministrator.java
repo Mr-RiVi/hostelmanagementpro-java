@@ -97,14 +97,12 @@ public class FunctionsAdministrator extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.actionbarmenu,menu);
+        menu.removeItem(R.id.mnuHome);
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.mnuHome:
-                //hide this menu item
-                return true;
             case R.id.mnuMyProfile:
                 //go to profile
                 return true;

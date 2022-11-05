@@ -53,7 +53,7 @@ public class Building extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent int1 =getIntent();
-        orgID=int1.getStringExtra(FunctionsAdministrator.EXTRA_ORGID);
+        orgID=int1.getStringExtra(ManageAccommodation.EXTRA_ORGID);
 
         // setting recycler view adapter
         RecyclerView recyclerView = findViewById(R.id.recycler_1);
@@ -110,12 +110,6 @@ public class Building extends AppCompatActivity {
         super.onDestroy();
         myRef.removeEventListener(postListener);
     }
-
-//    //    Back Button
-//    public void onclickBbtn(View view){
-//        Intent in=new Intent(this,ManageAccommodation.class);
-//        startActivity(in);
-//    }
 
 //    Btn for Add Building Page
     public void onclickAB(View view){

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HostelManagementPro"
         tools:targetApi="31">
+        <activity
+            android:name=".StudentRoomDetails"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".AttendanceQRcodes"
             android:exported="false"
@@ -42,8 +49,8 @@
         <activity
             android:name=".MyResidence"
             android:exported="false"
-            android:parentActivityName=".StudentHome"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".StudentHome">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -51,8 +58,8 @@
         <activity
             android:name=".StudentHome"
             android:exported="false"
-            android:parentActivityName=".MainActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -60,8 +67,8 @@
         <activity
             android:name=".MyAttendance"
             android:exported="false"
-            android:parentActivityName=".StudentHome"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".StudentHome">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -69,8 +76,8 @@
         <activity
             android:name=".UpdateProfile"
             android:exported="false"
-            android:parentActivityName=".StudentHome"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".StudentHome">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -78,8 +85,8 @@
         <activity
             android:name=".MyProfile"
             android:exported="false"
-            android:parentActivityName=".StudentHome"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".StudentHome">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -87,8 +94,8 @@
         <activity
             android:name=".StudentProfiles"
             android:exported="false"
-            android:parentActivityName=".FunctionsStuManagement"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".FunctionsStuManagement">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -136,8 +143,8 @@
         <activity
             android:name=".StuRegister"
             android:exported="false"
-            android:parentActivityName=".FunctionsStuManagement"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".FunctionsStuManagement">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -145,14 +152,13 @@
         <activity
             android:name=".FunctionsStuManagement"
             android:exported="false"
-            android:parentActivityName=".FunctionsAdministrator"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".FunctionsAdministrator">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-		<activity
+        <activity
             android:name=".UpdateBed"
             android:exported="false"
             android:parentActivityName=".Bed">
@@ -194,8 +200,8 @@
         <activity
             android:name=".Bed"
             android:exported="false"
-            android:parentActivityName=".Room"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".Room">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -226,8 +232,8 @@
         <activity
             android:name=".Room"
             android:exported="false"
-            android:parentActivityName=".Floor"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".Floor">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -258,8 +264,8 @@
         <activity
             android:name=".Floor"
             android:exported="false"
-            android:parentActivityName=".Building"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".Building">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -283,8 +289,8 @@
         <activity
             android:name=".Building"
             android:exported="false"
-            android:parentActivityName=".ManageAccommodation"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:parentActivityName=".ManageAccommodation">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -300,6 +306,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

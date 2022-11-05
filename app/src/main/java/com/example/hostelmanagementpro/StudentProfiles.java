@@ -32,6 +32,7 @@ import java.util.Locale;
 
 public class StudentProfiles extends AppCompatActivity {
     public static final String EXTRA_ORGID="com.example.hostelmanagementpro.EXTRA_ORGID";
+    public static final String EXTRA_STUDENTID="com.example.hostelmanagementpro.EXTRA_STUDENTID";
 
     Toolbar toolbar;
     RecyclerView recyclerView;
@@ -102,7 +103,10 @@ public class StudentProfiles extends AppCompatActivity {
                     studentProfilesFetchingAdapter=new StudentProfilesFetchingAdapter(list, StudentProfiles.this, new StudentProfilesFetchingAdapter.ItemClickListener() {
                         @Override
                         public void onItemRoomInfoClicked(StuProfiles profiles) {
-                            //
+                            Intent intent=new Intent(StudentProfiles.this,StudentRoomDetails.class);
+                            intent.putExtra(EXTRA_ORGID,orgID);
+                            intent.putExtra(EXTRA_STUDENTID,profiles.getStuID());
+                            startActivity(intent);
                         }
                         @Override
                         public void onItemEditClicked(StuProfiles profiles) {
@@ -143,22 +147,6 @@ public class StudentProfiles extends AppCompatActivity {
         else {
             studentProfilesFetchingAdapter.setFilteredList(filteredList);
         }
-    }
-
-    public void getStudentRoomInfo(String stuID,String orgID){
-        dbBuildings.child("floors/rooms/beds").orderByChild("StuId").equalTo(stuID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    //
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
     public void deleteStudent(String stuID,String credID){
