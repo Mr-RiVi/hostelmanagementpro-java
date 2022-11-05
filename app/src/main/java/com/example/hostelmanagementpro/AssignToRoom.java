@@ -344,7 +344,8 @@ public class AssignToRoom extends AppCompatActivity {
         chart.addPieSlice(new PieModel("labe2",(float) percentage, Color.parseColor("#2E2252")));
         chart.addPieSlice(new PieModel("labe2",100-(float) percentage, Color.parseColor("#808080")));
         Log.d(TAG, "generatePieChart: percentage is:"+percentage);
-        chart.setInnerValueString(String.valueOf(percentage)+"%");
+        String decPercentage=String.format("%.02f",percentage);
+        chart.setInnerValueString(decPercentage+"%");
         chart.startAnimation();
         totBedCount=0;
         avBedCount=0;
