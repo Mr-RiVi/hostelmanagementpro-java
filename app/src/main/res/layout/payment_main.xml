@@ -7,23 +7,49 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <include layout="@layout/toolbar" />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="44dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <EditText
+        android:id="@+id/editTextTextPersonName"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:text="Name"
+        tools:text="Device registrartion tocken" />
+
+    <EditText
+        android:id="@+id/etToken"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        />
+        android:ems="10"
+        android:inputType="textMultiLine|textPersonName"
+        android:text="Name" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnAdd"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@android:color/holo_blue_dark"
-        android:text="ADD NEW PAYMENT"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        />
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recyclerView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="010dp"-->
+
+<!--        android:layout_weight="1"-->
+<!--        />-->
+
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/btnAdd"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:background="@android:color/holo_blue_dark"-->
+<!--        android:text="ADD NEW PAYMENT"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textStyle="bold"-->
+<!--        />-->
+
+
 
 </LinearLayout>

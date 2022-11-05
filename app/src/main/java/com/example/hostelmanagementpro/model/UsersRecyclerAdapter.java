@@ -104,7 +104,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
         public void showDialog(Context context, String id, String name, String month, String price) {
             final Dialog dialog = new Dialog(context);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.view_dialog_confirm_delete);
+            dialog.setContentView(R.layout.alert_add_new_payment);
 
             EditText txtName = dialog.findViewById(R.id.txtName);
             EditText txtMonth = dialog.findViewById(R.id.txtMonth);
@@ -135,7 +135,7 @@ public class UsersRecyclerAdapter extends RecyclerView.Adapter<UsersRecyclerAdap
                     String newPrice = txtPrice.getText().toString();
 
                     if (name.isEmpty() || month.isEmpty() || price.isEmpty()) {
-                        Toast.makeText(context, "Plrase Enter all data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Please Enter all data", Toast.LENGTH_SHORT).show();
                     } else {
 
                         if (newName.equals(name) && newMonth.equals(month) && newPrice.equals(price)) {
