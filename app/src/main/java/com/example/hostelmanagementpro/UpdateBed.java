@@ -77,7 +77,7 @@ public class UpdateBed extends AppCompatActivity {
         });
 
         updateBedBtn.setOnClickListener(v -> {
-            myRef.child("StudentId").setValue(stuId.getText().toString());
+            myRef.child("StuId").setValue(stuId.getText().toString());
 
             Toast.makeText(this,"Data updated",Toast.LENGTH_LONG).show();
             finish();

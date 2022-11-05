@@ -107,12 +107,22 @@ public class Room extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     rooms = new ArrayList<>();
                     for (DataSnapshot roomSnapshot: dataSnapshot.getChildren()) {
+                        int st_count = 0;
+                        for(DataSnapshot snap: roomSnapshot.child("beds").getChildren()){
+                            String stid = snap.child("StuId").getValue(String.class);
+                            if(stid!=null && !stid.isEmpty()){
+                                st_count++;
+                            }
+                        }
+
                         RoomModel  model= new RoomModel(
                                 roomSnapshot.child("RoomNo").getValue(String.class),
                                 roomSnapshot.child("RoomStatus").getValue(String.class),
                                 roomSnapshot.child("RoomType").getValue(String.class),
-                                roomSnapshot.child("StudentCount").getValue(String.class),
-                                roomSnapshot.child("BedCount").getValue(String.class)
+//                                roomSnapshot.child("StudentCount").getValue(String.class),
+//                                roomSnapshot.child("BedCount").getValue(String.class)
+                                st_count+"",
+                                roomSnapshot.child("beds").getChildrenCount()+""
                         );
                         rooms.add(model);
                     }

@@ -177,7 +177,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
+		<activity
             android:name=".UpdateBed"
             android:exported="false"
             android:parentActivityName=".Bed">

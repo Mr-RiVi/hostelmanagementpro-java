@@ -104,7 +104,7 @@ public class Bed extends AppCompatActivity {
                         BedModel model= new BedModel(
                                 bedSnapshot.child("BedNo").getValue(String.class),
                                 bedSnapshot.child("StuId").getValue(String.class),
-                                bedSnapshot.getKey().toString()
+                                bedSnapshot.child("RoomNo").getValue(String.class)
                         );
                         beds.add(model);
                     }
