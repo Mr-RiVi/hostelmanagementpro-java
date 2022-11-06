@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 dbAdmin.child(userId).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        System.out.println("orgID and user id is "+userId);
                         orgID=snapshot.child("orgID").getValue().toString();
                         firebaseCallback.onCallback(orgID);
                     }
