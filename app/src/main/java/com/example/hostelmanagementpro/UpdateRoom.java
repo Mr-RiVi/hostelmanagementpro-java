@@ -79,7 +79,8 @@ public class UpdateRoom extends AppCompatActivity {
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("buildings").child(buildingNumber).child("floors").child(floorNumber).child("rooms").child(roomNumber);
+        DatabaseReference myRef = database.getReference("buildings").child(buildingNumber).
+                child("floors").child(floorNumber).child("rooms").child(roomNumber);
         myRef.get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Toast.makeText(UpdateRoom.this,"Error getting data", Toast.LENGTH_LONG).show();

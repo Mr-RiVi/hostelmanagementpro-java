@@ -92,7 +92,8 @@ public class Bed extends AppCompatActivity {
 
         // getting and listening data from database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myQuery = database.getReference("buildings").child(buildingNumber).child("floors").child(floorNumber).child("rooms").child(roomNumber).child("beds").orderByChild("BedNo");
+        myQuery = database.getReference("buildings").child(buildingNumber).child("floors").child(floorNumber).
+                child("rooms").child(roomNumber).child("beds").orderByChild("BedNo");
 
         postListener = new ValueEventListener() {
             @Override
@@ -121,12 +122,6 @@ public class Bed extends AppCompatActivity {
         myQuery.addValueEventListener(postListener);
     }
 
-
-//    public void onclickBbtn(View view){
-//        Intent in=new Intent(this,Room.class);
-//        startActivity(in);
-//    }
-
     //    Btn for Remove Bed Page
     public void onclickABed(View view){
         Intent in=new Intent(this,AddBed.class);
@@ -138,6 +133,9 @@ public class Bed extends AppCompatActivity {
     //    Btn for Remove Bed Page
     public void onclickRBed(View view){
         Intent in=new Intent(this,RemoveBed.class);
+        in.putExtra("room_number",roomNumber);
+        in.putExtra("floor_number",floorNumber);
+        in.putExtra("building_number",buildingNumber);
         startActivity(in);
     }
 

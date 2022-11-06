@@ -81,7 +81,6 @@ public class Room extends AppCompatActivity {
                 startActivity(intent);
 
                 Toast.makeText(Room.this,"Room Clicked - No: "+clickedRoom.getRoomNo(), Toast.LENGTH_LONG).show();
-
             }
 
             @Override
@@ -119,8 +118,6 @@ public class Room extends AppCompatActivity {
                                 roomSnapshot.child("RoomNo").getValue(String.class),
                                 roomSnapshot.child("RoomStatus").getValue(String.class),
                                 roomSnapshot.child("RoomType").getValue(String.class),
-//                                roomSnapshot.child("StudentCount").getValue(String.class),
-//                                roomSnapshot.child("BedCount").getValue(String.class)
                                 st_count+"",
                                 roomSnapshot.child("beds").getChildrenCount()+""
                         );
@@ -139,11 +136,6 @@ public class Room extends AppCompatActivity {
         myQuery.addValueEventListener(postListener);
     }
 
-//    public void onclickBbtn(View view){
-//        Intent in=new Intent(this,Floor.class);
-//        startActivity(in);
-//    }
-
     //    Btn for Add Room Page
     public void onclickAR(View view){
         Intent in=new Intent(this,AddRoom.class);
@@ -154,6 +146,8 @@ public class Room extends AppCompatActivity {
     //    Btn for Remove Room Page
     public void onclickRR(View view){
         Intent in=new Intent(this,RemoveRoom.class);
+        in.putExtra("floor_number",floorNumber);
+        in.putExtra("building_number",buildingNumber);
         startActivity(in);
     }
 

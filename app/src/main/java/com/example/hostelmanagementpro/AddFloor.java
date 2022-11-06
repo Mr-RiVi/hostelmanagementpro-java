@@ -37,7 +37,7 @@ public class AddFloor extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //set actionbar name and enable back navigation
-        getSupportActionBar().setTitle("Building");
+        getSupportActionBar().setTitle("Add Floor");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //extras
@@ -49,7 +49,6 @@ public class AddFloor extends AppCompatActivity {
             finish();
             return;
         }
-
         numberText = findViewById(R.id.F_add_no);
         numberText2 = findViewById(R.id.F_add_roomCount);
         save_btn = findViewById(R.id.F_add_btn);
@@ -70,12 +69,6 @@ public class AddFloor extends AppCompatActivity {
         });
 
     }
-
-//    //    Back Button
-//    public void onclickBbtn(View view){
-//        Intent in=new Intent(this,Floor.class);
-//        startActivity(in);
-//    }
 
     //actionbar menu implementation
     @Override

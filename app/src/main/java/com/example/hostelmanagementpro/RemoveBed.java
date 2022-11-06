@@ -23,6 +23,9 @@ public class RemoveBed extends AppCompatActivity {
     TextView txt;
     EditText numberText;
     Button remove;
+    private String roomNumber = "";
+    private String floorNumber = "";
+    private String buildingNumber = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +43,27 @@ public class RemoveBed extends AppCompatActivity {
         numberText = findViewById(R.id.Bed_no_del);
         remove = findViewById(R.id.Bed_removeBtn);
 
+        // get extra
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            roomNumber = extras.getString("room_number");
+            floorNumber = extras.getString("floor_number");
+            buildingNumber = extras.getString("building_number");
+        } else  {
+            Toast.makeText(this,"Error - Room ID not found", Toast.LENGTH_LONG).show();
+            finish();
+        }
+
         remove.setOnClickListener(v -> {
             String bedNo = numberText.getText().toString();
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("beds");
+            DatabaseReference myRef = database.getReference("buildings").child(buildingNumber)
+                    .child("floors").child(floorNumber).child("rooms").child(roomNumber).child("beds");
             if(!bedNo.isEmpty()) myRef.child(bedNo).removeValue();
 
             Toast.makeText(this,"Bed removed",Toast.LENGTH_LONG).show();
             finish();
         });
-
-
     }
 
     //actionbar menu implementation

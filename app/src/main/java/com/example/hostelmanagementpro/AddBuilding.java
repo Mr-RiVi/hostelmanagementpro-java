@@ -80,9 +80,7 @@ public class AddBuilding extends AppCompatActivity {
 
             Toast.makeText(this,"Data inserted",Toast.LENGTH_LONG).show();
             finish();
-
         });
-
     }
 
     //actionbar menu implementation
