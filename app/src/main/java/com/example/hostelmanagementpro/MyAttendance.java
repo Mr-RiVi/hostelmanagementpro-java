@@ -101,7 +101,6 @@ public class MyAttendance extends AppCompatActivity {
                                 if (dataSnapshot.hasChildren()) {
                                     attTime.setText(dataSnapshot.child("Time").getValue().toString());
                                     attType.setText(dataSnapshot.child("Type").getValue().toString());
-
                                 }
                                 else {
                                     attTime.setText("");
@@ -109,19 +108,14 @@ public class MyAttendance extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "No Attendance Activity", Toast.LENGTH_SHORT).show();
                                 }
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-
                             }
                         });
-
                     }
                 },year,month,day);
                 datePickerDialog.show();
-
             }
-
         });
 
         //Deleting Student attendance record

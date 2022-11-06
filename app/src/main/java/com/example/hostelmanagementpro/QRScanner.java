@@ -62,7 +62,6 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
         studentID=intent.getStringExtra(StudentHome.EXTRA_USERID);
 
         dbRef= FirebaseDatabase.getInstance().getReference("attendance").child(studentID).child(date);
-
         //implementing qr scanner using dependencies
         Dexter.withContext(getApplicationContext())
                 .withPermission(Manifest.permission.CAMERA)
@@ -71,19 +70,15 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
                     public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
                         scannerView.startCamera();
                     }
-
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
-
                     }
-
                     @Override
                     public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
                         permissionToken.continuePermissionRequest();
                     }
                 }).check();
     }
-
     //Inserting Attendance details into database
     @Override
     public void handleResult(Result result) {
@@ -98,7 +93,6 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
                         onBackPressed();
                     }
                 });
-
         dbRef.child("Time").setValue(time)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -106,7 +100,6 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
                         onBackPressed();
                     }
                 });
-
         dbRef.child("ATT_ID").setValue(id)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -115,7 +108,6 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
                     }
                 });
     }
-
     @Override
     protected void onPause() {
         super.onPause();

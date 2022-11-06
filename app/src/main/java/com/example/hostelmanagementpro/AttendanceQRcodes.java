@@ -126,10 +126,8 @@ public class AttendanceQRcodes extends AppCompatActivity {
     private void askPermission() {
         ActivityCompat.requestPermissions(AttendanceQRcodes.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_CODE);
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
         if(requestCode == REQUEST_CODE) {
             if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 saveImage();
@@ -138,13 +136,10 @@ public class AttendanceQRcodes extends AppCompatActivity {
                 Toast.makeText(AttendanceQRcodes.this, "Please Provide Required Permissions", Toast.LENGTH_SHORT).show();
             }
         }
-
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
     //Method to save check-in QR Code to gallery
     private void saveImage() {
-
         Uri images;
         ContentResolver contentResolver = getContentResolver();
 
@@ -153,7 +148,6 @@ public class AttendanceQRcodes extends AppCompatActivity {
         }else{
             images = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         }
-
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, System.currentTimeMillis() + ".jpg");
         contentValues.put(MediaStore.Images.Media.MIME_TYPE, "images/*");
@@ -168,9 +162,6 @@ public class AttendanceQRcodes extends AppCompatActivity {
             Objects.requireNonNull(outputStream);
 
             Toast.makeText(this, "Check-In QR Code Saved", Toast.LENGTH_SHORT).show();
-
-
-
         }catch (Exception e) {
             Toast.makeText(this, "QR Code Not Saved", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
