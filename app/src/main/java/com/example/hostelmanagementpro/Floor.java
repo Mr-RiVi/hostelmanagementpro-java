@@ -82,7 +82,6 @@ public class Floor extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myQuery = database.getReference("buildings").child(buildingNumber).child("floors").orderByChild("FloorNo");
 
-        // Child event listner ekak use krnna ona. lesi handa meka demme. hariyata krnawa nam eka use krnna
         postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -107,12 +106,32 @@ public class Floor extends AppCompatActivity {
         myQuery.addValueEventListener(postListener);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        myQuery.removeEventListener(postListener);
+    }
 
-//    //   tool bar Back Button
-//    public void onclickBbtn(View view){
-//        Intent in=new Intent(this,Building.class);
-//        startActivity(in);
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        myQuery.addValueEventListener(postListener);
 //    }
+//    @Override
+//    protected void onStop() {
+//        if (postListener != null && myQuery!=null) {
+//            myQuery.removeEventListener(postListener);
+//        }
+//        super.onStop();
+//    }
+//    @Override
+//    protected void onPause() {
+//        if (postListener != null && myQuery!=null) {
+//            myQuery.removeEventListener(postListener);
+//        }
+//        super.onPause();
+//    }
+
 
     //    Btn for Add Floor Page
     public void onclickAF(View view){
@@ -123,9 +142,9 @@ public class Floor extends AppCompatActivity {
     //    Btn for Remove Floor Page
     public void onclickRF(View view){
         Intent in=new Intent(this,RemoveFloor.class);
+        in.putExtra("building_number",buildingNumber);
         startActivity(in);
     }
-
     //actionbar menu implementation
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

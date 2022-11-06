@@ -38,12 +38,9 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomHolder> {
     public void onBindViewHolder(@NonNull RoomHolder holder, int position) {
         RoomModel currentRoom = rooms.get(position);
         holder.view_room_no.setText(currentRoom.getRoomNo());
-
         holder.view_room_type.setText(currentRoom.getRoomType());
         holder.view_room_status.setText(currentRoom.getRoomStatus());
-
         holder.view_student_count.setText(currentRoom.getStuCount());
-
         holder.view_bed_count.setText(currentRoom.getBedCount());
     }
 

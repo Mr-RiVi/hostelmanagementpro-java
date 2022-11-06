@@ -67,16 +67,15 @@ public class Building extends AppCompatActivity {
             intent.putExtra("building_number",clickedBuilding.getNumber());
             startActivity(intent);
 
-            Toast.makeText(this,"Building Clicked - No: "+clickedBuilding.getNumber() +", Gender: "+clickedBuilding.getGender(),Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Building Clicked - No: "+clickedBuilding.getNumber() +
+                    ", Gender: "+clickedBuilding.getGender(),Toast.LENGTH_LONG).show();
 
         });
-
 
         // getting and listening data from database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("buildings");
 
-        // Child event listner ekak use krnna ona. lesi handa meka demme. hariyata krnawa nam eka use krnna
         postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -100,8 +99,6 @@ public class Building extends AppCompatActivity {
             }
         };
         myRef.addValueEventListener(postListener);
-
-
 
     }
 

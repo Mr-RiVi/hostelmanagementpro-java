@@ -24,6 +24,7 @@ public class RemoveFloor extends AppCompatActivity {
     TextView txt;
     EditText numberText;
     Button remove;
+    private  String buildingNumber = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,24 +42,26 @@ public class RemoveFloor extends AppCompatActivity {
         numberText = findViewById(R.id.F_no_del);
         remove = findViewById(R.id.F_remove_btn);
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            buildingNumber = extras.getString("building_number");
+        } else  {
+            Toast.makeText(this,"Error - Building ID not found", Toast.LENGTH_LONG).show();
+            finish();
+            return;
+        }
+
         remove.setOnClickListener(v -> {
             String number = numberText.getText().toString();
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("floors");
+            DatabaseReference myRef = database.getReference("buildings").child(buildingNumber).child("floors");
             if(!number.isEmpty()) myRef.child(number).removeValue();
-
 
             Toast.makeText(this,"Data removed",Toast.LENGTH_LONG).show();
             finish();
         });
 
     }
-
-//    //    Back Button
-//    public void onclickBbtn(View view){
-//        Intent in=new Intent(this,Floor.class);
-//        startActivity(in);
-//    }
 
     //actionbar menu implementation
     @Override

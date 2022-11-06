@@ -48,8 +48,6 @@ public class AddBed extends AppCompatActivity {
             roomNumber = extras.getString("room_number");
             floorNumber = extras.getString("floor_number");
             buildingNumber = extras.getString("building_number");
-
-
         } else  {
             Toast.makeText(this,"Error - Room ID not found", Toast.LENGTH_LONG).show();
             finish();
@@ -64,17 +62,16 @@ public class AddBed extends AppCompatActivity {
             String stuId = numberText2.getText().toString();;
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("buildings").child(buildingNumber).child("floors").child(floorNumber).child("rooms").child(roomNumber).child("beds").child(bedNo);
-
+            DatabaseReference myRef = database.getReference("buildings").child(buildingNumber)
+                    .child("floors").child(floorNumber).child("rooms").child(roomNumber)
+                    .child("beds").child(bedNo);
             myRef.child("BedNo").setValue(bedNo);
             myRef.child("StuId").setValue(stuId);
             myRef.child("RoomNo").setValue(roomNumber);
 
             Toast.makeText(this,"Data inserted",Toast.LENGTH_LONG).show();
             finish();
-
         });
-
     }
 
     //actionbar menu implementation

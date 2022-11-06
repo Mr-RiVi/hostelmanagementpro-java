@@ -55,7 +55,6 @@ public class AddRoom extends AppCompatActivity {
             finish();
         }
 
-
         radioGroup1 = findViewById(R.id.R_add_radio1);
         radioGroup2 = findViewById(R.id.R_add_radio2);
         numberText1 = findViewById(R.id.R_add_id);
@@ -85,7 +84,8 @@ public class AddRoom extends AppCompatActivity {
             String bedCount = numberText3.getText().toString();
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("buildings").child(buildingNumber).child("floors").child(floorNumber).child("rooms").child(roomNo);
+            DatabaseReference myRef = database.getReference("buildings").child(buildingNumber)
+                    .child("floors").child(floorNumber).child("rooms").child(roomNo);
 
             myRef.child("RoomType").setValue(roomType);
             myRef.child("RoomStatus").setValue(roomStatus);
@@ -98,12 +98,6 @@ public class AddRoom extends AppCompatActivity {
             finish();
         });
     }
-
-//    //    Back Button
-//    public void onclickBbtn(View view){
-//        Intent in=new Intent(this,Building.class);
-//        startActivity(in);
-//    }
 
     //actionbar menu implementation
     @Override

@@ -42,7 +42,7 @@ public class UpdateBed extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //set actionbar name and enable back navigation
-        getSupportActionBar().setTitle("Update Room");
+        getSupportActionBar().setTitle("Update Bed");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // get extra
@@ -62,7 +62,9 @@ public class UpdateBed extends AppCompatActivity {
         updateBedBtn = findViewById(R.id.B_update_btn_bed);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("buildings").child(buildingNumber).child("floors").child(floorNumber).child("rooms").child(roomNumber).child("beds").child(bedNumber);
+        DatabaseReference myRef = database.getReference("buildings").child(buildingNumber)
+                .child("floors").child(floorNumber).child("rooms").child(roomNumber)
+                .child("beds").child(bedNumber);
         myRef.get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Toast.makeText(UpdateBed.this,"Error getting data", Toast.LENGTH_LONG).show();
@@ -81,9 +83,7 @@ public class UpdateBed extends AppCompatActivity {
 
             Toast.makeText(this,"Data updated",Toast.LENGTH_LONG).show();
             finish();
-
         });
-
     }
 
     //actionbar menu implementation

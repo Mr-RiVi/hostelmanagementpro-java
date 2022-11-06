@@ -51,14 +51,7 @@ public class RemoveBuilding extends AppCompatActivity {
             Toast.makeText(this,"Data removed",Toast.LENGTH_LONG).show();
             finish();
         });
-
     }
-
-////    Back Button
-//    public void onclickBbtn(View view){
-//        Intent in=new Intent(this,Building.class);
-//        startActivity(in);
-//    }
 
     //actionbar menu implementation
     @Override
