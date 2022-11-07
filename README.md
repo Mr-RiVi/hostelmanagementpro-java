@@ -1,6 +1,6 @@
 # HostelManagementPro
 
-Member 1 - IT21067242 - Fernando M.R.R. (Mr-RiVi)
+Group Leader - IT21067242 - Fernando M.R.R. (Mr-RiVi)
 
 Member 2 - IT21104862 - Fernandopulle J.M (007Miles)
 
